@@ -111,7 +111,6 @@
 				B61C5770BE036A8CE8A06A8F /* Pods-cmpe202AppTests.debug.xcconfig */,
 				11DD0126203E584563472EC7 /* Pods-cmpe202AppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -605,9 +604,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = WUZQ27C6Q6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = cmpe202App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AIRnbn;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -634,9 +634,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = WUZQ27C6Q6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = cmpe202App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AIRnbn;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
