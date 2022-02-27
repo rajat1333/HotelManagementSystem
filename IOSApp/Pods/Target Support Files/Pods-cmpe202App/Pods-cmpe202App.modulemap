@@ -1,0 +1,6 @@
+framework module Pods_cmpe202App {
+  umbrella header "Pods-cmpe202App-umbrella.h"
+
+  export *
+  module * { export * }
+}
