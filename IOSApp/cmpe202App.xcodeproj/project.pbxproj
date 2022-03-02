@@ -10,6 +10,8 @@
 		3877428DEBB0B57DD82B4769 /* Pods_cmpe202App_cmpe202AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A606200377935F86EE1D89 /* Pods_cmpe202App_cmpe202AppUITests.framework */; };
 		5489977B236F21E902FB2842 /* Pods_cmpe202App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C51DE4716395D539FC170841 /* Pods_cmpe202App.framework */; };
 		67FDEF916816BA8D0D17294E /* Pods_cmpe202AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962099C1098F91BA5226FF30 /* Pods_cmpe202AppTests.framework */; };
+		CB5BB75D27CD8B9D00E69C9C /* globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5BB75C27CD8B9D00E69C9C /* globals.swift */; };
+		CB5BB75F27CE9F3700E69C9C /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5BB75E27CE9F3700E69C9C /* homeViewController.swift */; };
 		CBCA1CD627CB141D009F9DF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA1CD527CB141D009F9DF3 /* AppDelegate.swift */; };
 		CBCA1CDA27CB141D009F9DF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA1CD927CB141D009F9DF3 /* ViewController.swift */; };
 		CBCA1CDD27CB141D009F9DF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBCA1CDB27CB141D009F9DF3 /* Main.storyboard */; };
@@ -47,6 +49,8 @@
 		B61C5770BE036A8CE8A06A8F /* Pods-cmpe202AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cmpe202AppTests.debug.xcconfig"; path = "Target Support Files/Pods-cmpe202AppTests/Pods-cmpe202AppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C51DE4716395D539FC170841 /* Pods_cmpe202App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cmpe202App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9A606200377935F86EE1D89 /* Pods_cmpe202App_cmpe202AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cmpe202App_cmpe202AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB5BB75C27CD8B9D00E69C9C /* globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = globals.swift; sourceTree = "<group>"; };
+		CB5BB75E27CE9F3700E69C9C /* homeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeViewController.swift; sourceTree = "<group>"; };
 		CBCA1CD227CB141D009F9DF3 /* cmpe202App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cmpe202App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBCA1CD527CB141D009F9DF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CBCA1CD927CB141D009F9DF3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -178,7 +182,9 @@
 		CBCA1D0A27CB17C6009F9DF3 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				CB5BB75C27CD8B9D00E69C9C /* globals.swift */,
 				CBCA1CD927CB141D009F9DF3 /* ViewController.swift */,
+				CB5BB75E27CE9F3700E69C9C /* homeViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -422,8 +428,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB5BB75D27CD8B9D00E69C9C /* globals.swift in Sources */,
 				CBCA1CDA27CB141D009F9DF3 /* ViewController.swift in Sources */,
 				CBCA1CE027CB141D009F9DF3 /* cmpe202App.xcdatamodeld in Sources */,
+				CB5BB75F27CE9F3700E69C9C /* homeViewController.swift in Sources */,
 				CBCA1CD627CB141D009F9DF3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

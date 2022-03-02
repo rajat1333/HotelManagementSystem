@@ -40,9 +40,27 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         //animation frames set beginning
-        self.mainTextLabel.frame = CGRect(x: -self.mainTextLabel.frame.width , y: self.mainTextLabel.frame.origin.y, width: self.mainTextLabel.frame.width, height: self.mainTextLabel.frame.height)
+        self.mainTextLabel.frame = CGRect(x: -self.mainTextLabel.frame.width , y: globals.Y(view: self.mainTextLabel)!, width: globals.WIDTH(view: self.mainTextLabel)!, height: globals.HEIGHT(view: self.mainTextLabel)!)
+        
         self.subTextLabel.frame = CGRect(x: -self.subTextLabel.frame.width , y: self.subTextLabel.frame.origin.y, width: self.subTextLabel.frame.width, height: self.subTextLabel.frame.height)
+        
         self.buttonView.frame = CGRect(x: self.buttonView.frame.origin.x , y: self.gradientView.frame.size.height, width: self.buttonView.frame.width, height: self.buttonView.frame.height)
+        
+        self.welcomeLabel.frame = CGRect(x: -self.welcomeLabel.frame.width , y: self.welcomeLabel.frame.origin.y, width: self.welcomeLabel.frame.width, height: self.welcomeLabel.frame.height)
+        
+        self.loginLabel.frame = CGRect(x: -self.loginLabel.frame.width , y: self.loginLabel.frame.origin.y, width: self.loginLabel.frame.width, height: self.loginLabel.frame.height)
+        
+        self.emailTextField.frame = CGRect(x: self.gradientView.frame.width+10 , y: self.emailTextField.frame.origin.y, width: self.emailTextField.frame.width, height: self.emailTextField.frame.height)
+        
+        self.passwordTextField.frame = CGRect(x: self.gradientView.frame.width+10 , y: self.passwordTextField.frame.origin.y, width: self.passwordTextField.frame.width, height: self.passwordTextField.frame.height)
+        
+        self.loginButtonView.frame = CGRect(x: self.loginButtonView.frame.origin.x , y: self.gradientView.frame.height, width: self.loginButtonView.frame.width, height: self.loginButtonView.frame.height)
+        
+        self.forgotButtonView.frame = CGRect(x: self.forgotButtonView.frame.origin.x , y: self.gradientView.frame.height, width: self.forgotButtonView.frame.width, height: self.forgotButtonView.frame.height)
+        
+        self.createButtonView.frame = CGRect(x: self.createButtonView.frame.origin.x , y: self.gradientView.frame.height, width: self.createButtonView.frame.width, height: self.createButtonView.frame.height)
+        
+        self.guestButtonView.frame = CGRect(x: self.guestButtonView.frame.origin.x , y: self.gradientView.frame.height, width: self.guestButtonView.frame.width, height: self.guestButtonView.frame.height)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -51,7 +69,7 @@ class ViewController: UIViewController {
                        options: [],
                        animations: { [weak self] in
                         //self?.view.layoutIfNeeded()
-            self!.mainTextLabel.frame = CGRect(x: 15 , y: self!.mainTextLabel.frame.origin.y, width: self!.mainTextLabel.frame.width, height: self!.mainTextLabel.frame.height)
+            self!.mainTextLabel.frame = CGRect(x: 15 , y: globals.Y(view:self!.mainTextLabel)!, width: self!.mainTextLabel.frame.width, height: self!.mainTextLabel.frame.height)
           }, completion: nil)
         UIView.animate(withDuration: 0.5,
                        delay: 0.3,
@@ -106,10 +124,12 @@ class ViewController: UIViewController {
         }, completion: {_ in self.beginLoginAnimation()})
         
     }
+    
     func beginLoginAnimation(){
         self.splashImageView.image = UIImage(named:"sky")
         
-        buildingView.isHidden=false;
+        self.buildingView.isHidden=false
+        self.loginView.isHidden=false
         
         UIView.animate(withDuration: 0.1,
                        delay: 0.1,
@@ -117,30 +137,40 @@ class ViewController: UIViewController {
                        animations: { [weak self] in
             self!.tajImageView.frame = CGRect(x: self!.tajImageView.frame.origin.x , y: 674, width: self!.tajImageView.frame.width, height: self!.tajImageView.frame.height)
             
+            self!.welcomeLabel.frame = CGRect(x: 15, y: self!.welcomeLabel.frame.origin.y, width: self!.welcomeLabel.frame.width, height: self!.welcomeLabel.frame.height)
+            
         }, completion: {_ in UIView.animate(withDuration: 0.1,
-                                        delay: 0.1,
+                                        delay: 0.0,
                                         options: [],
                                         animations: { [weak self] in
             self!.pyramidImageView.frame = CGRect(x: self!.pyramidImageView.frame.origin.x , y: 695, width: self!.pyramidImageView.frame.width, height: self!.pyramidImageView.frame.height)
             
+            self!.loginLabel.frame = CGRect(x: 15 , y: self!.loginLabel.frame.origin.y, width: self!.loginLabel.frame.width, height: self!.loginLabel.frame.height)
+            
                              
         }, completion: {_ in UIView.animate(withDuration: 0.1,
-                                       delay: 0.1,
+                                       delay: 0.0,
                                        options: [],
                                        animations: { [weak self] in
             self!.tokyoImageView.frame = CGRect(x: self!.tokyoImageView.frame.origin.x , y: 699, width: self!.tokyoImageView.frame.width, height: self!.tokyoImageView.frame.height)
+            
+            self!.emailTextField.frame = CGRect(x: 40 , y: self!.emailTextField.frame.origin.y, width: self!.emailTextField.frame.width, height: self!.emailTextField.frame.height)
                         
           }, completion: {_ in UIView.animate(withDuration: 0.1,
                                              delay: 0.1,
                                              options: [],
                                              animations: { [weak self] in
               self!.christImageView.frame = CGRect(x: self!.christImageView.frame.origin.x , y: 655, width: self!.christImageView.frame.width, height: self!.christImageView.frame.height)
+              
+              self!.passwordTextField.frame = CGRect(x: 40 , y: self!.passwordTextField.frame.origin.y, width: self!.passwordTextField.frame.width, height: self!.passwordTextField.frame.height)
                                   
-            }, completion: {_ in UIView.animate(withDuration: 0.1,
+          }, completion: {_ in UIView.animate(withDuration: 0.1,
                                                 delay: 0.1,
                                                 options: [],
                                                 animations: { [weak self] in
                 self!.libertyImageView.frame = CGRect(x: self!.libertyImageView.frame.origin.x , y: 567, width: self!.libertyImageView.frame.width, height: self!.libertyImageView.frame.height)
+                
+                self!.loginButtonView.frame = CGRect(x: self!.loginButtonView.frame.origin.x , y: globals.BOTTOM(view: self!.passwordTextField)! + 25, width: self!.loginButtonView.frame.width, height: self!.loginButtonView.frame.height)
                                      
            }, completion: {_ in UIView.animate(withDuration: 0.1,
                                                delay: 0.1,
@@ -148,20 +178,25 @@ class ViewController: UIViewController {
                                                animations: { [weak self] in
                self!.benImageView.frame = CGRect(x: self!.benImageView.frame.origin.x , y: 621, width: self!.benImageView.frame.width, height: self!.benImageView.frame.height)
                
+              
+               
                                     
           }, completion: {_ in UIView.animate(withDuration: 0.1,
                                               delay: 0.1,
                                               options: [],
                                               animations: { [weak self] in
               self!.leaningImageView.frame = CGRect(x: self!.leaningImageView.frame.origin.x , y: 625, width: self!.leaningImageView.frame.width, height: self!.leaningImageView.frame.height)
+              
+              self!.forgotButtonView.frame = CGRect(x: self!.forgotButtonView.frame.origin.x , y: globals.BOTTOM(view: self!.loginButtonView)! + 35, width: self!.forgotButtonView.frame.width, height: self!.forgotButtonView.frame.height)
                                    
          }, completion: {_ in UIView.animate(withDuration: 0.1,
                                              delay: 0.1,
                                              options: [],
                                              animations: { [weak self] in
-             self!.loginView.isHidden=false
+            
              self!.eiffleImageView.frame = CGRect(x: self!.eiffleImageView.frame.origin.x , y: 598, width: self!.eiffleImageView.frame.width, height: self!.eiffleImageView.frame.height)
              
+             self!.createButtonView.frame = CGRect(x: self!.createButtonView.frame.origin.x , y: globals.BOTTOM(view: self!.forgotButtonView)! + 5, width: self!.createButtonView.frame.width, height: self!.createButtonView.frame.height)
                                   
         }, completion: {_ in UIView.animate(withDuration: 0.1,
                                             delay: 0.1,
@@ -170,13 +205,14 @@ class ViewController: UIViewController {
             
             self!.burjImageView.frame = CGRect(x: self!.burjImageView.frame.origin.x , y: 665, width: self!.burjImageView.frame.width, height: self!.burjImageView.frame.height)
             
+            self!.guestButtonView.frame = CGRect(x: self!.guestButtonView.frame.origin.x , y: globals.BOTTOM(view: self!.createButtonView)! + 20, width: self!.guestButtonView.frame.width, height: self!.guestButtonView.frame.height)
                                  
                                }, completion: nil)}
-         )}
-          )}
-           )}
-            )}
-          )}
+        )}
+        )}
+        )}
+        )}
+        )}
         )}
         )}
         )
@@ -191,7 +227,10 @@ class ViewController: UIViewController {
         
     }
     @IBAction func guestAction(_ sender: Any) {
-        
+        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "homeViewController") as? homeViewController {
+                //viewController.newsObj = newsObj
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
     }
 }
 
