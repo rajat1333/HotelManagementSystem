@@ -9,13 +9,15 @@ import UIKit
 
 class homeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"HomeCollectionViewCell", for:indexPath as IndexPath) as! HomeCollectionViewCell
         
-        cell.mainView.layer.cornerRadius = 14
+        cell.mainView.layer.masksToBounds = true
+        cell.mainView.layer.cornerRadius = 13.0
+    
         cell.mainView.layer.shadowColor = UIColor.gray.cgColor
         cell.mainView.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         cell.mainView.layer.shadowRadius = 5.0
