@@ -6,8 +6,19 @@
 //
 
 import UIKit
-
 class homeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    @IBOutlet weak var homeTableView : UITableView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        homeTableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeTableViewCell")
+        // Do any additional setup after loading the view.
+    }
+    
+       
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }
@@ -15,13 +26,10 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"HomeCollectionViewCell", for:indexPath as IndexPath) as! HomeCollectionViewCell
         
-        cell.mainView.layer.masksToBounds = true
-        cell.mainView.layer.cornerRadius = 13.0
-    
-        cell.mainView.layer.shadowColor = UIColor.gray.cgColor
-        cell.mainView.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        cell.mainView.layer.shadowRadius = 5.0
-        cell.mainView.layer.shadowOpacity = 0.8
+        cell.hotelImageView.layer.cornerRadius = 20.0
+        cell.gradientImageView.layer.cornerRadius = 20.0
+
+
         return cell
     }
     
@@ -34,28 +42,29 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let cell = tableView.dequeueReusableCell(withIdentifier: "HomeCollectionTableViewCell", for: indexPath)
             return cell
         }
+        else if indexPath.row == 1{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "staticCell", for: indexPath)
+            return cell
+        }
         else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell", for: indexPath)
             return cell
         }
-        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
             return 420
         }
+        else if indexPath.row == 1{
+            return 50
+        }
         else{
-            return 116
+            return 170
         }
     }
     
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-    
+   
     
     
 

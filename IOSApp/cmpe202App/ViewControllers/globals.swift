@@ -28,3 +28,31 @@ class globals {
         return view.frame.size.height
     }
 }
+class shadowView: UIView {
+     
+   override init(frame: CGRect) {
+       super.init(frame: frame)
+       setRadiusAndShadow()
+   }
+     
+   required init?(coder: NSCoder) {
+       super.init(coder: coder)
+       setRadiusAndShadow()
+   }
+     
+   func setRadiusAndShadow() {
+//       layer.cornerRadius = 18
+//       clipsToBounds = true
+       let shadowLayer = CAShapeLayer()
+       shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: 20).cgPath
+       shadowLayer.fillColor = UIColor.white.cgColor
+       layer.cornerRadius = 20
+       shadowLayer.shadowColor = UIColor.darkGray.cgColor
+       shadowLayer.shadowPath = shadowLayer.path
+       shadowLayer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+       shadowLayer.shadowOpacity = 0.8
+       shadowLayer.shadowRadius = 4
+
+       layer.insertSublayer(shadowLayer, at: 0)
+    }
+}
