@@ -236,8 +236,7 @@ class ViewController: UIViewController {
         mainTabBarController.modalPresentationStyle = .fullScreen
         mainTabBarController.modalTransitionStyle = .partialCurl
         
-        
-        self.present(mainTabBarController, animated: true, completion: nil)
+        navigationController?.pushViewController(mainTabBarController, animated: true)
     }
 }
 

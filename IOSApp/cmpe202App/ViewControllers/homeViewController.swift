@@ -11,6 +11,7 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var homeTableView : UITableView!
     let refreshControl = UIRefreshControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOS 10.0, *) {
@@ -21,27 +22,24 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
         refreshControl.addTarget(self, action: #selector(refreshHotelsTableView(_:)), for: .valueChanged)
+        
+        homeTableView.dataSource=self
+        homeTableView.delegate=self
+        homeTableView.reloadData()
         homeTableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeTableViewCell")
-        // Do any additional setup after loading the view.
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
        
     @objc private func refreshHotelsTableView(_ sender: Any) {
         // Fetch Weather Data
         fetchHotelData()
     }
     private func fetchHotelData() {
-//        dataManager.weatherDataForLocation(latitude: 37.8267, longitude: -122.423) { (location, error) in
-//            DispatchQueue.main.async {
-//                if let location = location {
-//                    self.days = location.days
-//                }
-        //self.refreshControl.updateView()
         self.refreshControl.endRefreshing()
-        //self.activityIndicatorView.stopAnimating()
-           // }
-       // }
-}
+
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
