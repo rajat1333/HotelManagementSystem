@@ -230,9 +230,12 @@ class ViewController: UIViewController {
                 //viewController.newsObj = newsObj
             //self.navigationController?.pushViewController(viewController, animated: true)
         //}
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let mainTabBarController = storyboard.instantiateViewController(identifier: "SHCircleBarController")
         mainTabBarController.modalPresentationStyle = .fullScreen
+        mainTabBarController.modalTransitionStyle = .partialCurl
+        
         
         self.present(mainTabBarController, animated: true, completion: nil)
     }
