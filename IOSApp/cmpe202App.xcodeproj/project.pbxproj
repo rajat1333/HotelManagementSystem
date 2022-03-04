@@ -12,6 +12,10 @@
 		67FDEF916816BA8D0D17294E /* Pods_cmpe202AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 962099C1098F91BA5226FF30 /* Pods_cmpe202AppTests.framework */; };
 		CB5BB75D27CD8B9D00E69C9C /* globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5BB75C27CD8B9D00E69C9C /* globals.swift */; };
 		CB5BB75F27CE9F3700E69C9C /* homeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5BB75E27CE9F3700E69C9C /* homeViewController.swift */; };
+		CB5BB76227D0158200E69C9C /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5BB76027D0158200E69C9C /* HomeTableViewCell.swift */; };
+		CB5BB76327D0158200E69C9C /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5BB76127D0158200E69C9C /* HomeTableViewCell.xib */; };
+		CB5BB76527D015AE00E69C9C /* HomeCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5BB76427D015AE00E69C9C /* HomeCollectionTableViewCell.swift */; };
+		CB5BB76727D015D300E69C9C /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5BB76627D015D300E69C9C /* HomeCollectionViewCell.swift */; };
 		CBCA1CD627CB141D009F9DF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA1CD527CB141D009F9DF3 /* AppDelegate.swift */; };
 		CBCA1CDA27CB141D009F9DF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA1CD927CB141D009F9DF3 /* ViewController.swift */; };
 		CBCA1CDD27CB141D009F9DF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBCA1CDB27CB141D009F9DF3 /* Main.storyboard */; };
@@ -51,6 +55,10 @@
 		C9A606200377935F86EE1D89 /* Pods_cmpe202App_cmpe202AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cmpe202App_cmpe202AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB5BB75C27CD8B9D00E69C9C /* globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = globals.swift; sourceTree = "<group>"; };
 		CB5BB75E27CE9F3700E69C9C /* homeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homeViewController.swift; sourceTree = "<group>"; };
+		CB5BB76027D0158200E69C9C /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		CB5BB76127D0158200E69C9C /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
+		CB5BB76427D015AE00E69C9C /* HomeCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionTableViewCell.swift; sourceTree = "<group>"; };
+		CB5BB76627D015D300E69C9C /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		CBCA1CD227CB141D009F9DF3 /* cmpe202App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cmpe202App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBCA1CD527CB141D009F9DF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CBCA1CD927CB141D009F9DF3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -185,6 +193,10 @@
 				CB5BB75C27CD8B9D00E69C9C /* globals.swift */,
 				CBCA1CD927CB141D009F9DF3 /* ViewController.swift */,
 				CB5BB75E27CE9F3700E69C9C /* homeViewController.swift */,
+				CB5BB76027D0158200E69C9C /* HomeTableViewCell.swift */,
+				CB5BB76127D0158200E69C9C /* HomeTableViewCell.xib */,
+				CB5BB76427D015AE00E69C9C /* HomeCollectionTableViewCell.swift */,
+				CB5BB76627D015D300E69C9C /* HomeCollectionViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -300,6 +312,7 @@
 			files = (
 				CBCA1CE527CB141E009F9DF3 /* LaunchScreen.storyboard in Resources */,
 				CBCA1CE227CB141E009F9DF3 /* Assets.xcassets in Resources */,
+				CB5BB76327D0158200E69C9C /* HomeTableViewCell.xib in Resources */,
 				CBCA1CDD27CB141D009F9DF3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -428,11 +441,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB5BB76227D0158200E69C9C /* HomeTableViewCell.swift in Sources */,
 				CB5BB75D27CD8B9D00E69C9C /* globals.swift in Sources */,
 				CBCA1CDA27CB141D009F9DF3 /* ViewController.swift in Sources */,
 				CBCA1CE027CB141D009F9DF3 /* cmpe202App.xcdatamodeld in Sources */,
 				CB5BB75F27CE9F3700E69C9C /* homeViewController.swift in Sources */,
 				CBCA1CD627CB141D009F9DF3 /* AppDelegate.swift in Sources */,
+				CB5BB76527D015AE00E69C9C /* HomeCollectionTableViewCell.swift in Sources */,
+				CB5BB76727D015D300E69C9C /* HomeCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
