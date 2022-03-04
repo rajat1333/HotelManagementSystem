@@ -630,6 +630,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WUZQ27C6Q6;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking/AFNetworking.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/CircleBar/CircleBar.framework/Headers\"",
+					"$(SRCROOT)/Pods/**",
+				);
 				INFOPLIST_FILE = cmpe202App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AIRnbn;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -660,6 +666,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WUZQ27C6Q6;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/AFNetworking/AFNetworking.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/CircleBar/CircleBar.framework/Headers\"",
+					"$(SRCROOT)/Pods/**",
+				);
 				INFOPLIST_FILE = cmpe202App/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AIRnbn;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-cmpe202App-cmpe202AppUITests/Pods-cmpe202App-cmpe202AppUITests-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework
+${BUILT_PRODUCTS_DIR}/CircleBar/CircleBar.framework

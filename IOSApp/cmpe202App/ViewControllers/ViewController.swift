@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 class ViewController: UIViewController {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var splashImageView: UIImageView!
@@ -227,10 +226,15 @@ class ViewController: UIViewController {
         
     }
     @IBAction func guestAction(_ sender: Any) {
-        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "homeViewController") as? homeViewController {
+//        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SHCircleBarController") as? SHCircleBarController {
                 //viewController.newsObj = newsObj
-            self.navigationController?.pushViewController(viewController, animated: true)
-        }
+            //self.navigationController?.pushViewController(viewController, animated: true)
+        //}
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let mainTabBarController = storyboard.instantiateViewController(identifier: "SHCircleBarController")
+        mainTabBarController.modalPresentationStyle = .fullScreen
+        
+        self.present(mainTabBarController, animated: true, completion: nil)
     }
 }
 
