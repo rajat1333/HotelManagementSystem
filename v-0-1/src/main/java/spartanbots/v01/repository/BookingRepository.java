@@ -27,6 +27,6 @@ public interface BookingRepository extends MongoRepository<Booking, Integer> {
     List<Booking> findAllByPhone(String phone);
 
 
-    @Query("select max(b.id) from Booking b")
-    public Integer findMaxId();
+//    @Query("select max(b.id) from Booking b")
+//    public Integer findMaxId();
 }
