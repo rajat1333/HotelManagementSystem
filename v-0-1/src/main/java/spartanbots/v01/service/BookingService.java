@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class BookingService {
@@ -16,62 +16,68 @@ public class BookingService {
     private BookingRepository bookingRepository;
 
     @Transactional
-    public String createBooking(Booking booking){
+    public String createBooking(Booking booking) {
         try {
-            if (!bookingRepository.existsByPhone(booking.getPhone())){
-                booking.setId(null == bookingRepository.findMaxId()? 0 : bookingRepository.findMaxId() + 1);
+            if (bookingRepository.findItemByPhone(booking.getPhone()) == null) {
+                booking.setId(bookingRepository.findAll().size() == 0 ? 0 : bookingRepository.findAll().stream().max(Comparator.comparingInt(Booking::getId)).get().getId() + 1);
                 bookingRepository.save(booking);
                 System.out.println("Booking record created: \n" + booking.toString());
                 return "Booking record created successfully.";
-            }else {
+            } else {
                 return "Booking record already exists.";
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             throw e;
         }
     }
 
-    public List<Booking> readBooking(){
+    public List<Booking> readBooking() {
         return bookingRepository.findAll();
     }
 
     @Transactional
-    public String updateBooking(Booking booking){
-        if (bookingRepository.existsByPhone(booking.getPhone())){
+    public String updateBooking(Booking booking) {
+        if (bookingRepository.findItemByPhone(booking.getPhone()) == null) {
             try {
-                List<Booking> bookings = bookingRepository.findByPhone(booking.getPhone());
+                List<Booking> bookings = bookingRepository.findAllByPhone(booking.getPhone());
                 bookings.stream().forEach(b -> {
                     Booking bookingToBeUpdated = bookingRepository.findById(b.getId()).get();
-                    if (booking.getName() != null) { bookingToBeUpdated.setName(booking.getName()); }
-                    if (booking.getPhone() != null) { bookingToBeUpdated.setPhone(booking.getPhone()); }
-                    if (booking.getHotel() != null) { bookingToBeUpdated.setHotel(booking.getHotel()); }
+                    if (booking.getName() != null) {
+                        bookingToBeUpdated.setName(booking.getName());
+                    }
+                    if (booking.getPhone() != null) {
+                        bookingToBeUpdated.setPhone(booking.getPhone());
+                    }
+                    if (booking.getHotel() != null) {
+                        bookingToBeUpdated.setHotel(booking.getHotel());
+                    }
                     bookingRepository.save(bookingToBeUpdated);
                     System.out.println("Booking record updated: \n" + bookingToBeUpdated.toString());
                 });
                 return "Booking record updated successfully.";
-            }catch (Exception e){
+            } catch (Exception e) {
                 throw e;
             }
-        }else {
+        } else {
             return "Booking record does not exists.";
         }
     }
 
     @Transactional
-    public String deleteBooking(Booking booking){
-        if (bookingRepository.existsByPhone(booking.getPhone())){
+    public String deleteBooking(Booking booking) {
+        if (bookingRepository.findItemByPhone(booking.getPhone()) != null) {
             try {
-                List<Booking> bookings = bookingRepository.findByPhone(booking.getPhone());
+                List<Booking> bookings = bookingRepository.findAllByPhone(booking.getPhone());
                 bookings.stream().forEach(b -> {
                     System.out.println("Booking record deleted: \n" + b.toString());
                     bookingRepository.delete(b);
                 });
                 return "Booking record deleted successfully.";
-            }catch (Exception e){
+            } catch (Exception e) {
                 throw e;
             }
 
-        }else {
+        } else {
             return "Booking record does not exists.";
         }
     }
