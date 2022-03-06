@@ -25,6 +25,7 @@
 		CBCA1CF027CB141E009F9DF3 /* cmpe202AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA1CEF27CB141E009F9DF3 /* cmpe202AppTests.swift */; };
 		CBCA1CFA27CB141E009F9DF3 /* cmpe202AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA1CF927CB141E009F9DF3 /* cmpe202AppUITests.swift */; };
 		CBCA1CFC27CB141E009F9DF3 /* cmpe202AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA1CFB27CB141E009F9DF3 /* cmpe202AppUITestsLaunchTests.swift */; };
+		CBEB2ECB27FCA91300B574F6 /* hotelDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEB2ECA27FCA91300B574F6 /* hotelDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		CBCA1CF527CB141E009F9DF3 /* cmpe202AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cmpe202AppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBCA1CF927CB141E009F9DF3 /* cmpe202AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cmpe202AppUITests.swift; sourceTree = "<group>"; };
 		CBCA1CFB27CB141E009F9DF3 /* cmpe202AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cmpe202AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CBEB2ECA27FCA91300B574F6 /* hotelDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hotelDetailViewController.swift; sourceTree = "<group>"; };
 		E6CD6BA0BACDD18155927571 /* Pods-cmpe202App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cmpe202App.debug.xcconfig"; path = "Target Support Files/Pods-cmpe202App/Pods-cmpe202App.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -197,6 +199,7 @@
 				CB5BB76127D0158200E69C9C /* HomeTableViewCell.xib */,
 				CB5BB76427D015AE00E69C9C /* HomeCollectionTableViewCell.swift */,
 				CB5BB76627D015D300E69C9C /* HomeCollectionViewCell.swift */,
+				CBEB2ECA27FCA91300B574F6 /* hotelDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				CBCA1CE027CB141D009F9DF3 /* cmpe202App.xcdatamodeld in Sources */,
 				CB5BB75F27CE9F3700E69C9C /* homeViewController.swift in Sources */,
 				CBCA1CD627CB141D009F9DF3 /* AppDelegate.swift in Sources */,
+				CBEB2ECB27FCA91300B574F6 /* hotelDetailViewController.swift in Sources */,
 				CB5BB76527D015AE00E69C9C /* HomeCollectionTableViewCell.swift in Sources */,
 				CB5BB76727D015D300E69C9C /* HomeCollectionViewCell.swift in Sources */,
 			);

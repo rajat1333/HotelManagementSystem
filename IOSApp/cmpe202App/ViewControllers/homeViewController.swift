@@ -85,6 +85,16 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "hotelDetailViewController") as! hotelDetailViewController
+            self.present(vc, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "hotelDetailViewController") as! hotelDetailViewController
+            self.present(vc, animated: true, completion: nil)
+    }
+    
 
    
     
