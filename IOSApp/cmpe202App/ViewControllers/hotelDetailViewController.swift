@@ -17,22 +17,40 @@ class hotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var imageCollection: UICollectionView!
     @IBOutlet weak var collectionView: UIView!
     @IBOutlet weak var topLabel: UILabel!
+    @IBOutlet weak var hangingShadowView: UIView!
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.hangingNameView.frame = CGRect(x: globals.X(view: hangingNameView)! , y: globals.BOTTOM(view: collectionView)!-45, width: globals.WIDTH(view: hangingNameView)!, height: globals.HEIGHT(view: hangingNameView)!)
-        // Do any additional setup after loading the view.
+        self.hangingNameView.frame = CGRect(x: globals.X(view: collectionView)!, y: globals.BOTTOM(view: collectionView)!-45, width: globals.WIDTH(view: collectionView)!, height: globals.HEIGHT(view: hangingNameView)!)
+        
+//        self.hangingShadowView.frame = CGRect(x: globals.X(view: hangingNameView)! , y: globals.BOTTOM(view: collectionView)!-45, width: globals.WIDTH(view: hangingNameView)!, height: globals.HEIGHT(view: hangingNameView)!)
+//        // Do any additional setup after loading the view.
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        if collectionView == imageCollection {
+            return 3
+        }
+        else{
+            return 12
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"ImageCollectionViewCell", for:indexPath as IndexPath) as! HomeCollectionViewCell
+        
+        if collectionView == imageCollection {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"ImageCollectionViewCell", for:indexPath as IndexPath) as! HomeCollectionViewCell
 
-        return cell
+            return cell
+        }
+        else{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"ammenitiesCollectionViewCell", for:indexPath as IndexPath) as! UICollectionViewCell
+
+            return cell
+        }
+        
     }
     
     
@@ -57,13 +75,13 @@ class hotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 40
+            return 80
         }
         else if indexPath.row == 1{
-            return 20
+            return 0
         }
         else{
-            return 30
+            return 0
         }
     }
     /*
