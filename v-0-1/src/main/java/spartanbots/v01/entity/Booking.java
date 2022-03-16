@@ -1,21 +1,35 @@
 package spartanbots.v01.entity;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.List;
+import java.util.Set;
+
 
 @Document(collection ="booking")
 public class Booking {
 
     @Id
+    @Column(name = "id")
     private int id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "phone")
     private String phone;
 
+    @Column(name = "hotel")
     private String hotel;
+
+    @Column(name = "amenity")
+    private List<Amenity> amenities;
 
     public Booking(){
 
@@ -35,6 +49,8 @@ public class Booking {
         this.hotel = hotel;
     }
 
+    public void setAmenities(List<Amenity> amenities) { this.amenities = amenities;}
+
     public int getId() {
         return id;
     }
@@ -49,6 +65,8 @@ public class Booking {
         return hotel;
     }
 
+    public List<Amenity> getAmenities() {return amenities;}
+
     @Override
     public String toString() {
         return "Booking{" +
@@ -56,6 +74,7 @@ public class Booking {
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
                 ", hotel='" + hotel + '\'' +
+                ", amenities=" + amenities +
                 '}';
     }
 }

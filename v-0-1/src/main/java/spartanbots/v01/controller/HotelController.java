@@ -17,7 +17,7 @@ import java.util.List;
 public class HotelController {
 
     @Autowired
-    HotelService hotelService;
+    private HotelService hotelService;
 
     @RequestMapping(value = "addhotel", method = RequestMethod.POST)
     public String addHotel(@RequestBody Hotel hotel){
