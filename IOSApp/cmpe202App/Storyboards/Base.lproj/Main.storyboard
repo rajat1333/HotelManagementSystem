@@ -35,7 +35,7 @@
         <!--Hotel Detail View Controller-->
         <scene sceneID="rR9-BT-bHX">
             <objects>
-                <viewController storyboardIdentifier="hotelDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TdN-7c-29H" customClass="hotelDetailViewController" customModule="cmpe202App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HotelDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TdN-7c-29H" customClass="HotelDetailViewController" customModule="cmpe202App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="c5B-qw-mUG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -499,7 +499,7 @@
         <!--Bookings-->
         <scene sceneID="dLp-DI-al2">
             <objects>
-                <viewController id="BiM-VB-oGa" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BookingsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BiM-VB-oGa" customClass="BookingsViewController" customModule="cmpe202App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KpR-uc-1un">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -510,7 +510,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e6k-S6-BZ4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="970" y="-1434"/>
+            <point key="canvasLocation" x="969.56521739130437" y="-1434.375"/>
         </scene>
         <!--Account-->
         <scene sceneID="hm5-ok-xoj">

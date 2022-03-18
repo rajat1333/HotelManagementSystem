@@ -16,6 +16,7 @@
 		CB5BB76327D0158200E69C9C /* HomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CB5BB76127D0158200E69C9C /* HomeTableViewCell.xib */; };
 		CB5BB76527D015AE00E69C9C /* HomeCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5BB76427D015AE00E69C9C /* HomeCollectionTableViewCell.swift */; };
 		CB5BB76727D015D300E69C9C /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5BB76627D015D300E69C9C /* HomeCollectionViewCell.swift */; };
+		CB68038927FCF6E200B244EC /* BookingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68038827FCF6E200B244EC /* BookingCollectionViewCell.swift */; };
 		CBCA1CD627CB141D009F9DF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA1CD527CB141D009F9DF3 /* AppDelegate.swift */; };
 		CBCA1CDA27CB141D009F9DF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA1CD927CB141D009F9DF3 /* ViewController.swift */; };
 		CBCA1CDD27CB141D009F9DF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBCA1CDB27CB141D009F9DF3 /* Main.storyboard */; };
@@ -25,7 +26,8 @@
 		CBCA1CF027CB141E009F9DF3 /* cmpe202AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA1CEF27CB141E009F9DF3 /* cmpe202AppTests.swift */; };
 		CBCA1CFA27CB141E009F9DF3 /* cmpe202AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA1CF927CB141E009F9DF3 /* cmpe202AppUITests.swift */; };
 		CBCA1CFC27CB141E009F9DF3 /* cmpe202AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA1CFB27CB141E009F9DF3 /* cmpe202AppUITestsLaunchTests.swift */; };
-		CBEB2ECB27FCA91300B574F6 /* hotelDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEB2ECA27FCA91300B574F6 /* hotelDetailViewController.swift */; };
+		CBEB2ECB27FCA91300B574F6 /* HotelDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEB2ECA27FCA91300B574F6 /* HotelDetailViewController.swift */; };
+		CBEB2ECD27FCEDBC00B574F6 /* BookingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBEB2ECC27FCEDBC00B574F6 /* BookingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,7 @@
 		CB5BB76127D0158200E69C9C /* HomeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTableViewCell.xib; sourceTree = "<group>"; };
 		CB5BB76427D015AE00E69C9C /* HomeCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionTableViewCell.swift; sourceTree = "<group>"; };
 		CB5BB76627D015D300E69C9C /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
+		CB68038827FCF6E200B244EC /* BookingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCollectionViewCell.swift; sourceTree = "<group>"; };
 		CBCA1CD227CB141D009F9DF3 /* cmpe202App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cmpe202App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBCA1CD527CB141D009F9DF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CBCA1CD927CB141D009F9DF3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -73,7 +76,8 @@
 		CBCA1CF527CB141E009F9DF3 /* cmpe202AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cmpe202AppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBCA1CF927CB141E009F9DF3 /* cmpe202AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cmpe202AppUITests.swift; sourceTree = "<group>"; };
 		CBCA1CFB27CB141E009F9DF3 /* cmpe202AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cmpe202AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		CBEB2ECA27FCA91300B574F6 /* hotelDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hotelDetailViewController.swift; sourceTree = "<group>"; };
+		CBEB2ECA27FCA91300B574F6 /* HotelDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotelDetailViewController.swift; sourceTree = "<group>"; };
+		CBEB2ECC27FCEDBC00B574F6 /* BookingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingsViewController.swift; sourceTree = "<group>"; };
 		E6CD6BA0BACDD18155927571 /* Pods-cmpe202App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cmpe202App.debug.xcconfig"; path = "Target Support Files/Pods-cmpe202App/Pods-cmpe202App.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -199,7 +203,9 @@
 				CB5BB76127D0158200E69C9C /* HomeTableViewCell.xib */,
 				CB5BB76427D015AE00E69C9C /* HomeCollectionTableViewCell.swift */,
 				CB5BB76627D015D300E69C9C /* HomeCollectionViewCell.swift */,
-				CBEB2ECA27FCA91300B574F6 /* hotelDetailViewController.swift */,
+				CBEB2ECA27FCA91300B574F6 /* HotelDetailViewController.swift */,
+				CBEB2ECC27FCEDBC00B574F6 /* BookingsViewController.swift */,
+				CB68038827FCF6E200B244EC /* BookingCollectionViewCell.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -448,9 +454,11 @@
 				CB5BB75D27CD8B9D00E69C9C /* globals.swift in Sources */,
 				CBCA1CDA27CB141D009F9DF3 /* ViewController.swift in Sources */,
 				CBCA1CE027CB141D009F9DF3 /* cmpe202App.xcdatamodeld in Sources */,
+				CB68038927FCF6E200B244EC /* BookingCollectionViewCell.swift in Sources */,
+				CBEB2ECD27FCEDBC00B574F6 /* BookingsViewController.swift in Sources */,
 				CB5BB75F27CE9F3700E69C9C /* homeViewController.swift in Sources */,
 				CBCA1CD627CB141D009F9DF3 /* AppDelegate.swift in Sources */,
-				CBEB2ECB27FCA91300B574F6 /* hotelDetailViewController.swift in Sources */,
+				CBEB2ECB27FCA91300B574F6 /* HotelDetailViewController.swift in Sources */,
 				CB5BB76527D015AE00E69C9C /* HomeCollectionTableViewCell.swift in Sources */,
 				CB5BB76727D015D300E69C9C /* HomeCollectionViewCell.swift in Sources */,
 			);

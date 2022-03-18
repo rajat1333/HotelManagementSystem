@@ -7,7 +7,7 @@
 
 import UIKit
 
-class hotelDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource  {
+class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource  {
 
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var hangingNameView: UIView!

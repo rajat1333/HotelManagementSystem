@@ -6,6 +6,7 @@ target 'cmpe202App' do
   use_frameworks!
   pod 'AFNetworking', '~> 3.0'
   pod 'CircleBar'
+  pod 'CollectionViewPagingLayout'
   # Pods for cmpe202App
 
   target 'cmpe202AppTests' do
