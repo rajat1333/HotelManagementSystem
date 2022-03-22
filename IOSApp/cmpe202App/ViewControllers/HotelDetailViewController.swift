@@ -25,7 +25,15 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         
         self.hangingNameView.frame = CGRect(x: globals.X(view: collectionView)!, y: globals.BOTTOM(view: collectionView)!-45, width: globals.WIDTH(view: collectionView)!, height: globals.HEIGHT(view: hangingNameView)!)
         
-//        self.hangingShadowView.frame = CGRect(x: globals.X(view: hangingNameView)! , y: globals.BOTTOM(view: collectionView)!-45, width: globals.WIDTH(view: hangingNameView)!, height: globals.HEIGHT(view: hangingNameView)!)
+        self.hangingShadowView.frame = CGRect(x: globals.X(view: hangingNameView)!+10 , y: globals.BOTTOM(view: collectionView)!-35, width: globals.WIDTH(view: collectionView)!-20, height: globals.HEIGHT(view: hangingNameView)!-20)
+        
+        self.hangingNameView.layer.masksToBounds=false
+        self.hangingNameView.layer.shadowOffset = CGSize(width: 4,
+                                          height: 4)
+        self.hangingNameView.layer.shadowRadius = 4
+        self.hangingNameView.layer.shadowOpacity = 0.5
+        
+        
 //        // Do any additional setup after loading the view.
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

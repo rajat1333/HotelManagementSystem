@@ -20,7 +20,7 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
          let layout = CollectionViewPagingLayout()
          collectionView = UICollectionView(frame: view.frame, collectionViewLayout: layout)
          collectionView.isPagingEnabled = true
-         collectionView.register(BookingCollectionViewCell.self, forCellWithReuseIdentifier: "bookingCollectionViewCell")
+         collectionView.register(BookingCollectionViewCell.self, forCellWithReuseIdentifier: "BookingCollectionViewCell")
          collectionView.dataSource = self
          collectionView.backgroundColor = .clear
          view.backgroundColor = .systemIndigo
@@ -32,7 +32,29 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        collectionView.dequeueReusableCell(withReuseIdentifier: "bookingCollectionViewCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BookingCollectionViewCell", for: indexPath) as! BookingCollectionViewCell
+        
+        
+        let titleFont = UIFont(name: "Helvetica Neue", size: 30)
+
+         
+        let attributes = [
+            NSAttributedString.Key.font : titleFont,
+            NSAttributedString.Key.foregroundColor : UIColor(.black)]
+
+        let attributedString = NSMutableAttributedString(string: "",attributes: attributes as [NSAttributedString.Key : Any])
+        let pinImage = NSTextAttachment()
+        pinImage.image = UIImage(named: "geotag")
+        let iconsSize = CGRect(x: 0, y: -5, width: 30, height: 30)
+        pinImage.bounds = iconsSize
+        attributedString.append(NSAttributedString(attachment: pinImage))
+        attributedString.append(NSAttributedString(string: " Los Angeles"))
+        cell.hotelLocation.attributedText=attributedString
+        cell.hotelImage = UIImageView(image: UIImage(named: "hotelStatic"))
+        cell.hotelName.text = "De Sol Spa Hotel"
+        
+        
+        return cell
 
     }
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

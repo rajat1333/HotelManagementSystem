@@ -9,6 +9,19 @@ import UIKit
 import CollectionViewPagingLayout
 class BookingCollectionViewCell: UICollectionViewCell {
     var card: UIView!
+    var hotelName: UILabel!
+    var hotelLocation: UILabel!
+    var price: UILabel!
+    var nights: UILabel!
+    var date: UILabel!
+    var daysLeft: UILabel!
+    var hotelImage: UIImageView!
+    var sideView: UIView!
+    var bookingId: UILabel!
+    var bookingDate: UILabel!
+
+
+
         
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,15 +36,66 @@ class BookingCollectionViewCell: UICollectionViewCell {
     func setup() {
         // Adjust the card view frame
         // you can use Auto-layout too
+        
         let cardFrame = CGRect(
             x: 65,
             y: 130,
             width: frame.width - 130,
             height: frame.height - 260
         )
+        let sideFrame = CGRect(
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0
+        )
         card = UIView(frame: cardFrame)
         card.backgroundColor = .white
+        card.layer.cornerRadius=20
+        card.layer.masksToBounds=true
+        
+        sideView = UIView(frame: sideFrame)
+        sideView.backgroundColor = UIColor(red: 250/255.0, green: 128/255.0, blue: 114/255.0, alpha: 1.00)
+        sideView.frame=CGRect(x: globals.WIDTH(view: card)!-65, y: 0, width: 65, height: globals.HEIGHT(view: card)!)
+        
+        
+        hotelLocation = UILabel(frame: CGRect(x: 8, y: globals.HEIGHT(view: card)!-80, width: globals.WIDTH(view: card)!-16-65, height: 60))
+        hotelLocation.textAlignment = .left
+        hotelLocation.font = UIFont(name: "HelveticaNeue-Medium", size: 20)
+        
+        hotelName = UILabel(frame: CGRect(x: 10, y: 20, width: globals.WIDTH(view: card)!-20-65, height: 70))
+        hotelName.numberOfLines = 4
+        hotelName.font = UIFont(name: "HelveticaNeue-Bold", size: 29)
+        hotelName.textColor = UIColor.darkGray
+        
+        
+        hotelImage.frame = CGRect(x: globals.WIDTH(view: card)!-65-150, y: globals.BOTTOM(view: hotelName)!+25, width: 150, height: 90)
+        
+        let path = UIBezierPath(roundedRect:hotelImage.bounds, byRoundingCorners:[.topLeft, .bottomLeft], cornerRadii: CGSize(width: 20, height: 20))
+        let maskLayer = CAShapeLayer()
+
+        bookingId = UILabel(frame: CGRect(x: 10, y: globals.BOTTOM(view: hotelImage)!+40, width: globals.WIDTH(view: card)!-20-65, height: 20))
+        bookingId.numberOfLines = 1
+        bookingId.font = UIFont(name: "HelveticaNeue", size: 18)
+        bookingId.textColor = UIColor.lightGray
+        
+        bookingDate = UILabel(frame: CGRect(x: 10, y: globals.BOTTOM(view: bookingId)!+15, width: globals.WIDTH(view: card)!-20-65, height: 20))
+        bookingDate.numberOfLines = 1
+        bookingDate.font = UIFont(name: "HelveticaNeue", size: 18)
+        bookingDate.textColor = UIColor.lightGray
+        
+        
+        
+        maskLayer.path = path.cgPath
+        hotelImage.layer.mask = maskLayer
         contentView.addSubview(card)
+        card.addSubview(hotelLocation)
+        card.addSubview(sideView)
+        card.addSubview(hotelName)
+        card.addSubview(hotelImage)
+
+
+        
     }
 }
 
