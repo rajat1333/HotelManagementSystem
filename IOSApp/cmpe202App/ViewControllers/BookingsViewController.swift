@@ -50,13 +50,30 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
         attributedString.append(NSAttributedString(attachment: pinImage))
         attributedString.append(NSAttributedString(string: " Los Angeles"))
         cell.hotelLocation.attributedText=attributedString
-        cell.hotelImage = UIImageView(image: UIImage(named: "hotelStatic"))
+        cell.hotelImage.image = UIImage(named: "hotelStatic")
         cell.hotelName.text = "De Sol Spa Hotel"
+        cell.bookingDate.text = "Check In : \nMarch 22, 2022"
+        cell.qrImage.image = generateQRCode(from: "12345SDFG6789")
         
         
         return cell
 
     }
+    func generateQRCode(from string: String) -> UIImage? {
+        let data = string.data(using: String.Encoding.ascii)
+
+        if let filter = CIFilter(name: "CIQRCodeGenerator") {
+            filter.setValue(data, forKey: "inputMessage")
+            let transform = CGAffineTransform(scaleX: 3, y: 3)
+
+            if let output = filter.outputImage?.transformed(by: transform) {
+                return UIImage(ciImage: output)
+            }
+        }
+
+        return nil
+    }
+
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        let width = ((collectionView.frame.width - 15) / 2) // 15 because of paddings
 //        print("cell width : \(width)")

@@ -17,8 +17,13 @@ class BookingCollectionViewCell: UICollectionViewCell {
     var daysLeft: UILabel!
     var hotelImage: UIImageView!
     var sideView: UIView!
-    var bookingId: UILabel!
     var bookingDate: UILabel!
+    var qrImage: UIImageView!
+    
+    var sideCard1: UIView!
+    var sideCard2: UIView!
+    var sideCard3: UIView!
+
 
 
 
@@ -68,31 +73,32 @@ class BookingCollectionViewCell: UICollectionViewCell {
         hotelName.font = UIFont(name: "HelveticaNeue-Bold", size: 29)
         hotelName.textColor = UIColor.darkGray
         
-        
-        hotelImage.frame = CGRect(x: globals.WIDTH(view: card)!-65-150, y: globals.BOTTOM(view: hotelName)!+25, width: 150, height: 90)
+        hotelImage = UIImageView(frame: CGRect(x: globals.WIDTH(view: card)!-65-150, y: globals.BOTTOM(view: hotelName)!+25, width: 150, height: 90))
         
         let path = UIBezierPath(roundedRect:hotelImage.bounds, byRoundingCorners:[.topLeft, .bottomLeft], cornerRadii: CGSize(width: 20, height: 20))
         let maskLayer = CAShapeLayer()
-
-        bookingId = UILabel(frame: CGRect(x: 10, y: globals.BOTTOM(view: hotelImage)!+40, width: globals.WIDTH(view: card)!-20-65, height: 20))
-        bookingId.numberOfLines = 1
-        bookingId.font = UIFont(name: "HelveticaNeue", size: 18)
-        bookingId.textColor = UIColor.lightGray
-        
-        bookingDate = UILabel(frame: CGRect(x: 10, y: globals.BOTTOM(view: bookingId)!+15, width: globals.WIDTH(view: card)!-20-65, height: 20))
-        bookingDate.numberOfLines = 1
-        bookingDate.font = UIFont(name: "HelveticaNeue", size: 18)
-        bookingDate.textColor = UIColor.lightGray
-        
-        
-        
         maskLayer.path = path.cgPath
         hotelImage.layer.mask = maskLayer
+        
+        
+        bookingDate = UILabel(frame: CGRect(x: 10, y: globals.BOTTOM(view: hotelImage)!+40, width: globals.WIDTH(view: card)!-20-65, height: 40))
+        bookingDate.numberOfLines = 0
+        bookingDate.font = UIFont(name: "HelveticaNeue", size: 16)
+        bookingDate.textColor = UIColor.lightGray
+        
+        qrImage = UIImageView(frame: CGRect(x: ((globals.WIDTH(view: card)!-65)/2)-45, y: globals.BOTTOM(view: bookingDate)!+50, width: 90, height: 90))
+        
+        
+        
         contentView.addSubview(card)
         card.addSubview(hotelLocation)
         card.addSubview(sideView)
         card.addSubview(hotelName)
         card.addSubview(hotelImage)
+        //card.addSubview(bookingId)
+        card.addSubview(bookingDate)
+        card.addSubview(qrImage)
+
 
 
         
