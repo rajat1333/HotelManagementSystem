@@ -1,14 +1,14 @@
 package spartanbots.v01.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import spartanbots.v01.entity.Amenity;
+import spartanbots.v01.entity.ErrorMessage;
 import spartanbots.v01.entity.Users.Customer;
 import spartanbots.v01.repository.CustomerRepository;
-import spartanbots.v01.repository.HotelRepository;
 
 import javax.transaction.Transactional;
-import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class LoginService {
@@ -17,16 +17,23 @@ public class LoginService {
     private CustomerRepository customerRepository;
 
     @Transactional
-    public String login(Customer customer) {
+    public ResponseEntity<Object> login(Customer customer) {
         try {
-            if (customerRepository.findByEmail(customer.getEmail()).getPassword()==customer.getPassword())
+            List<Customer> user= customerRepository.findByEmail(customer.getEmail());
+            if(user.size()<1)
             {
-                System.out.println("Email and password are correct");
-                return "Credentials are valid";
+                return ResponseEntity.badRequest().body(new ErrorMessage("Email is not registered with us"));
             }
-            return "Credentials are invalid";
+            else if (user.get(0).getPassword().contentEquals(customer.getPassword()))
+            {
+                return ResponseEntity.ok(user.get(0));
+            }
+            else
+            {
+                return ResponseEntity.badRequest().body(new ErrorMessage("Invalid Credentials"));
+            }
         } catch (Exception e) {
-            throw e;
+            return ResponseEntity.badRequest().body(new ErrorMessage(e.getMessage()));
         }
     }
 

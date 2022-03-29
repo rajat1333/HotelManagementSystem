@@ -1,6 +1,7 @@
 package spartanbots.v01.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,7 +16,7 @@ public class SignUpController {
     private SignUpService signUpService;
 
     @RequestMapping(value = "signup", method = RequestMethod.POST)
-    public String addHotel(@RequestBody Customer customer){
+    public ResponseEntity<Customer> signup(@RequestBody Customer customer){
         return signUpService.signup(customer);
     }
 }
