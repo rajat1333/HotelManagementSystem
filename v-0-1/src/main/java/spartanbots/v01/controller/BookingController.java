@@ -30,7 +30,7 @@ public class BookingController {
     @RequestMapping(value = "readbooking", method = RequestMethod.GET)
     public List<Booking> readBooking() { return bookingService.readBooking(); }
 
-    @RequestMapping(value = "searchbooking/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "searchbooking/{id}", method = RequestMethod.GET)
     public Optional<Booking> searchBooking(@PathVariable int id) { return bookingService.searchBooking(id); }
 
     @RequestMapping(value = "updatebooking", method = RequestMethod.PUT)

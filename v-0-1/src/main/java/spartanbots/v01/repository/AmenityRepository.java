@@ -10,7 +10,9 @@ import java.util.List;
 
 @Repository
 public interface AmenityRepository extends MongoRepository<Amenity, Integer> {
-    @Query("{_id:'?0'}")
-    Amenity findItemById(int id);
+//    @Query("{_id:'?0'}")
+//    Amenity findItemById(int id);
 
+//    @Query("{_id:'?0'}")
+//    Amenity findItemById(int id);
 }

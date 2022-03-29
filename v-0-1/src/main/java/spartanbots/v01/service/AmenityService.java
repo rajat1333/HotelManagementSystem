@@ -3,7 +3,6 @@ package spartanbots.v01.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import spartanbots.v01.entity.Amenity;
-import spartanbots.v01.entity.Booking;
 import spartanbots.v01.repository.AmenityRepository;
 
 import javax.transaction.Transactional;
@@ -25,10 +24,12 @@ public class AmenityService {
     @Transactional
     public String createAmenity(Amenity amenity) {
         try {
-                amenity.setId(amenityRepository.findAll().size() == 0 ? 0 : amenityRepository.findAll().stream().max(Comparator.comparingInt(Amenity::getId)).get().getId() + 1);
-                amenityRepository.save(amenity);
-                System.out.println("Amenity record created: \n" + amenity.toString());
-                return "Amenity record created successfully.";
+            Amenity amenityToBeCreated = new Amenity();
+            amenityToBeCreated.setId(amenityRepository.findAll().size() == 0 ? 1 : amenityRepository.findAll().stream().max(Comparator.comparingInt(Amenity::getId)).get().getId() + 1);
+            AmenityRegularization(amenity, amenityToBeCreated);
+            amenityRepository.save(amenityToBeCreated);
+            System.out.println("Amenity record created: \n" + amenity.toString());
+            return "Amenity record created successfully.";
         } catch (Exception e) {
             throw e;
         }
@@ -43,16 +44,10 @@ public class AmenityService {
     public String updateAmenity(Amenity amenity) {
         if (amenityRepository.existsById(amenity.getId())) {
             try {
-                    Amenity amenityToBeUpdated = amenityRepository.findById(amenity.getId()).get();
-                    if (amenity.getName() != null) {
-                        amenityToBeUpdated.setName(amenity.getName());
-                    }
-                    if (amenity.getPrice() > 0) {
-                        amenityToBeUpdated.setPrice(amenity.getPrice());
-                    }
-                    amenityRepository.save(amenityToBeUpdated);
-                    System.out.println("Amenity record updated: \n" + amenityToBeUpdated.toString());
-
+                Amenity amenityToBeUpdated = amenityRepository.findById(amenity.getId()).get();
+                AmenityRegularization(amenity, amenityToBeUpdated);
+                amenityRepository.save(amenityToBeUpdated);
+                System.out.println("Amenity record updated: \n" + amenityToBeUpdated.toString());
                 return "Amenity record updated successfully.";
             } catch (Exception e) {
                 throw e;
@@ -65,7 +60,7 @@ public class AmenityService {
     @Transactional
     public String deleteAmenity(Amenity amenity) {
         if(amenityRepository.existsById(amenity.getId())){
-            try{
+            try {
                 System.out.println("Amenity record deleted: \n" + amenity.toString());
                 amenityRepository.deleteById(amenity.getId());
                 return "Amenity record deleted successfully.";
@@ -75,6 +70,15 @@ public class AmenityService {
         }
         else {
             return "Amenity record does not exists.";
+        }
+    }
+
+    private void AmenityRegularization(Amenity inputAmenity, Amenity outputAmenity) {
+        if (inputAmenity.getName() != null) {
+            outputAmenity.setName(inputAmenity.getName());
+        }
+        if (inputAmenity.getPrice() > 0) {
+            outputAmenity.setPrice(inputAmenity.getPrice());
         }
     }
 }
