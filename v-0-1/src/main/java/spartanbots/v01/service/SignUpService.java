@@ -1,11 +1,13 @@
 package spartanbots.v01.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import spartanbots.v01.entity.Users.Customer;
 import spartanbots.v01.repository.CustomerRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class SignUpService {
@@ -14,10 +16,11 @@ public class SignUpService {
     private CustomerRepository customerRepository;
 
     @Transactional
-    public String signup(Customer customer) {
+    public ResponseEntity<Customer> signup(Customer customer) {
         try {
             customerRepository.save(customer);
-            return "New User has been created";
+            List<Customer> user= customerRepository.findByEmail(customer.getEmail());
+            return ResponseEntity.ok(user.get(0));
         } catch (Exception e) {
             throw e;
         }
