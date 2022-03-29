@@ -1,9 +1,11 @@
 package spartanbots.v01.entity;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
+@Document(collection ="booking")
 public class Booking {
 
     @Id
