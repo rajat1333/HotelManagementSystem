@@ -21,14 +21,7 @@ public class Amenity {
     @Column(name = "price")
     private double price;
 
-    public Amenity() {
-
-    }
-
-    public Amenity(String name, double price) {
-        this.name = name;
-        this.price = price;
-    }
+    public Amenity() {}
 
     public void setId(int id) {
         this.id = id;

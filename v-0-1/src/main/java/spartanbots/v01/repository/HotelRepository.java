@@ -5,16 +5,12 @@ import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 import spartanbots.v01.entity.Hotel;
 
-import java.util.List;
-
 @Repository
-public interface HotelRepository extends MongoRepository<Hotel, String> {
+public interface HotelRepository extends MongoRepository<Hotel, Integer> {
 
+    //@Query("{name:'?0'}")
+    //Hotel findItemByName(String name);
 
-    @Query("{name:'?0'}")
-    Hotel findItemByName(String name);
-
-
-    public long count();
+    //public long count();
 
 }
