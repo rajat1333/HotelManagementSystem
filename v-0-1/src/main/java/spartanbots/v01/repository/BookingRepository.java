@@ -17,14 +17,19 @@ public interface BookingRepository extends MongoRepository<Booking, Integer> {
 //    public boolean existsByPhone(String phone);
 
 
-    @Query("{phone:'?0'}")
-    Booking findItemByPhone(String phone);
-
+//    @Query("{phone:'?0'}")
+//    Booking findItemByPhone(String phone);
+//
+    @Query("{_id:'?0'}")
+    Booking findItemById(int id);
 
 //    public List<Booking> findByPhone(String phone);
 
-    @Query("{phone:'?0'}")
-    List<Booking> findAllByPhone(String phone);
+//    @Query("{phone:'?0'}")
+//    List<Booking> findAllByPhone(String phone);
+
+    @Query("{_id:'?0'}")
+    List<Booking> findAllById(int id);
 
 
 //    @Query("select max(b.id) from Booking b")
