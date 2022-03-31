@@ -23,7 +23,7 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
          collectionView.register(BookingCollectionViewCell.self, forCellWithReuseIdentifier: "BookingCollectionViewCell")
          collectionView.dataSource = self
          collectionView.backgroundColor = .clear
-         view.backgroundColor = .systemIndigo
+         view.backgroundColor = UIColor(red: 86.0/255.0, green: 148.0/255.0, blue: 214.0/255.0, alpha: 1.0)
          view.addSubview(collectionView)
      }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

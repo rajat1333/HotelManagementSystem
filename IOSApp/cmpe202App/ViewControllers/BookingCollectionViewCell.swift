@@ -60,7 +60,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
         card.layer.masksToBounds=true
         
         sideView = UIView(frame: sideFrame)
-        sideView.backgroundColor = UIColor(red: 250/255.0, green: 128/255.0, blue: 114/255.0, alpha: 1.00)
+        sideView.backgroundColor = UIColor.systemIndigo//UIColor(red: 250/255.0, green: 128/255.0, blue: 114/255.0, alpha: 1.00)
         sideView.frame=CGRect(x: globals.WIDTH(view: card)!-65, y: 0, width: 65, height: globals.HEIGHT(view: card)!)
         
         
@@ -88,14 +88,39 @@ class BookingCollectionViewCell: UICollectionViewCell {
         
         qrImage = UIImageView(frame: CGRect(x: ((globals.WIDTH(view: card)!-65)/2)-45, y: globals.BOTTOM(view: bookingDate)!+50, width: 90, height: 90))
         
+        sideCard1 = UIView(frame: sideFrame)
+        sideCard1.backgroundColor = UIColor(red: 211/255.0, green: 211/255.0, blue: 211/255.0, alpha: 0.1)
+        sideCard1.frame=CGRect(x: 0, y: 0, width: 65, height: globals.HEIGHT(view: sideView)!/3)
         
+        
+        
+        sideCard2 = UIView(frame: sideFrame)
+        sideCard2.backgroundColor = UIColor(red: 211/255.0, green: 211/255.0, blue: 211/255.0, alpha: 0.1)
+        sideCard2.frame=CGRect(x: 0, y: globals.BOTTOM(view: sideCard1)!+1, width: 65, height: globals.HEIGHT(view: sideView)!/3)
+        
+        
+        
+        sideCard3 = UIView(frame: sideFrame)
+        sideCard3.backgroundColor = UIColor(red: 250/255.0, green: 128/255.0, blue: 114/255.0, alpha: 1.00)
+        sideCard3.frame=CGRect(x: 0, y: globals.BOTTOM(view: sideCard2)!-8, width: 65, height: globals.HEIGHT(view: sideView)!/3+8)
+        
+        sideView.layer.masksToBounds=true
+        
+        let sidePath = UIBezierPath(roundedRect:sideCard3.bounds, byRoundingCorners:[.topLeft, .bottomRight], cornerRadii: CGSize(width: 20, height: 20))
+        let sideMaskLayer = CAShapeLayer()
+        sideMaskLayer.path = sidePath.cgPath
+        sideCard3.layer.mask = sideMaskLayer
+        
+        sideView.addSubview(sideCard1)
+        sideView.addSubview(sideCard2)
+        sideView.addSubview(sideCard3)
+
         
         contentView.addSubview(card)
         card.addSubview(hotelLocation)
         card.addSubview(sideView)
         card.addSubview(hotelName)
         card.addSubview(hotelImage)
-        //card.addSubview(bookingId)
         card.addSubview(bookingDate)
         card.addSubview(qrImage)
 
