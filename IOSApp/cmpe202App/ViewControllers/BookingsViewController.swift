@@ -52,8 +52,11 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
         cell.hotelLocation.attributedText=attributedString
         cell.hotelImage.image = UIImage(named: "hotelStatic")
         cell.hotelName.text = "De Sol Spa Hotel"
-        cell.bookingDate.text = "Check In : \nMarch 22, 2022"
+        cell.bookingDate.text = "Check In\nMay 22, 2022"
         cell.qrImage.image = generateQRCode(from: "12345SDFG6789")
+        cell.price.text = "$270"
+        cell.nights.text = "3\nNight\nStay"
+        cell.daysLeft.text = "46\nDays\nto\nGo"
         
         
         return cell

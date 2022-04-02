@@ -65,8 +65,8 @@ class BookingCollectionViewCell: UICollectionViewCell {
         
         
         hotelLocation = UILabel(frame: CGRect(x: 8, y: globals.HEIGHT(view: card)!-80, width: globals.WIDTH(view: card)!-16-65, height: 60))
-        hotelLocation.textAlignment = .left
-        hotelLocation.font = UIFont(name: "HelveticaNeue-Medium", size: 20)
+        hotelLocation.textAlignment = .center
+        hotelLocation.font = UIFont(name: "HelveticaNeue-Medium", size: 18)
         
         hotelName = UILabel(frame: CGRect(x: 10, y: 20, width: globals.WIDTH(view: card)!-20-65, height: 70))
         hotelName.numberOfLines = 4
@@ -85,6 +85,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
         bookingDate.numberOfLines = 0
         bookingDate.font = UIFont(name: "HelveticaNeue", size: 16)
         bookingDate.textColor = UIColor.lightGray
+        bookingDate.textAlignment = .center
         
         qrImage = UIImageView(frame: CGRect(x: ((globals.WIDTH(view: card)!-65)/2)-45, y: globals.BOTTOM(view: bookingDate)!+50, width: 90, height: 90))
         
@@ -114,6 +115,25 @@ class BookingCollectionViewCell: UICollectionViewCell {
         sideView.addSubview(sideCard1)
         sideView.addSubview(sideCard2)
         sideView.addSubview(sideCard3)
+        
+        price = UILabel(frame: CGRect(x:2 , y: globals.HEIGHT(view: sideCard1)!/2-13, width: globals.WIDTH(view: sideCard1)!-4, height: 26))
+        price.textAlignment = .center
+        price.font = UIFont(name: "HelveticaNeue", size: 18)
+        price.textColor = UIColor.white
+        
+        
+        nights = UILabel(frame: CGRect(x:2 , y: globals.HEIGHT(view: sideCard2)!/2-35-8, width: globals.WIDTH(view: sideCard1)!-4, height: 70))
+        nights.textAlignment = .center
+        nights.numberOfLines=3
+        nights.font = UIFont(name: "HelveticaNeue", size: 17)
+        nights.textColor = UIColor.white
+        
+        
+        daysLeft = UILabel(frame: CGRect(x:2 , y: globals.HEIGHT(view: sideCard3)!/2-50, width: globals.WIDTH(view: sideCard1)!-4, height: 100))
+        daysLeft.textAlignment = .center
+        daysLeft.numberOfLines=4
+        daysLeft.font = UIFont(name: "HelveticaNeue", size: 17)
+        daysLeft.textColor = UIColor.white
 
         
         contentView.addSubview(card)
@@ -123,6 +143,10 @@ class BookingCollectionViewCell: UICollectionViewCell {
         card.addSubview(hotelImage)
         card.addSubview(bookingDate)
         card.addSubview(qrImage)
+        sideCard1.addSubview(price)
+        sideCard2.addSubview(nights)
+        sideCard3.addSubview(daysLeft)
+
 
 
 

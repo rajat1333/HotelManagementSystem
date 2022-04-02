@@ -73,9 +73,13 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
             return cell
         }
         else if indexPath.row == 1{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "staticCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "roomCell", for: indexPath)
             return cell
         }
+//        else if indexPath.row == 2{
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "roomCell", for: indexPath)
+//            return cell
+//        }
         else{
             let cell = tableView.dequeueReusableCell(withIdentifier: "staticCell", for: indexPath)
             return cell
@@ -86,7 +90,7 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
             return 80
         }
         else if indexPath.row == 1{
-            return 0
+            return 100
         }
         else{
             return 0
