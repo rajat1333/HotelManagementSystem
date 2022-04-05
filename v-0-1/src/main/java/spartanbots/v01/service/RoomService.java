@@ -1,7 +1,9 @@
 package spartanbots.v01.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import spartanbots.v01.entity.ErrorMessage;
 import spartanbots.v01.entity.Room;
 import spartanbots.v01.repository.HotelRepository;
 import spartanbots.v01.repository.RoomRepository;
@@ -9,8 +11,7 @@ import spartanbots.v01.repository.RoomRepository;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class RoomService {
@@ -26,56 +27,64 @@ public class RoomService {
     }
 
     @Transactional
-    public String createRoom(Room room) {
+    public ResponseEntity<Object> createRoom(Room room) {
         try {
             Room roomToBeCreated = new Room();
             roomToBeCreated.setId(roomRepository.findAll().size() == 0 ? 1 : roomRepository.findAll().stream().max(Comparator.comparingInt(Room::getId)).get().getId() + 1);
             roomToBeCreated.setBookingIds(new ArrayList<Integer>());
             roomRegularization(room, roomToBeCreated);
             roomRepository.save(roomToBeCreated);
-            System.out.println("Room record created: \n" + room.toString());
-            return "Room record created successfully.";
+            System.out.println("Room record created: \n" + roomToBeCreated.toString());
+            return ResponseEntity.ok(roomToBeCreated);
         } catch (Exception e) {
             throw e;
         }
     }
 
-    public List<Room> readRoom() {
-        return roomRepository.findAll();
+    public ResponseEntity<Object> readRoom() {
+        return ResponseEntity.ok(roomRepository.findAll());
     }
 
-    public Optional<Room> searchRoom(int id) { return roomRepository.findById(id); }
-
     @Transactional
-    public String updateRoom(Room room) {
+    public ResponseEntity<Object> updateRoom(Room room) {
         if (roomRepository.existsById(room.getId())) {
             try {
                 Room roomToBeUpdated = roomRepository.findById(room.getId()).get();
                 roomRegularization(room, roomToBeUpdated);
                 roomRepository.save(roomToBeUpdated);
                 System.out.println("Room record updated: \n" + roomToBeUpdated.toString());
-                return "Room record updated successfully.";
+                return ResponseEntity.ok(roomToBeUpdated);
             } catch (Exception e) {
                 throw e;
             }
         } else {
-            return "Room record does not exists.";
+            return ResponseEntity.badRequest().body(new ErrorMessage("Room record does not exists."));
         }
     }
 
     @Transactional
-    public String deleteRoom(Room room) {
+    public ResponseEntity<Object> deleteRoom(Room room) {
         if(roomRepository.existsById(room.getId())){
             try{
-                System.out.println("Room record deleted: \n" + room.toString());
-                roomRepository.deleteById(room.getId());
-                return "Room record deleted successfully.";
+                Room roomToBeDeleted = roomRepository.findById(room.getId()).get();
+                roomRepository.deleteById(roomToBeDeleted.getId());
+                System.out.println("Room record deleted: \n" + roomToBeDeleted.toString());
+                return ResponseEntity.ok(roomToBeDeleted);
             } catch (Exception e) {
                 throw e;
             }
         }
         else {
-            return "Room record does not exists.";
+            return ResponseEntity.badRequest().body(new ErrorMessage("Room record does not exists."));
+        }
+    }
+
+    public ResponseEntity<Object> searchRoom(Room room) {
+        if(roomRepository.existsById(room.getId())){
+            return ResponseEntity.ok(roomRepository.findById(room.getId()));
+        }
+        else{
+            return ResponseEntity.badRequest().body(new ErrorMessage("Room record does not exists."));
         }
     }
 
@@ -86,10 +95,10 @@ public class RoomService {
         }
         if (hotelRepository.existsById(inputRoom.getHotelId())) {
             outputRoom.setHotelId(inputRoom.getHotelId());
-            outputRoom.setHotelName(hotelRepository.findById(outputRoom.getHotelId()).get().getName());
+            outputRoom.setHotelName(hotelRepository.findById(inputRoom.getHotelId()).get().getName());
         }
-        //int maxFloor = hotelRepository.findById(room.getId()).get().getMaxFloor();
-        if (inputRoom.getFloor() != null && inputRoom.getFloor() <= hotelRepository.findById(inputRoom.getId()).get().getMaxFloor()) {
+        //int maxFloor = hotelRepository.findById(inputRoom.getHotelId()).get().getMaxFloor();
+        if (inputRoom.getFloor() != null && inputRoom.getFloor() <= hotelRepository.findById(inputRoom.getHotelId()).get().getMaxFloor()) {
             outputRoom.setFloor(inputRoom.getFloor());
         }
         if (inputRoom.getRoomType() != null) {
