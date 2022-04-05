@@ -1,8 +1,10 @@
 package spartanbots.v01.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import spartanbots.v01.entity.Amenity;
+import spartanbots.v01.entity.ErrorMessage;
 import spartanbots.v01.repository.AmenityRepository;
 
 import javax.transaction.Transactional;
@@ -22,54 +24,64 @@ public class AmenityService {
     }
 
     @Transactional
-    public String createAmenity(Amenity amenity) {
+    public ResponseEntity<Object> createAmenity(Amenity amenity) {
         try {
             Amenity amenityToBeCreated = new Amenity();
             amenityToBeCreated.setId(amenityRepository.findAll().size() == 0 ? 1 : amenityRepository.findAll().stream().max(Comparator.comparingInt(Amenity::getId)).get().getId() + 1);
             AmenityRegularization(amenity, amenityToBeCreated);
             amenityRepository.save(amenityToBeCreated);
-            System.out.println("Amenity record created: \n" + amenity.toString());
-            return "Amenity record created successfully.";
+            System.out.println("Amenity record created: \n" + amenityToBeCreated.toString());
+            return ResponseEntity.ok(amenityToBeCreated);
         } catch (Exception e) {
             throw e;
         }
     }
-    public List<Amenity> readAmenity() {
-        return amenityRepository.findAll();
+    //List<Amenity>;
+    public ResponseEntity<Object> readAmenity() {
+        return ResponseEntity.ok(amenityRepository.findAll());
     }
 
-    public Optional<Amenity> searchAmenity(int id) { return amenityRepository.findById(id); }
-
     @Transactional
-    public String updateAmenity(Amenity amenity) {
+    public ResponseEntity<Object> updateAmenity(Amenity amenity) {
         if (amenityRepository.existsById(amenity.getId())) {
             try {
                 Amenity amenityToBeUpdated = amenityRepository.findById(amenity.getId()).get();
                 AmenityRegularization(amenity, amenityToBeUpdated);
                 amenityRepository.save(amenityToBeUpdated);
                 System.out.println("Amenity record updated: \n" + amenityToBeUpdated.toString());
-                return "Amenity record updated successfully.";
+                return ResponseEntity.ok(amenityToBeUpdated);
             } catch (Exception e) {
                 throw e;
             }
         } else {
-            return "Amenity record does not exists.";
+            return ResponseEntity.badRequest().body(new ErrorMessage("Amenity record does not exists."));
         }
     }
 
     @Transactional
-    public String deleteAmenity(Amenity amenity) {
+    public ResponseEntity<Object> deleteAmenity(Amenity amenity) {
         if(amenityRepository.existsById(amenity.getId())){
             try {
-                System.out.println("Amenity record deleted: \n" + amenity.toString());
-                amenityRepository.deleteById(amenity.getId());
-                return "Amenity record deleted successfully.";
+                Amenity amenityToBeDeleted = amenityRepository.findById(amenity.getId()).get();
+                System.out.println("Amenity record deleted: \n" + amenityToBeDeleted.toString());
+                amenityRepository.deleteById(amenityToBeDeleted.getId());
+                return ResponseEntity.ok(amenityToBeDeleted);
             } catch (Exception e) {
                 throw e;
             }
         }
         else {
-            return "Amenity record does not exists.";
+            return ResponseEntity.badRequest().body(new ErrorMessage("Amenity record does not exists."));
+        }
+    }
+
+    //Optional<Amenity>
+    public ResponseEntity<Object> searchAmenity(Amenity amenity) {
+        if(amenityRepository.existsById(amenity.getId())){
+            return ResponseEntity.ok(amenityRepository.findById(amenity.getId()));
+        }
+        else{
+            return ResponseEntity.badRequest().body(new ErrorMessage("Amenity record does not exists."));
         }
     }
 
