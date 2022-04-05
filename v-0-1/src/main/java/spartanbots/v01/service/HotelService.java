@@ -81,7 +81,7 @@ public class HotelService {
         if(hotelRepository.existsById(hotel.getId())){
             try {
                 System.out.println("Hotel with given Id already Present: \n" + hotel.toString());
-                hotelRepository.deleteById(hotel.getId());
+                //hotelRepository.deleteById(hotel.getId());
 
                 //return ResponseEntity.ok(""); //todo : add return format
                 return null;
