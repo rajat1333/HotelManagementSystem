@@ -1,7 +1,9 @@
 package spartanbots.v01.service;
 
+import org.springframework.http.ResponseEntity;
 import spartanbots.v01.entity.Amenity;
 import spartanbots.v01.entity.Booking;
+import spartanbots.v01.entity.ErrorMessage;
 import spartanbots.v01.entity.Room;
 import spartanbots.v01.repository.AmenityRepository;
 import spartanbots.v01.repository.BookingRepository;
@@ -41,70 +43,75 @@ public class BookingService {
     }
 
     @Transactional
-    public String createBooking(Booking booking) {
+    public ResponseEntity<Object> createBooking(Booking booking) {
         try {
             Booking bookingToBeCreated = new Booking();
             bookingToBeCreated.setId(bookingRepository.findAll().size() == 0 ? 1 : bookingRepository.findAll().stream().max(Comparator.comparingInt(Booking::getId)).get().getId() + 1);
             bookingToBeCreated.setAmenities(new ArrayList<Amenity>());
             if(!bookingRegularization(booking, bookingToBeCreated)){
-                return "Booking record fail to be created.";
+                return ResponseEntity.badRequest().body(new ErrorMessage("Booking record fail to be created."));
             }
             bookingRepository.save(bookingToBeCreated);
-            System.out.println("Booking record created: \n" + booking.toString());
-            return "Booking record created successfully.";
+            System.out.println("Booking record created: \n" + bookingToBeCreated.toString());
+            return ResponseEntity.ok(bookingToBeCreated);
         } catch (Exception e) {
             throw e;
         }
     }
 
-    public List<Booking> readBooking() {
-        return bookingRepository.findAll();
-    }
-
-    public Optional<Booking> searchBooking(int id) {
-        return bookingRepository.findById(id);
+    public ResponseEntity<Object> readBooking() {
+        return ResponseEntity.ok(bookingRepository.findAll());
     }
 
     @Transactional
-    public String updateBooking(Booking booking) {
+    public ResponseEntity<Object> updateBooking(Booking booking) {
 
         if(bookingRepository.existsById(booking.getId())){
             try {
                 Booking bookingToBeUpdated = bookingRepository.findById(booking.getId()).get();
                 if(!bookingRegularization(booking, bookingToBeUpdated)){
-                    return "Booking record fail to be updated.";
+                    return ResponseEntity.badRequest().body(new ErrorMessage("Booking record fail to be updated."));
                 }
                 bookingRepository.save(bookingToBeUpdated);
                 System.out.println("Booking record updated: \n" + booking.toString());
-                return "Booking record updated successfully.";
+                return ResponseEntity.ok(bookingToBeUpdated);
             } catch (Exception e) {
                 throw e;
             }
         }
         else {
-            return "Booking record does not exists.";
+            return ResponseEntity.badRequest().body(new ErrorMessage("Booking record does not exists."));
         }
     }
 
     @Transactional
-    public String deleteBooking(Booking booking) {
+    public ResponseEntity<Object> deleteBooking(Booking booking) {
         if(bookingRepository.existsById(booking.getId())){
             try {
-                //Booking bookingToBeDeleted  = bookingRepository.findById(booking.getId()).get();
-                Room associatedRoom = roomRepository.findById(bookingRepository.findById(booking.getId()).get().getRoomId()).get();
-                if(associatedRoom.getBookingIds().contains(booking.getId())){
-                    associatedRoom.getBookingIds().remove(Integer.valueOf(booking.getId()));
+                Booking bookingToBeDeleted  = bookingRepository.findById(booking.getId()).get();
+                Room associatedRoom = roomRepository.findById(bookingRepository.findById(bookingToBeDeleted.getId()).get().getRoomId()).get();
+                if(associatedRoom.getBookingIds().contains(bookingToBeDeleted.getId())){
+                    associatedRoom.getBookingIds().remove(Integer.valueOf(bookingToBeDeleted.getId()));
                     roomRepository.save(associatedRoom);
                 }
-                System.out.println("Booking record deleted: \n" + booking.toString());
-                bookingRepository.deleteById(booking.getId());
-                return "Booking record deleted successfully.";
+                bookingRepository.deleteById(bookingToBeDeleted.getId());
+                System.out.println("Booking record deleted: \n" + bookingToBeDeleted.toString());
+                return ResponseEntity.ok(bookingToBeDeleted);
             } catch (Exception e) {
                 throw e;
             }
         }
         else {
-            return "Booking record does not exists.";
+            return ResponseEntity.badRequest().body(new ErrorMessage("Booking record does not exists."));
+        }
+    }
+
+    public ResponseEntity<Object> searchBooking(Booking booking) {
+        if(bookingRepository.existsById(booking.getId())){
+            return ResponseEntity.ok(bookingRepository.findById(booking.getId()));
+        }
+        else{
+            return ResponseEntity.badRequest().body(new ErrorMessage("Booking record does not exists."));
         }
     }
 
@@ -149,7 +156,6 @@ public class BookingService {
             associatedRoom.getBookingIds().add(outputBooking.getId());
             roomRepository.save(associatedRoom);
         }
-
         return true;
     }
 
@@ -167,6 +173,9 @@ public class BookingService {
     private Boolean bookingDateValidation(Booking inputBooking) {
         Date currentBookingFrom = inputBooking.getBookFrom();
         Date currentBookingTo = inputBooking.getBookTo();
+        if(currentBookingFrom == null || currentBookingTo == null ){
+            return false;
+        }
         Boolean checkRange = currentBookingFrom.before(currentBookingTo);
         if (checkRange) {
             List<Integer> existedBookingIds = roomRepository.findById(inputBooking.getRoomId()).get().getBookingIds();
