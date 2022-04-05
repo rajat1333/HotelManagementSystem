@@ -179,6 +179,9 @@ public class BookingService {
         Boolean checkRange = currentBookingFrom.before(currentBookingTo);
         if (checkRange) {
             List<Integer> existedBookingIds = roomRepository.findById(inputBooking.getRoomId()).get().getBookingIds();
+            if(existedBookingIds.contains(inputBooking.getId())){
+                existedBookingIds.remove(Integer.valueOf(inputBooking.getId()));
+            }
             if(existedBookingIds.isEmpty() || existedBookingIds == null){
                 return true;
             }
