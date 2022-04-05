@@ -6,9 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import spartanbots.v01.entity.Amenity;
 import spartanbots.v01.service.AmenityService;
 
-import java.util.List;
-import java.util.Optional;
-
 @RestController
 public class AmenityController {
 

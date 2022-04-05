@@ -9,8 +9,6 @@ import spartanbots.v01.repository.AmenityRepository;
 
 import javax.transaction.Transactional;
 import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AmenityService {
@@ -63,8 +61,8 @@ public class AmenityService {
         if(amenityRepository.existsById(amenity.getId())){
             try {
                 Amenity amenityToBeDeleted = amenityRepository.findById(amenity.getId()).get();
-                System.out.println("Amenity record deleted: \n" + amenityToBeDeleted.toString());
                 amenityRepository.deleteById(amenityToBeDeleted.getId());
+                System.out.println("Amenity record deleted: \n" + amenityToBeDeleted.toString());
                 return ResponseEntity.ok(amenityToBeDeleted);
             } catch (Exception e) {
                 throw e;
