@@ -1,6 +1,7 @@
 package spartanbots.v01.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import spartanbots.v01.entity.Hotel;
 import spartanbots.v01.repository.HotelRepository;
@@ -72,6 +73,30 @@ public class HotelService {
         }
         else {
             return "Hotel record does not exists.";
+        }
+    }
+
+    @Transactional
+    public ResponseEntity<Hotel> addHotel(Hotel hotel) {
+        if(hotelRepository.existsById(hotel.getId())){
+            try {
+                System.out.println("Hotel with given Id already Present: \n" + hotel.toString());
+                hotelRepository.deleteById(hotel.getId());
+
+                //return ResponseEntity.ok(""); //todo : add return format
+                return null;
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        else {
+            try {
+                hotelRepository.save(hotel);
+                List<Hotel> hotels= hotelRepository.findHotelByName(hotel.getName());
+                return ResponseEntity.ok(hotels.get(0));
+            } catch (Exception e) {
+                throw e;
+            }
         }
     }
 
