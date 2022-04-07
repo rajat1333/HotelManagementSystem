@@ -23,4 +23,13 @@ public class BillService {
 
     @Autowired
     private AmenityRepository amenityRepository;
+
+    @Autowired
+    public BillService(BillRepository billRepository, BookingRepository bookingRepository, HotelRepository hotelRepository, RoomRepository roomRepository, AmenityRepository amenityRepository) {
+        this.billRepository = billRepository;
+        this.bookingRepository = bookingRepository;
+        this.hotelRepository = hotelRepository;
+        this.roomRepository = roomRepository;
+        this.amenityRepository = amenityRepository;
+    }
 }
