@@ -14,17 +14,25 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
+  - CircleBar (0.8.2)
+  - CollectionViewPagingLayout (1.1.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
+  - CircleBar
+  - CollectionViewPagingLayout
 
 SPEC REPOS:
   trunk:
     - AFNetworking
+    - CircleBar
+    - CollectionViewPagingLayout
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  CircleBar: 8e17d2090e6e319b518010535a3145fb8fd68c22
+  CollectionViewPagingLayout: 2f8d50683bae57ca88f47fa4ab0195c9079582cf
 
-PODFILE CHECKSUM: f9c216268b090a5b7771c140757c62009f35f4ca
+PODFILE CHECKSUM: 6c96c00bb99fd73fa35c27011b54e9d9ef8cca6e
 
 COCOAPODS: 1.11.2

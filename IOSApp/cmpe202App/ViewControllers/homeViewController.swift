@@ -8,16 +8,38 @@
 import UIKit
 class homeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
     
+    
     @IBOutlet weak var homeTableView : UITableView!
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 10.0, *) {
+            homeTableView.refreshControl = refreshControl
+        } else {
+            homeTableView.addSubview(refreshControl)
+        }
+        
+        refreshControl.tintColor = UIColor(red:0.25, green:0.72, blue:0.85, alpha:1.0)
+        refreshControl.addTarget(self, action: #selector(refreshHotelsTableView(_:)), for: .valueChanged)
+        
+        homeTableView.dataSource=self
+        homeTableView.delegate=self
+        homeTableView.reloadData()
         homeTableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeTableViewCell")
-        // Do any additional setup after loading the view.
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
        
-    
+    @objc private func refreshHotelsTableView(_ sender: Any) {
+        // Fetch Weather Data
+        fetchHotelData()
+    }
+    private func fetchHotelData() {
+        self.refreshControl.endRefreshing()
+
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
@@ -61,6 +83,16 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
         else{
             return 170
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "HotelDetailViewController") as! HotelDetailViewController
+            self.present(vc, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "HotelDetailViewController") as! HotelDetailViewController
+            self.present(vc, animated: true, completion: nil)
     }
     
 
