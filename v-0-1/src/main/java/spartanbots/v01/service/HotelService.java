@@ -81,6 +81,30 @@ public class HotelService {
         }
     }
 
+    @Transactional
+    public ResponseEntity<Hotel> addHotel(Hotel hotel) {
+        if(hotelRepository.existsById(hotel.getId())){
+            try {
+                System.out.println("Hotel with given Id already Present: \n" + hotel.toString());
+                //hotelRepository.deleteById(hotel.getId());
+
+                //return ResponseEntity.ok(""); //todo : add return format
+                return null;
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+        else {
+            try {
+                hotelRepository.save(hotel);
+                List<Hotel> hotels= hotelRepository.findHotelByName(hotel.getName());
+                return ResponseEntity.ok(hotels.get(0));
+            } catch (Exception e) {
+                throw e;
+            }
+        }
+    }
+
     private void hotelRegularization(Hotel inputHotel, Hotel outputHotel) {
         if (inputHotel.getName() != null) {
             outputHotel.setName(inputHotel.getName());
