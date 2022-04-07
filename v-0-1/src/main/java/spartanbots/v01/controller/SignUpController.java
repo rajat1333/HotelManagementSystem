@@ -16,7 +16,7 @@ public class SignUpController {
     private SignUpService signUpService;
 
     @RequestMapping(value = "signup", method = RequestMethod.POST)
-    public ResponseEntity<Customer> signup(@RequestBody Customer customer){
+    public ResponseEntity<Object> signup(@RequestBody Customer customer){
         return signUpService.signup(customer);
     }
 }

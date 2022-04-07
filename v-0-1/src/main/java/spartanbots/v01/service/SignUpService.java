@@ -3,6 +3,7 @@ package spartanbots.v01.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import spartanbots.v01.entity.ErrorMessage;
 import spartanbots.v01.entity.Users.Customer;
 import spartanbots.v01.repository.CustomerRepository;
 
@@ -16,13 +17,21 @@ public class SignUpService {
     private CustomerRepository customerRepository;
 
     @Transactional
-    public ResponseEntity<Customer> signup(Customer customer) {
+    public ResponseEntity<Object> signup(Customer customer) {
         try {
-            customerRepository.save(customer);
+            //First check if the email is already used by other user
             List<Customer> user= customerRepository.findByEmail(customer.getEmail());
-            return ResponseEntity.ok(user.get(0));
+
+            //If email already registered return error message
+            if(user.size()>=1)
+            {
+                return ResponseEntity.badRequest().body(new ErrorMessage("Email is already registered with us"));
+            }
+            customerRepository.save(customer);
+            List<Customer> currentUser= customerRepository.findByEmail(customer.getEmail());
+            return ResponseEntity.ok(currentUser.get(0));
         } catch (Exception e) {
-            throw e;
+            return ResponseEntity.badRequest().body(new ErrorMessage(e.getMessage()));
         }
     }
 }
