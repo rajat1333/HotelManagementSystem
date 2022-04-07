@@ -88,6 +88,12 @@ public class RoomService {
         }
     }
 
+    public ResponseEntity<Object> roomAvailability(Room room) {
+
+            return ResponseEntity.badRequest().body(new ErrorMessage("Room not available"));
+
+    }
+
     private void roomRegularization(Room inputRoom, Room outputRoom) {
 
         if (inputRoom.getName() != null) {

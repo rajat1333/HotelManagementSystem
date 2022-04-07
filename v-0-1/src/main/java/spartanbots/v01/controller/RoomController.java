@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import spartanbots.v01.entity.Room;
+import spartanbots.v01.entity.Search;
 import spartanbots.v01.service.RoomService;
 
 @RestController
@@ -40,5 +41,10 @@ public class RoomController {
     @RequestMapping(value = "searchroom", method = RequestMethod.POST)
     public ResponseEntity<Object> searchRoom(@RequestBody Room room){
         return roomService.searchRoom(room);
+    }
+
+    @RequestMapping(value = "roomAvailability", method = RequestMethod.POST)
+    public ResponseEntity<Object> roomAvailability(@RequestBody Room room){
+        return roomService.roomAvailability(room);
     }
 }
