@@ -6,6 +6,10 @@
 //
 
 import UIKit
+import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 class ViewController: UIViewController {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var splashImageView: UIImageView!
@@ -217,7 +221,40 @@ class ViewController: UIViewController {
         )
     }
     @IBAction func loginAction(_ sender: Any) {
+        if((self.emailTextField.text != nil) || (self.passwordTextField.text != nil)){
+            login()
+        }
+        else{
+            self.showToast(message: "Email and Password are required", font: .systemFont(ofSize: 12.0))
+
+        }
+    }
+    
+    func login(){
         
+        let semaphore = DispatchSemaphore (value: 0)
+
+        let parameters = "{\n    \"email\" : \(self.emailTextField.text),\n    \"password\" : \(self.passwordTextField.text)\n}"
+        let postData = parameters.data(using: .utf8)
+
+        var request = URLRequest(url: URL(string: "\(globals.api)login")!,timeoutInterval: Double.infinity)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        request.httpMethod = "POST"
+        request.httpBody = postData
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+          guard let data = data else {
+            print(String(describing: error))
+            semaphore.signal()
+            return
+          }
+          print(String(data: data, encoding: .utf8)!)
+          semaphore.signal()
+        }
+
+        task.resume()
+        semaphore.wait()
     }
     @IBAction func signUpAction(_ sender: Any) {
         
@@ -240,8 +277,26 @@ class ViewController: UIViewController {
     }
 }
 
+extension UIViewController {
+    func showToast(message : String, font: UIFont) {
 
-
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 150, height: 35))
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = font
+        toastLabel.textAlignment = .center;
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10;
+        toastLabel.clipsToBounds  =  true
+        self.view.addSubview(toastLabel)
+        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
+             toastLabel.alpha = 0.0
+        }, completion: {(isCompleted) in
+            toastLabel.removeFromSuperview()
+        })
+    }
+}
 
 
 

@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 class globals {
+    
+    static let api = "http://2747-2601-646-8200-5d60-b566-a46c-610f-626d.ngrok.io/"
     public static func X(view: UIView) -> CGFloat? {
         return view.frame.origin.x
     }
@@ -53,4 +55,6 @@ class shadowView: UIView {
 
        layer.insertSublayer(shadowLayer, at: 0)
     }
+    
 }
+
