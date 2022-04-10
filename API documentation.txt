@@ -1,2 +1,23 @@
 Login Request: https://documenter.getpostman.com/view/19823054/UVyxNt4Y
 SignUp Request : https://documenter.getpostman.com/view/19823054/UVyxNt4Z
+
+Read Booking Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Search Booking Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Create Booking Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Update Booking Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Delete Booking Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Read Hotel Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Search Hotel Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Create Hotel Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Update Hotel Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Delete Hotel Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Read Room Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Search Room Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Create Room Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Update Room Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Delete Room Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Read Amenity Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Search Amenity Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Create Amenity Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Update Amenity Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
+Delete Amenity Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
