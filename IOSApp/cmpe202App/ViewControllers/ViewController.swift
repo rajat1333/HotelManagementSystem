@@ -221,41 +221,71 @@ class ViewController: UIViewController {
         )
     }
     @IBAction func loginAction(_ sender: Any) {
-        if((self.emailTextField.text != nil) || (self.passwordTextField.text != nil)){
-            login()
+        if((self.emailTextField.text!.isEmpty) || (self.passwordTextField.text!.isEmpty)){
+            self.showToast(message: "Email and Password are required", font: .systemFont(ofSize: 12.0))
+            
         }
         else{
-            self.showToast(message: "Email and Password are required", font: .systemFont(ofSize: 12.0))
+            login()
 
         }
     }
     
     func login(){
-        
-        let semaphore = DispatchSemaphore (value: 0)
+        let url = URL(string: "\(globals.api)login")!
+        var request = URLRequest(url: url,timeoutInterval: Double.infinity)
+        let json: [String: Any] = ["email": "\(self.emailTextField.text!)",
+                                   "password": "\(self.passwordTextField.text!)"]
 
-        let parameters = "{\n    \"email\" : \(self.emailTextField.text),\n    \"password\" : \(self.passwordTextField.text)\n}"
-        let postData = parameters.data(using: .utf8)
-
-        var request = URLRequest(url: URL(string: "\(globals.api)login")!,timeoutInterval: Double.infinity)
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
         request.httpMethod = "POST"
-        request.httpBody = postData
+        request.httpBody = jsonData
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-          guard let data = data else {
-            print(String(describing: error))
-            semaphore.signal()
-            return
-          }
-          print(String(data: data, encoding: .utf8)!)
-          semaphore.signal()
+            guard let data = data,
+            let response = response as? HTTPURLResponse,
+            error == nil else {
+                // check for fundamental networking error
+               
+
+                print("error", error ?? "Unknown error")
+                return
+            }
+
+            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                if response.statusCode == 400 {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data) as! Dictionary<String, AnyObject>
+                            print(json)
+                        DispatchQueue.main.async { () -> Void in
+                            self.showToast(message: json["message"] as! String, font: .systemFont(ofSize: 12.0))
+                        }
+
+                        } catch {
+                            print("error")
+                        }
+                    
+                }
+                print(String(data: data, encoding: .utf8))
+                return
+            }
+            DispatchQueue.main.async { () -> Void in
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let mainTabBarController = storyboard.instantiateViewController(identifier: "SHCircleBarController")
+                mainTabBarController.modalPresentationStyle = .fullScreen
+                mainTabBarController.modalTransitionStyle = .partialCurl
+                self.navigationController?.pushViewController(mainTabBarController, animated: true)
+            }
         }
 
         task.resume()
-        semaphore.wait()
+
     }
+    
     @IBAction func signUpAction(_ sender: Any) {
         
     }
@@ -280,14 +310,15 @@ class ViewController: UIViewController {
 extension UIViewController {
     func showToast(message : String, font: UIFont) {
 
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 150, height: 35))
-        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 100, y: 60, width: 200, height: 40))
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.9)
         toastLabel.textColor = UIColor.white
         toastLabel.font = font
         toastLabel.textAlignment = .center;
         toastLabel.text = message
         toastLabel.alpha = 1.0
         toastLabel.layer.cornerRadius = 10;
+        toastLabel.numberOfLines=2
         toastLabel.clipsToBounds  =  true
         self.view.addSubview(toastLabel)
         UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {

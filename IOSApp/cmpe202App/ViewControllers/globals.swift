@@ -10,7 +10,7 @@ import UIKit
 
 class globals {
     
-    static let api = "http://2747-2601-646-8200-5d60-b566-a46c-610f-626d.ngrok.io/"
+    static let api = "https://52f8-2601-646-8200-5d60-8c76-53b9-31d-2174.ngrok.io/"
     public static func X(view: UIView) -> CGFloat? {
         return view.frame.origin.x
     }
