@@ -113,6 +113,12 @@ public class HotelService {
         if (inputHotel.getCity() != null) {
             outputHotel.setCity(inputHotel.getCity());
         }
+        if (inputHotel.getBasePrice() > 0) {
+            outputHotel.setBasePrice(inputHotel.getBasePrice());
+        }
+        if (inputHotel.getImageURL() != null) {
+            outputHotel.setImageURL(inputHotel.getImageURL());
+        }
         if (inputHotel.getMaxFloor() != null && inputHotel.getMaxFloor() > 0) {
             outputHotel.setMaxFloor(inputHotel.getMaxFloor());
         }
