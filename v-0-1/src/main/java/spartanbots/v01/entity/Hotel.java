@@ -18,18 +18,20 @@ public class Hotel {
     @Column(name = "city")
     private String city;
 
+    @Column(name = "basePrice")
+    private float basePrice;
+
+    @Column(name = "imageURL")
+    private String imageURL;
+
     @Column(name = "maxFloor")
     private Integer maxFloor;
 
     public Hotel() {}
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setId(int id) { this.id = id; }
 
     public String getName() {
         return name;
@@ -47,6 +49,14 @@ public class Hotel {
         this.city = city;
     }
 
+    public float getBasePrice() { return basePrice; }
+
+    public void setBasePrice(float basePrice) { this.basePrice = basePrice; }
+
+    public String getImageURL() { return imageURL; }
+
+    public void setImageURL(String imageURL) { this.imageURL = imageURL; }
+
     public Integer getMaxFloor() {
         return maxFloor;
     }
@@ -61,6 +71,8 @@ public class Hotel {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", city='" + city + '\'' +
+                ", basePrice=" + basePrice +
+                ", imageURL='" + imageURL + '\'' +
                 ", maxFloor=" + maxFloor +
                 '}';
     }
