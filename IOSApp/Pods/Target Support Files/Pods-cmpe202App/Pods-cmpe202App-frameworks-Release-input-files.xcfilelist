@@ -2,3 +2,4 @@ ${PODS_ROOT}/Target Support Files/Pods-cmpe202App/Pods-cmpe202App-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework
 ${BUILT_PRODUCTS_DIR}/CircleBar/CircleBar.framework
 ${BUILT_PRODUCTS_DIR}/CollectionViewPagingLayout/CollectionViewPagingLayout.framework
+${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework

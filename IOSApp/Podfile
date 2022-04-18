@@ -7,6 +7,7 @@ target 'cmpe202App' do
   pod 'AFNetworking', '~> 3.0'
   pod 'CircleBar'
   pod 'CollectionViewPagingLayout'
+  pod 'NVActivityIndicatorView'
   # Pods for cmpe202App
 
   target 'cmpe202AppTests' do

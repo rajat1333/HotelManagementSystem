@@ -6,12 +6,13 @@
 //
 
 import UIKit
-
+import NVActivityIndicatorView
 class SignUpViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var signUpButton: UIButton!
+    @IBOutlet weak var activityIndicatorView:NVActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     }
     
     func signUp(){
+        activityIndicatorView.startAnimating()
         let url = URL(string: "\(globals.api)signup")!
         var request = URLRequest(url: url,timeoutInterval: Double.infinity)
         let json: [String: Any] = ["email": "\(self.emailTextField.text!)",
@@ -62,6 +64,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                         let json = try JSONSerialization.jsonObject(with: data) as! Dictionary<String, AnyObject>
                             print(json)
                         DispatchQueue.main.async { () -> Void in
+                            self.activityIndicatorView.stopAnimating()
                             self.showToast(message: json["message"] as! String, font: .systemFont(ofSize: 12.0))
                         }
 
@@ -75,7 +78,8 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             }
             DispatchQueue.main.async { () -> Void in
                 self.showToast(message: "Account Created", font: .systemFont(ofSize: 12.0))
-                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                self.activityIndicatorView.stopAnimating()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                     self.dismiss(animated: true, completion: nil)
                 }
                 
