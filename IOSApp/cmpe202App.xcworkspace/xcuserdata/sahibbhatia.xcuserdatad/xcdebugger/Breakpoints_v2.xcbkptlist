@@ -56,7 +56,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "247"
                   endingLineNumber = "247"
-                  offsetFromSymbolStart = "460">
+                  offsetFromSymbolStart = "424">
                </Location>
                <Location
                   uuid = "E2F41FBF-5DFE-4D42-8AB8-70A6B427E625 - f7ef17abc367ce89"
@@ -71,7 +71,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "247"
                   endingLineNumber = "247"
-                  offsetFromSymbolStart = "508">
+                  offsetFromSymbolStart = "472">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -121,6 +121,22 @@
             startingLineNumber = "257"
             endingLineNumber = "257"
             landmarkName = "login()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6625390B-A72A-4416-A891-EB4F12F57702"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cmpe202App/ViewControllers/SignUpViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "textFieldShouldReturn(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
