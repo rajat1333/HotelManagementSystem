@@ -38,8 +38,8 @@
             filePath = "cmpe202App/ViewControllers/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "247"
-            endingLineNumber = "247"
+            startingLineNumber = "251"
+            endingLineNumber = "251"
             landmarkName = "login()"
             landmarkType = "7">
             <Locations>
@@ -86,8 +86,8 @@
             filePath = "cmpe202App/ViewControllers/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "246"
-            endingLineNumber = "246"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
             landmarkName = "login()"
             landmarkType = "7">
          </BreakpointContent>
@@ -102,8 +102,8 @@
             filePath = "cmpe202App/ViewControllers/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
+            startingLineNumber = "253"
+            endingLineNumber = "253"
             landmarkName = "login()"
             landmarkType = "7">
          </BreakpointContent>
@@ -118,8 +118,8 @@
             filePath = "cmpe202App/ViewControllers/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
             landmarkName = "login()"
             landmarkType = "7">
          </BreakpointContent>
@@ -134,8 +134,8 @@
             filePath = "cmpe202App/ViewControllers/SignUpViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "textFieldShouldReturn(_:)"
             landmarkType = "7">
          </BreakpointContent>

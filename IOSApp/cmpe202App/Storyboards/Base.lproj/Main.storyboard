@@ -627,7 +627,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TLc-Fs-hbx">
-                                        <rect key="frame" x="20" y="127" width="374" height="305"/>
+                                        <rect key="frame" x="20" y="127" width="374" height="449"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create your account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwP-x1-VcG">
@@ -710,11 +710,23 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8S1-Fz-4uE" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="107" y="348" width="200" height="200"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballRotateChase"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" systemColor="systemOrangeColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0CA-gK-j0V"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="8S1-Fz-4uE" id="iNx-Kv-KZT"/>
                         <outlet property="confirmPasswordTextField" destination="lWt-Hf-Ws3" id="CCu-LR-6E4"/>
                         <outlet property="emailTextField" destination="OFO-hI-qPD" id="2nv-Rq-HlQ"/>
                         <outlet property="passwordTextField" destination="zqk-X0-Ytd" id="AyJ-lA-8S0"/>
@@ -862,21 +874,27 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="elf-da-l1g">
+                                                    <textField opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="elf-da-l1g">
                                                         <rect key="frame" x="40" y="240" width="333" height="34"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                         <color key="backgroundColor" red="0.91047741085279821" green="0.72579505386429299" blue="0.9247405360919192" alpha="0.34364652317880795" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <color key="textColor" red="0.44443665570000002" green="0.1214687523" blue="0.65428204489999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="BYZ-38-t0r" id="YGz-Gw-TVu"/>
+                                                        </connections>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="kFQ-3c-UWw">
+                                                    <textField opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="kFQ-3c-UWw">
                                                         <rect key="frame" x="40" y="294" width="333" height="34"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                         <color key="backgroundColor" red="0.90927310769637959" green="0.72483503304020358" blue="0.92351736686969699" alpha="0.34064569536423839" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <color key="textColor" red="0.44443665570000002" green="0.1214687523" blue="0.65428204489999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" returnKeyType="done" textContentType="password"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="BYZ-38-t0r" id="9U8-WL-uJd"/>
+                                                        </connections>
                                                     </textField>
                                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="adr-GV-gQq">
                                                         <rect key="frame" x="107" y="353" width="200" height="48"/>
@@ -935,7 +953,7 @@
                                                         <rect key="frame" x="32" y="472" width="349" height="39"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Don't have an account? Create Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ar6-8q-1D4">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Don't have an account? SignUp Here" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ar6-8q-1D4">
                                                                 <rect key="frame" x="0.0" y="0.0" width="349" height="39"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
@@ -1021,6 +1039,14 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ehT-yG-UMv" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                        <rect key="frame" x="117" y="358" width="180" height="180"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballRotateChase"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -1030,6 +1056,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="ah4-3L-g1D"/>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="ehT-yG-UMv" id="rJl-dK-RyM"/>
                         <outlet property="benImageView" destination="kPD-TX-ZSh" id="GHw-8h-4jZ"/>
                         <outlet property="buildingView" destination="4hn-At-r1y" id="UsV-F5-ok1"/>
                         <outlet property="burjImageView" destination="6kB-Rs-Uqj" id="9wW-HJ-Gfs"/>
@@ -1061,7 +1088,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-835" y="-1840"/>
+            <point key="canvasLocation" x="-836.23188405797111" y="-1840.1785714285713"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="kra-ym-Oeo">

@@ -7,10 +7,11 @@
 
 import UIKit
 import Foundation
+import NVActivityIndicatorView
 #if canImport(FoundationNetworking)
 import FoundationNetworking
 #endif
-class ViewController: UIViewController {
+class ViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var splashImageView: UIImageView!
     @IBOutlet weak var buttonView: UIView!
@@ -40,7 +41,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var forgotButtonView: UIView!
     @IBOutlet weak var createButtonView: UIView!
     @IBOutlet weak var guestButtonView: UIView!
-    
+    @IBOutlet weak var activityIndicatorView:NVActivityIndicatorView!
     override func viewWillAppear(_ animated: Bool) {
         //animation frames set beginning
         self.mainTextLabel.frame = CGRect(x: -self.mainTextLabel.frame.width , y: globals.Y(view: self.mainTextLabel)!, width: globals.WIDTH(view: self.mainTextLabel)!, height: globals.HEIGHT(view: self.mainTextLabel)!)
@@ -113,6 +114,7 @@ class ViewController: UIViewController {
         self.benImageView.frame = CGRect(x: self.benImageView.frame.origin.x , y: self.gradientView.frame.size.height, width: self.benImageView.frame.width, height: self.benImageView.frame.height)
         
         self.tokyoImageView.frame = CGRect(x: self.tokyoImageView.frame.origin.x , y: self.gradientView.frame.size.height, width: self.tokyoImageView.frame.width, height: self.tokyoImageView.frame.height)
+
     }
 
     @IBAction func letsStartAction(_ sender: Any) {
@@ -226,12 +228,14 @@ class ViewController: UIViewController {
             
         }
         else{
+            self.view.endEditing(true)
             login()
 
         }
     }
     
     func login(){
+        activityIndicatorView.startAnimating()
         let url = URL(string: "\(globals.api)login")!
         var request = URLRequest(url: url,timeoutInterval: Double.infinity)
         let json: [String: Any] = ["email": "\(self.emailTextField.text!)",
@@ -248,8 +252,6 @@ class ViewController: UIViewController {
             let response = response as? HTTPURLResponse,
             error == nil else {
                 // check for fundamental networking error
-               
-
                 print("error", error ?? "Unknown error")
                 return
             }
@@ -261,8 +263,10 @@ class ViewController: UIViewController {
                     do {
                         let json = try JSONSerialization.jsonObject(with: data) as! Dictionary<String, AnyObject>
                             print(json)
-                        DispatchQueue.main.async { () -> Void in
+                        DispatchQueue.main.async { [self] () -> Void in
                             self.showToast(message: json["message"] as! String, font: .systemFont(ofSize: 12.0))
+                            self.activityIndicatorView.stopAnimating()
+
                         }
 
                         } catch {
@@ -276,6 +280,7 @@ class ViewController: UIViewController {
             DispatchQueue.main.async { () -> Void in
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let mainTabBarController = storyboard.instantiateViewController(identifier: "SHCircleBarController")
+                self.activityIndicatorView.stopAnimating()
                 mainTabBarController.modalPresentationStyle = .fullScreen
                 mainTabBarController.modalTransitionStyle = .partialCurl
                 self.navigationController?.pushViewController(mainTabBarController, animated: true)
@@ -301,6 +306,21 @@ class ViewController: UIViewController {
         mainTabBarController.modalTransitionStyle = .partialCurl
         
         navigationController?.pushViewController(mainTabBarController, animated: true)
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let nextTag = textField.tag + 1
+        // Try to find next responder
+        let nextResponder = textField.superview?.viewWithTag(nextTag) as UIResponder?
+
+        if nextResponder != nil {
+            // Found next responder, so set it
+            nextResponder?.becomeFirstResponder()
+        } else {
+            // Not found, so remove keyboard
+            textField.resignFirstResponder()
+        }
+
+        return false
     }
 }
 
