@@ -17,6 +17,7 @@
 		CB5BB76527D015AE00E69C9C /* HomeCollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5BB76427D015AE00E69C9C /* HomeCollectionTableViewCell.swift */; };
 		CB5BB76727D015D300E69C9C /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5BB76627D015D300E69C9C /* HomeCollectionViewCell.swift */; };
 		CB68038927FCF6E200B244EC /* BookingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68038827FCF6E200B244EC /* BookingCollectionViewCell.swift */; };
+		CBAFE49C280CB09B002A6472 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAFE49B280CB09B002A6472 /* SignUpViewController.swift */; };
 		CBCA1CD627CB141D009F9DF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA1CD527CB141D009F9DF3 /* AppDelegate.swift */; };
 		CBCA1CDA27CB141D009F9DF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA1CD927CB141D009F9DF3 /* ViewController.swift */; };
 		CBCA1CDD27CB141D009F9DF3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CBCA1CDB27CB141D009F9DF3 /* Main.storyboard */; };
@@ -63,6 +64,7 @@
 		CB5BB76427D015AE00E69C9C /* HomeCollectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionTableViewCell.swift; sourceTree = "<group>"; };
 		CB5BB76627D015D300E69C9C /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		CB68038827FCF6E200B244EC /* BookingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCollectionViewCell.swift; sourceTree = "<group>"; };
+		CBAFE49B280CB09B002A6472 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		CBCA1CD227CB141D009F9DF3 /* cmpe202App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cmpe202App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBCA1CD527CB141D009F9DF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CBCA1CD927CB141D009F9DF3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				CBEB2ECA27FCA91300B574F6 /* HotelDetailViewController.swift */,
 				CBEB2ECC27FCEDBC00B574F6 /* BookingsViewController.swift */,
 				CB68038827FCF6E200B244EC /* BookingCollectionViewCell.swift */,
+				CBAFE49B280CB09B002A6472 /* SignUpViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				CBCA1CE027CB141D009F9DF3 /* cmpe202App.xcdatamodeld in Sources */,
 				CB68038927FCF6E200B244EC /* BookingCollectionViewCell.swift in Sources */,
 				CBEB2ECD27FCEDBC00B574F6 /* BookingsViewController.swift in Sources */,
+				CBAFE49C280CB09B002A6472 /* SignUpViewController.swift in Sources */,
 				CB5BB75F27CE9F3700E69C9C /* homeViewController.swift in Sources */,
 				CBCA1CD627CB141D009F9DF3 /* AppDelegate.swift in Sources */,
 				CBEB2ECB27FCA91300B574F6 /* HotelDetailViewController.swift in Sources */,

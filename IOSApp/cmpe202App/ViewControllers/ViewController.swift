@@ -287,16 +287,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func signUpAction(_ sender: Any) {
-        
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
+            self.present(vc, animated: true, completion: nil)
     }
     @IBAction func forgotAction(_ sender: Any) {
         
     }
     @IBAction func guestAction(_ sender: Any) {
-//        if let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SHCircleBarController") as? SHCircleBarController {
-                //viewController.newsObj = newsObj
-            //self.navigationController?.pushViewController(viewController, animated: true)
-        //}
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let mainTabBarController = storyboard.instantiateViewController(identifier: "SHCircleBarController")
