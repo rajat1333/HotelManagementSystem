@@ -37,8 +37,7 @@ public class SearchService {
         if(hotelRepository.findByCityRegexMatch(search.getDestinationName()).size()>0)
         {
             List<Hotel> hotelList=hotelRepository.findByCityRegexMatch(search.getDestinationName());
-            int hotelIndex=0;
-            List<Integer> indexesToRemove= new ArrayList<>();
+            List<Integer> hotelIdToRemove= new ArrayList<>();
             for (Hotel hotel:hotelList) {
                 boolean removeHotelfromSearchResult=true;
                 List<Room> roomList=roomRepository.findRoomByHotelId(hotel.getId());
@@ -48,19 +47,20 @@ public class SearchService {
                         removeHotelfromSearchResult=false;
                     }
                 }
-                if (!removeHotelfromSearchResult)
+                if (removeHotelfromSearchResult==true)
                 {
-                    indexesToRemove.add(hotelIndex);
+                      hotelIdToRemove.add(hotel.getId());
                 }
             }
-            indexesToRemove.forEach((i)-> hotelList.remove(i));
+            for(int i=0;i<hotelIdToRemove.size();i++)
+            {
+                final int j=i;
+                hotelList.removeIf(h -> h.getId() == hotelIdToRemove.get(j));
+            }
             return ResponseEntity.ok(hotelList);
         }
-        else if(hotelRepository.findByCityRegexMatch(search.getDestinationName()).isEmpty())
+        else
         {
-            return ResponseEntity.badRequest().body(new ErrorMessage("Sorry, we don't have any hotels available for your search"));
-        }
-        else{
             return ResponseEntity.badRequest().body(new ErrorMessage("Sorry, we don't have any hotels available for your search"));
         }
     }

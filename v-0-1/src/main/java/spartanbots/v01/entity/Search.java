@@ -1,11 +1,15 @@
 package spartanbots.v01.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Search {
     private String destinationName;
     private String hotelName;
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date startDate;
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date endDate;
 
     public String getDestinationName() {

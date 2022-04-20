@@ -188,6 +188,8 @@ public class BookingService {
             for (Integer existedBookingId : existedBookingIds) {
                 Date existedBookingFrom = bookingRepository.findById(existedBookingId).get().getBookFrom();
                 Date existedBookingTo = bookingRepository.findById(existedBookingId).get().getBookTo();
+                System.out.println(existedBookingFrom+" "+existedBookingTo);
+                System.out.println(currentBookingFrom+" "+currentBookingTo);
                 Boolean before = currentBookingFrom.before(existedBookingFrom);
                 Boolean checkBefore = currentBookingTo.before(existedBookingFrom) || currentBookingTo.equals(existedBookingFrom);
                 Boolean after = currentBookingTo.after(existedBookingTo);
