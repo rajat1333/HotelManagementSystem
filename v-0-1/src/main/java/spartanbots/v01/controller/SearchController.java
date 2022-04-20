@@ -24,5 +24,8 @@ public class SearchController {
         return searchService.getAvailableHotels(search);
     }
 
-
+    @RequestMapping(value = "getAvailableRooms", method = RequestMethod.POST)
+    public ResponseEntity<Object> getAvailableRooms(@RequestBody Search search) {
+        return searchService.getAvailableRooms(search);
+    }
 }

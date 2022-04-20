@@ -39,15 +39,15 @@ public class SearchService {
             List<Hotel> hotelList=hotelRepository.findByCityRegexMatch(search.getDestinationName());
             List<Integer> hotelIdToRemove= new ArrayList<>();
             for (Hotel hotel:hotelList) {
-                boolean removeHotelfromSearchResult=true;
+                boolean removeHotelfromResult=true;
                 List<Room> roomList=roomRepository.findRoomByHotelId(hotel.getId());
                     for (Room room:roomList) {
                     if(isRoomAvailable(search,room))
                     {
-                        removeHotelfromSearchResult=false;
+                        removeHotelfromResult=false;
                     }
                 }
-                if (removeHotelfromSearchResult==true)
+                if (removeHotelfromResult==true)
                 {
                       hotelIdToRemove.add(hotel.getId());
                 }
@@ -64,6 +64,40 @@ public class SearchService {
             return ResponseEntity.badRequest().body(new ErrorMessage("Sorry, we don't have any hotels available for your search"));
         }
     }
+
+    public ResponseEntity<Object> getAvailableRooms(Search search) {
+        if(!roomRepository.findRoomByHotelId(search.getHotelId()).isEmpty())
+        {
+            List<Room> roomList=roomRepository.findRoomByHotelId(search.getHotelId());
+            List<Integer> roomIdToRemove= new ArrayList<>();
+            boolean removeRoomfromResult=true;
+            for (Room room:roomList) {
+                if(!isRoomAvailable(search,room))
+                {
+                    roomIdToRemove.add(room.getId());
+                }
+            }
+            for(int i=0;i<roomIdToRemove.size();i++)
+            {
+                final int j=i;
+                roomList.removeIf(h -> h.getId() == roomIdToRemove.get(j));
+            }
+            if(roomList.isEmpty())
+            {
+                return ResponseEntity.badRequest().body(new ErrorMessage("No rooms available"));
+            }
+            else
+            {
+                return ResponseEntity.ok(roomList);
+            }
+        }
+        else
+        {
+            return ResponseEntity.badRequest().body(new ErrorMessage("Hotel Record not found"));
+        }
+    }
+
+
 
     private Boolean isRoomAvailable(Search search, Room room) {
         Date currentBookingFrom = search.getStartDate();

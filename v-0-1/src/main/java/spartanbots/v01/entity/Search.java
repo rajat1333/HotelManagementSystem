@@ -6,9 +6,12 @@ import java.util.Date;
 
 public class Search {
     private String destinationName;
-    private String hotelName;
+
+    private int hotelId;
+
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date startDate;
+
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date endDate;
 
@@ -18,14 +21,6 @@ public class Search {
 
     public void setDestinationName(String destinationName) {
         this.destinationName = destinationName;
-    }
-
-    public String getHotelName() {
-        return hotelName;
-    }
-
-    public void setHotelName(String hotelName) {
-        this.hotelName = hotelName;
     }
 
     public Date getStartDate() {
@@ -42,5 +37,13 @@ public class Search {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public int getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(int hotelId) {
+        this.hotelId = hotelId;
     }
 }
