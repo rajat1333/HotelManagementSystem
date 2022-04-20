@@ -14,6 +14,9 @@ PODS:
   - AFNetworking/Serialization (3.2.1)
   - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
+  - Alamofire (5.6.1)
+  - AlamofireImage (4.2.0):
+    - Alamofire (~> 5.4)
   - CircleBar (0.8.2)
   - CollectionViewPagingLayout (1.1.0)
   - NVActivityIndicatorView (5.1.1):
@@ -22,6 +25,8 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
+  - Alamofire
+  - AlamofireImage
   - CircleBar
   - CollectionViewPagingLayout
   - NVActivityIndicatorView
@@ -29,16 +34,20 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AFNetworking
+    - Alamofire
+    - AlamofireImage
     - CircleBar
     - CollectionViewPagingLayout
     - NVActivityIndicatorView
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
+  Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
+  AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
   CircleBar: 8e17d2090e6e319b518010535a3145fb8fd68c22
   CollectionViewPagingLayout: 2f8d50683bae57ca88f47fa4ab0195c9079582cf
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
 
-PODFILE CHECKSUM: 4e6f4e0c863a4052dc44cbfa7b6c2442826206c8
+PODFILE CHECKSUM: 326a7800c524c3328f4d6332975d99ee02f132f2
 
 COCOAPODS: 1.11.2

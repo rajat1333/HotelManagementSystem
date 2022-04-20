@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class HomeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var mainView: UIView!
@@ -13,6 +14,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var gradientImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
+
 
     
 }

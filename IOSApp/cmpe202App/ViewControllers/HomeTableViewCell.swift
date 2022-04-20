@@ -6,9 +6,16 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class HomeTableViewCell: UITableViewCell {
+    @IBOutlet weak var hotelName : UILabel!
+    @IBOutlet weak var location : UILabel!
+    @IBOutlet weak var hotelImage : UIImageView!
+    @IBOutlet weak var price : UILabel!
 
+
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
