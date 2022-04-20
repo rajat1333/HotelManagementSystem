@@ -8,6 +8,8 @@ target 'cmpe202App' do
   pod 'CircleBar'
   pod 'CollectionViewPagingLayout'
   pod 'NVActivityIndicatorView'
+  pod 'Alamofire'
+  pod 'AlamofireImage'
   # Pods for cmpe202App
 
   target 'cmpe202AppTests' do

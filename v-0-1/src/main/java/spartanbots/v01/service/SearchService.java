@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import spartanbots.v01.entity.*;
 import spartanbots.v01.repository.BookingRepository;
+import spartanbots.v01.entity.ErrorMessage;
+import spartanbots.v01.entity.Search;
 import spartanbots.v01.repository.HotelRepository;
 import spartanbots.v01.repository.RoomRepository;
 
@@ -66,13 +68,13 @@ public class SearchService {
     private Boolean isRoomAvailable(Search search, Room room) {
         Date currentBookingFrom = search.getStartDate();
         Date currentBookingTo = search.getEndDate();
-        if(currentBookingFrom == null || currentBookingTo == null ){
+        if (currentBookingFrom == null || currentBookingTo == null) {
             return false;
         }
         Boolean checkRange = currentBookingFrom.before(currentBookingTo);
         if (checkRange) {
             List<Integer> existedBookingIds = roomRepository.findById(room.getId()).get().getBookingIds();
-            if(existedBookingIds.isEmpty() || existedBookingIds == null){
+            if (existedBookingIds.isEmpty() || existedBookingIds == null) {
                 return true;
             }
             for (Integer existedBookingId : existedBookingIds) {
@@ -82,24 +84,29 @@ public class SearchService {
                 Boolean checkBefore = currentBookingTo.before(existedBookingFrom) || currentBookingTo.equals(existedBookingFrom);
                 Boolean after = currentBookingTo.after(existedBookingTo);
                 Boolean checkAfter = currentBookingFrom.after(existedBookingTo) || currentBookingFrom.equals(existedBookingTo);
-                if (before){
-                    if(!checkBefore){ return false;}
+                if (before) {
+                    if (!checkBefore) {
+                        return false;
+                    }
                     //case 1 : current [1, 7] and existed [5, 10]
-                    if(after){return false;}
+                    if (after) {
+                        return false;
+                    }
                     //case 2 : current [1, 12] and existed [5, 10]
-                }
-                else{
-                    if(!checkAfter){ return false;}
+                } else {
+                    if (!checkAfter) {
+                        return false;
+                    }
                     //case 3 : current [7, 12] and existed [5, 10]
-                    if(!after){return false;}
+                    if (!after) {
+                        return false;
+                    }
                     //case 4 : current [7, 8] and existed [5, 10]
                 }
             }
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-
-
 }
