@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import spartanbots.v01.entity.Search;
+import spartanbots.v01.service.BillService;
 import spartanbots.v01.service.SearchService;
 
 @RestController
@@ -15,9 +16,12 @@ public class SearchController {
     @Autowired
     private SearchService searchService;
 
-    @RequestMapping(value = "search", method = RequestMethod.POST)
-    public ResponseEntity<Object> search(@RequestBody Search search){
-        return searchService.search(search);
+    @Autowired
+    public SearchController( SearchService searchService ) { this.searchService = searchService;}
+
+    @RequestMapping(value = "getAvailableHotels", method = RequestMethod.POST)
+    public ResponseEntity<Object> getAvailableHotels(@RequestBody Search search) {
+        return searchService.getAvailableHotels(search);
     }
 
 

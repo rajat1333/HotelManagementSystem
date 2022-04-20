@@ -18,7 +18,7 @@ public class HotelService {
     private HotelRepository hotelRepository;
 
     @Autowired
-    public HotelService(HotelRepository hotelRepository ){
+    public HotelService(HotelRepository hotelRepository){
         this.hotelRepository = hotelRepository;
     }
 
@@ -73,15 +73,6 @@ public class HotelService {
         }
     }
 
-    public ResponseEntity<Object> searchHotel(Hotel hotel) {
-        if(hotelRepository.existsById(hotel.getId())){
-            return ResponseEntity.ok(hotelRepository.findById(hotel.getId()));
-        }
-        else{
-            return ResponseEntity.badRequest().body(new ErrorMessage("Hotel record does not exists."));
-        }
-    }
-
     @Transactional
     public ResponseEntity<Hotel> addHotel(Hotel hotel) {
         if(hotelRepository.existsById(hotel.getId())){
@@ -121,6 +112,15 @@ public class HotelService {
         }
         if (inputHotel.getMaxFloor() != null && inputHotel.getMaxFloor() > 0) {
             outputHotel.setMaxFloor(inputHotel.getMaxFloor());
+        }
+    }
+
+    public ResponseEntity<Object> getHotelDetails(Hotel hotel) {
+        if(hotelRepository.existsById(hotel.getId())){
+            return ResponseEntity.ok(hotelRepository.findById(hotel.getId()));
+        }
+        else{
+            return ResponseEntity.badRequest().body(new ErrorMessage("Hotel record does not exists."));
         }
     }
 

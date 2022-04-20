@@ -14,7 +14,8 @@ public interface HotelRepository extends MongoRepository<Hotel, Integer> {
     @Query("{name:'?0'}")
     List<Hotel> findHotelByName(String name);
 
+    @Query(" {city : {$regex : ?0 ,'$options' : 'i'}}")
+    public List<Hotel> findByCityRegexMatch(String city);
 
-    //public long count();
 
 }
