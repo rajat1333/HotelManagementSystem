@@ -3,11 +3,14 @@ package spartanbots.v01.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import spartanbots.v01.entity.Amenity;
 import spartanbots.v01.entity.ErrorMessage;
 import spartanbots.v01.entity.Hotel;
+import spartanbots.v01.repository.AmenityRepository;
 import spartanbots.v01.repository.HotelRepository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -18,8 +21,12 @@ public class HotelService {
     private HotelRepository hotelRepository;
 
     @Autowired
-    public HotelService(HotelRepository hotelRepository){
+    private AmenityRepository amenityRepository;
+
+    @Autowired
+    public HotelService(HotelRepository hotelRepository,AmenityRepository amenityRepository){
         this.hotelRepository = hotelRepository;
+        this.amenityRepository=amenityRepository;
     }
 
     @Transactional
@@ -113,6 +120,10 @@ public class HotelService {
         if (inputHotel.getMaxFloor() != null && inputHotel.getMaxFloor() > 0) {
             outputHotel.setMaxFloor(inputHotel.getMaxFloor());
         }
+        if (inputHotel.getAmenities() != null) {
+            List<Amenity> outputAmenities = autoAmenityMapping(inputHotel.getAmenities());
+            outputHotel.setAmenities(autoAmenityMapping(inputHotel.getAmenities()));
+        }
     }
 
     public ResponseEntity<Object> getHotelDetails(Hotel hotel) {
@@ -122,6 +133,17 @@ public class HotelService {
         else{
             return ResponseEntity.badRequest().body(new ErrorMessage("Hotel record does not exists."));
         }
+    }
+
+    private List<Amenity> autoAmenityMapping(List<Amenity> inputAmenities) {
+        List<Amenity> outputAmenities = new ArrayList<>();
+        for(Amenity originalAmenity : inputAmenities){
+            if (amenityRepository.existsById(originalAmenity.getId())) {
+                Amenity finalAmenity = amenityRepository.findById(originalAmenity.getId()).get();
+                outputAmenities.add(finalAmenity);
+            }
+        }
+        return outputAmenities;
     }
 
 }

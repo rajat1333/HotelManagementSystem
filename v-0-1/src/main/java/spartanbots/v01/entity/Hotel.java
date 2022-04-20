@@ -4,6 +4,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Column;
 import javax.persistence.Id;
+import java.util.List;
 
 @Document(collection ="hotel")
 public class Hotel {
@@ -26,6 +27,9 @@ public class Hotel {
 
     @Column(name = "maxFloor")
     private Integer maxFloor;
+
+    @Column(name = "amenities")
+    private List<Amenity> amenities;
 
     public Hotel() {}
 
@@ -65,6 +69,14 @@ public class Hotel {
         this.maxFloor = maxFloor;
     }
 
+    public List<Amenity> getAmenities() {
+        return amenities;
+    }
+
+    public void setAmenities(List<Amenity> amenities) {
+        this.amenities = amenities;
+    }
+
     @Override
     public String toString() {
         return "Hotel{" +
@@ -74,6 +86,7 @@ public class Hotel {
                 ", basePrice=" + basePrice +
                 ", imageURL='" + imageURL + '\'' +
                 ", maxFloor=" + maxFloor +
+                ", amenities=" + amenities +
                 '}';
     }
 }
