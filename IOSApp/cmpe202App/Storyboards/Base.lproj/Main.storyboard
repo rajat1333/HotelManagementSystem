@@ -561,6 +561,18 @@
                                             <outlet property="delegate" destination="rEC-s0-cIa" id="bUg-FI-yV1"/>
                                         </connections>
                                     </tableView>
+                                    <view contentMode="scaleToFill" id="RRQ-li-Nos" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                        <rect key="frame" x="117" y="358" width="180" height="180"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <viewLayoutGuide key="safeArea" id="keF-Z6-vVN"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballRotateChase"/>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                                <color key="value" systemColor="tintColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.14509803921568626" green="0.52156862745098043" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -570,12 +582,13 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" selectedImage="house" id="1y3-Xr-GoL"/>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="RRQ-li-Nos" id="4Xu-ZE-vIr"/>
                         <outlet property="homeTableView" destination="BjK-aX-xTT" id="W63-MS-r5Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="igC-yO-PTy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="970" y="-2774"/>
+            <point key="canvasLocation" x="969.56521739130437" y="-2774.3303571428569"/>
         </scene>
         <!--Bookings-->
         <scene sceneID="dLp-DI-al2">
@@ -1382,7 +1395,7 @@
         <image name="christ" width="130.5" height="185.5"/>
         <image name="eiffle" width="125.5" height="165.5"/>
         <image name="gradient" width="207" height="448"/>
-        <image name="hotelStatic" width="512" height="341.5"/>
+        <image name="hotelStatic" width="3250" height="1462.5"/>
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="leaning" width="95.5" height="154.5"/>
         <image name="liberty" width="82.5" height="218.5"/>

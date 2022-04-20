@@ -90,12 +90,18 @@
                     </view>
                 </subviews>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="hotelImage" destination="Via-n1-Rr2" id="J6x-9z-AQP"/>
+                <outlet property="hotelName" destination="FeV-Aw-nSv" id="rwv-OL-qZb"/>
+                <outlet property="location" destination="NuU-i4-EIh" id="qvh-X0-Otf"/>
+                <outlet property="price" destination="Clf-AH-KXY" id="Svf-Sa-XD4"/>
+            </connections>
             <point key="canvasLocation" x="-55.072463768115945" y="-13.392857142857142"/>
         </tableViewCell>
     </objects>
     <resources>
         <image name="blueGradientSq" width="100" height="100"/>
-        <image name="tableListImage" width="640" height="360"/>
+        <image name="tableListImage" width="3000" height="1500"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
