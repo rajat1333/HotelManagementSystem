@@ -44,6 +44,8 @@ public class Room{
     @Column(name = "bookingIds")
     private List<Integer> bookingIds;
 
+    private List<Amenity> bookedAmenities;
+
     public Room() {}
 
     public int getId() {
@@ -97,6 +99,14 @@ public class Room{
     public List<Integer> getBookingIds() { return bookingIds; }
 
     public void setBookingIds(List<Integer> bookingIds) { this.bookingIds = bookingIds; }
+
+    public List<Amenity> getBookedAmenities() {
+        return bookedAmenities;
+    }
+
+    public void setBookedAmenities(List<Amenity> bookedAmenities) {
+        this.bookedAmenities = bookedAmenities;
+    }
 
     @Override
     public String toString() {
