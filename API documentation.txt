@@ -1,5 +1,7 @@
-Login Request: https://documenter.getpostman.com/view/19823054/UVyxNt4Y
-SignUp Request : https://documenter.getpostman.com/view/19823054/UVyxNt4Z
+Login Request: https://documenter.getpostman.com/view/19823054/UVyxNt4Y#ec03c44b-ae6f-4a7a-aecc-28da8be97d11
+SignUp Request : https://documenter.getpostman.com/view/19823054/UVyxNt4Y#ec03c44b-ae6f-4a7a-aecc-28da8be97d11
+Available Hotel Search Request : https://documenter.getpostman.com/view/19823054/UVyxNt4Y#ec03c44b-ae6f-4a7a-aecc-28da8be97d11
+Available Room of a particular hotel request: https://documenter.getpostman.com/view/19823054/UVyxNt4Y#ec03c44b-ae6f-4a7a-aecc-28da8be97d11
 
 Read Booking Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
 Search Booking Request : https://documenter.getpostman.com/view/19788829/UVyxRDuG#9d78c4c2-8e2f-406d-a6a2-1f916bd72b15
