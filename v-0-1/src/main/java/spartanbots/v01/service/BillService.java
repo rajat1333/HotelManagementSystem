@@ -89,15 +89,15 @@ public class BillService {
         return totalBillAmount;
     }
 
-    private double getAmenitiesCost(Booking booking) {
-        double amenityCost = 0;
-        List<Amenity> amenityList = booking.getAmenities();
-        for (Amenity a: amenityList
-             ) {
-            amenityCost += a.getPrice();
-        }
-        return amenityCost;
-    }
+//    private double getAmenitiesCost(Booking booking) {
+//        double amenityCost = 0;
+//        List<Amenity> amenityList = booking.getAmenities();
+//        for (Amenity a: amenityList
+//             ) {
+//            amenityCost += a.getPrice();
+//        }
+//        return amenityCost;
+//    }
 
     private static double getRoomPrice(int roomId) {
         Room room = roomRepository.findById(roomId).get();
