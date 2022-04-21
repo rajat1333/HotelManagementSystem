@@ -72,6 +72,7 @@ public class BookingService {
                 if(!bookingRegularization(booking, bookingToBeUpdated)){
                     return ResponseEntity.badRequest().body(new ErrorMessage("Booking record fail to be updated."));
                 }
+                //todo : move this code to function called finalize booking
                 bookingRepository.save(bookingToBeUpdated);
                 System.out.println("Booking record updated: \n" + booking.toString());
                 return ResponseEntity.ok(bookingToBeUpdated);
@@ -119,8 +120,11 @@ public class BookingService {
         if (inputBooking.getName() != null) {
             outputBooking.setName(inputBooking.getName());
         }
-        if (inputBooking.getPhone() != null) {
-            outputBooking.setPhone(inputBooking.getPhone());
+//        if (inputBooking.getPhone() != null) {
+//            outputBooking.setPhone(inputBooking.getPhone());
+//        }
+        if (inputBooking.getCustomerEmail() != null) {
+            outputBooking.setCustomerEmail(inputBooking.getCustomerEmail());
         }
 
         if (bookingDateValidation(inputBooking)) {
@@ -151,11 +155,29 @@ public class BookingService {
         List<Amenity> outputAmenities = autoAmenityMapping(inputBooking.getAmenities());
         outputBooking.setAmenities(outputAmenities);
 
-        Room associatedRoom = roomRepository.findById(outputBooking.getRoomId()).get();
-        if(!associatedRoom.getBookingIds().contains(outputBooking.getId())){
-            associatedRoom.getBookingIds().add(outputBooking.getId());
-            roomRepository.save(associatedRoom);
+        List<Room> roomList = inputBooking.getRooms();
+        ArrayList<Room> bookedRoomList = new ArrayList<>();
+        for (Room associatedRoom : roomList
+             ) {
+            Room r = roomRepository.findById(associatedRoom.getId()).get();
+            r.setPrice(associatedRoom.getPrice());
+            bookedRoomList.add(r);
+              //here each room object will contain dynamic price at which it has been booked
+            //Room associatedRoom = roomRepository.findById(outputBooking.getRoomId()).get();
+            //todo : remove this code as data will get piled up
+            if(!r.getBookingIds().contains(outputBooking.getId())){
+                r.getBookingIds().add(outputBooking.getId());
+                roomRepository.save(r);
+            }
+
         }
+        outputBooking.setRooms(bookedRoomList);
+
+//        Room associatedRoom = roomRepository.findById(outputBooking.getRoomId()).get();
+//        if(!associatedRoom.getBookingIds().contains(outputBooking.getId())){
+//            associatedRoom.getBookingIds().add(outputBooking.getId());
+//            roomRepository.save(associatedRoom);
+//        }
         return true;
     }
 

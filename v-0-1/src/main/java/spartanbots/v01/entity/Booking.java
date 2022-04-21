@@ -27,6 +27,9 @@ public class Booking {
     @Column(name = "phone")
     private String phone;
 
+    @Column(name = "customerEmail")
+    private String customerEmail;
+
     @Column(name = "hotelId")
     private int hotelId;
 
@@ -42,6 +45,17 @@ public class Booking {
     @Column(name = "amenities")
     private List<Amenity> amenities;
 
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+    @Column(name = "rooms")
+    private List<Room> rooms;
+
     @Column(name = "bookFrom")
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date bookFrom;
@@ -53,6 +67,14 @@ public class Booking {
     @Column(name = "bookTime")
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date bookTime;
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
 
     public int getId() {
         return id;

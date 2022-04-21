@@ -53,6 +53,7 @@ public class BillService {
             bill.setAmount(totalBillAmount);
             bill.setTaxAmount(totalBillAmount * 0.12 ); //todo add variable for tax percentage
             bill.setTotalPayableAmount(bill.getAmount() + bill.getTaxAmount());
+            bill.setStatus("Unpaid");
             System.out.println("Booking record created: \n" + booking.toString());
             return ResponseEntity.ok(bill);
         } catch (Exception e) {
