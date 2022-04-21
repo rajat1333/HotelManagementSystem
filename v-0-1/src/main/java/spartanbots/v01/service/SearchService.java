@@ -91,6 +91,10 @@ public class SearchService {
                 {
                     roomIdToRemove.add(room.getId());
                 }
+                else
+                {
+                    room.setPrice(dynamicPriceCalculator(room,search));
+                }
             }
             for(int i=0;i<roomIdToRemove.size();i++)
             {

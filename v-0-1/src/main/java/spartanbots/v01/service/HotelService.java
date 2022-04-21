@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 import spartanbots.v01.entity.Amenity;
 import spartanbots.v01.entity.ErrorMessage;
 import spartanbots.v01.entity.Hotel;
+import spartanbots.v01.entity.Room;
 import spartanbots.v01.repository.AmenityRepository;
 import spartanbots.v01.repository.HotelRepository;
+import spartanbots.v01.repository.RoomRepository;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -24,9 +26,13 @@ public class HotelService {
     private AmenityRepository amenityRepository;
 
     @Autowired
-    public HotelService(HotelRepository hotelRepository,AmenityRepository amenityRepository){
+    private RoomRepository roomRepository;
+
+    @Autowired
+    public HotelService(HotelRepository hotelRepository,AmenityRepository amenityRepository,RoomRepository roomRepository){
         this.hotelRepository = hotelRepository;
         this.amenityRepository=amenityRepository;
+        this.roomRepository=roomRepository;
     }
 
     @Transactional
@@ -43,8 +49,28 @@ public class HotelService {
         }
     }
     public ResponseEntity<Object> readHotel() {
-        return ResponseEntity.ok(hotelRepository.findAll());
+        List<Hotel> hotelList=hotelRepository.findAll();
+        if(!hotelList.isEmpty())
+        {
+            for (Hotel hotel:hotelList) {
+                List<Room> roomList = roomRepository.findRoomByHotelId(hotel.getId());
+                float minBasePrice = 0;
+                for (Room room : roomList) {
+                    if (minBasePrice == 0) {
+                        minBasePrice = (float) room.getPrice();
+                    } else if (minBasePrice > (float) room.getPrice()) {
+                        minBasePrice = (float) room.getPrice();
+                    }
+                }hotel.setBasePrice(minBasePrice);
+            }
+            return ResponseEntity.ok(hotelList);
+        }
+        else
+        {
+            return ResponseEntity.badRequest().body(new ErrorMessage("No hotels found"));
+        }
     }
+
 
     @Transactional
     public ResponseEntity<Object> updateHotel(Hotel hotel) {
