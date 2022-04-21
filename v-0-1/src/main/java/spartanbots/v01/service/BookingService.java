@@ -1,10 +1,7 @@
 package spartanbots.v01.service;
 
 import org.springframework.http.ResponseEntity;
-import spartanbots.v01.entity.Amenity;
-import spartanbots.v01.entity.Booking;
-import spartanbots.v01.entity.ErrorMessage;
-import spartanbots.v01.entity.Room;
+import spartanbots.v01.entity.*;
 import spartanbots.v01.repository.AmenityRepository;
 import spartanbots.v01.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +26,7 @@ public class BookingService {
     private HotelRepository hotelRepository;
 
     @Autowired
-    private RoomRepository  roomRepository;
+    private RoomRepository roomRepository;
 
     @Autowired
     private AmenityRepository amenityRepository;
@@ -47,17 +44,21 @@ public class BookingService {
         try {
             Booking bookingToBeCreated = new Booking();
             bookingToBeCreated.setId(bookingRepository.findAll().size() == 0 ? 1 : bookingRepository.findAll().stream().max(Comparator.comparingInt(Booking::getId)).get().getId() + 1);
-            bookingToBeCreated.setAmenities(new ArrayList<Amenity>());
-            if(!bookingRegularization(booking, bookingToBeCreated)){
+//            bookingToBeCreated.setAmenities(new ArrayList<Amenity>());
+            if (!bookingRegularization(booking, bookingToBeCreated)) {
                 return ResponseEntity.badRequest().body(new ErrorMessage("Booking record fail to be created."));
             }
-            bookingRepository.save(bookingToBeCreated);
+            Bill bill = BillService.getBillFromBooking(bookingToBeCreated);
+            bookingToBeCreated.setBill(bill);
+            //todo : add this part in save booking
+            //bookingRepository.save(bookingToBeCreated);
             System.out.println("Booking record created: \n" + bookingToBeCreated.toString());
             return ResponseEntity.ok(bookingToBeCreated);
         } catch (Exception e) {
             throw e;
         }
     }
+
 
     public ResponseEntity<Object> readBooking() {
         return ResponseEntity.ok(bookingRepository.findAll());
@@ -66,10 +67,10 @@ public class BookingService {
     @Transactional
     public ResponseEntity<Object> updateBooking(Booking booking) {
 
-        if(bookingRepository.existsById(booking.getId())){
+        if (bookingRepository.existsById(booking.getId())) {
             try {
                 Booking bookingToBeUpdated = bookingRepository.findById(booking.getId()).get();
-                if(!bookingRegularization(booking, bookingToBeUpdated)){
+                if (!bookingRegularization(booking, bookingToBeUpdated)) {
                     return ResponseEntity.badRequest().body(new ErrorMessage("Booking record fail to be updated."));
                 }
                 //todo : move this code to function called finalize booking
@@ -79,47 +80,49 @@ public class BookingService {
             } catch (Exception e) {
                 throw e;
             }
-        }
-        else {
+        } else {
             return ResponseEntity.badRequest().body(new ErrorMessage("Booking record does not exists."));
         }
     }
 
     @Transactional
     public ResponseEntity<Object> deleteBooking(Booking booking) {
-        if(bookingRepository.existsById(booking.getId())){
+        if (bookingRepository.existsById(booking.getId())) {
             try {
-                Booking bookingToBeDeleted  = bookingRepository.findById(booking.getId()).get();
-                Room associatedRoom = roomRepository.findById(bookingRepository.findById(bookingToBeDeleted.getId()).get().getRoomId()).get();
-                if(associatedRoom.getBookingIds().contains(bookingToBeDeleted.getId())){
-                    associatedRoom.getBookingIds().remove(Integer.valueOf(bookingToBeDeleted.getId()));
-                    roomRepository.save(associatedRoom);
+                Booking bookingToBeDeleted = bookingRepository.findById(booking.getId()).get();
+                List<Room> associatedRooms = bookingToBeDeleted.getRooms();
+                for (Room associatedRoom: associatedRooms
+                     ) {
+                    if (associatedRoom.getBookingIds().contains(bookingToBeDeleted.getId())) {
+                        associatedRoom.getBookingIds().remove(Integer.valueOf(bookingToBeDeleted.getId()));
+                        roomRepository.save(associatedRoom);
+                    }
                 }
+                //Room associatedRoom = roomRepository.findById(bookingRepository.findById(bookingToBeDeleted.getId()).get().getRoomId()).get();
+
                 bookingRepository.deleteById(bookingToBeDeleted.getId());
                 System.out.println("Booking record deleted: \n" + bookingToBeDeleted.toString());
                 return ResponseEntity.ok(bookingToBeDeleted);
             } catch (Exception e) {
                 throw e;
             }
-        }
-        else {
+        } else {
             return ResponseEntity.badRequest().body(new ErrorMessage("Booking record does not exists."));
         }
     }
 
     public ResponseEntity<Object> searchBooking(Booking booking) {
-        if(bookingRepository.existsById(booking.getId())){
+        if (bookingRepository.existsById(booking.getId())) {
             return ResponseEntity.ok(bookingRepository.findById(booking.getId()));
-        }
-        else{
+        } else {
             return ResponseEntity.badRequest().body(new ErrorMessage("Booking record does not exists."));
         }
     }
 
     private Boolean bookingRegularization(Booking inputBooking, Booking outputBooking) {
-        if (inputBooking.getName() != null) {
-            outputBooking.setName(inputBooking.getName());
-        }
+//        if (inputBooking.getName() != null) {
+//            outputBooking.setName(inputBooking.getName());
+//        }
 //        if (inputBooking.getPhone() != null) {
 //            outputBooking.setPhone(inputBooking.getPhone());
 //        }
@@ -131,41 +134,41 @@ public class BookingService {
             outputBooking.setBookFrom(inputBooking.getBookFrom());
             outputBooking.setBookTo(inputBooking.getBookTo());
             outputBooking.setBookTime(new Date());
-        }
-        else{
+        } else {
             return false;
         }
 
         if (hotelRepository.existsById(inputBooking.getHotelId())) {
             outputBooking.setHotelId(inputBooking.getHotelId());
             outputBooking.setHotelName(hotelRepository.findById(outputBooking.getHotelId()).get().getName());
-        }
-        else {
+        } else {
             return false;
         }
 
-        if (roomRepository.existsById(inputBooking.getRoomId())) {
-            outputBooking.setRoomId(inputBooking.getRoomId());
-            outputBooking.setRoomName(roomRepository.findById(outputBooking.getRoomId()).get().getName());
-        }
-        else{
-            return false;
-        }
+//        if (roomRepository.existsById(inputBooking.getRoomId())) {
+//            outputBooking.setRoomId(inputBooking.getRoomId());
+//            outputBooking.setRoomName(roomRepository.findById(outputBooking.getRoomId()).get().getName());
+//        }
+//        else{
+//            return false;
+//        }
 
-        List<Amenity> outputAmenities = autoAmenityMapping(inputBooking.getAmenities());
-        outputBooking.setAmenities(outputAmenities);
+//        List<Amenity> outputAmenities = autoAmenityMapping(inputBooking.getAmenities());
+//        outputBooking.setAmenities(outputAmenities);
 
         List<Room> roomList = inputBooking.getRooms();
         ArrayList<Room> bookedRoomList = new ArrayList<>();
         for (Room associatedRoom : roomList
-             ) {
+        ) {
             Room r = roomRepository.findById(associatedRoom.getId()).get();
-            r.setPrice(associatedRoom.getPrice());
-            bookedRoomList.add(r);
-              //here each room object will contain dynamic price at which it has been booked
+            //r.setPrice(associatedRoom.getPrice());
+            bookedRoomList.add(associatedRoom);
+            //here each room object will contain dynamic price at which it has been booked
             //Room associatedRoom = roomRepository.findById(outputBooking.getRoomId()).get();
-            //todo : remove this code as data will get piled up
-            if(!r.getBookingIds().contains(outputBooking.getId())){
+            //todo : remove this code as data will get piled up move this code in finalize booking method
+            if(r.getBookingIds()==null)
+                r.setBookingIds(new ArrayList<>());
+            if (!r.getBookingIds().contains(outputBooking.getId())) {
                 r.getBookingIds().add(outputBooking.getId());
                 roomRepository.save(r);
             }
@@ -183,7 +186,7 @@ public class BookingService {
 
     private List<Amenity> autoAmenityMapping(List<Amenity> inputAmenities) {
         List<Amenity> outputAmenities = new ArrayList<>();
-        for(Amenity originalAmenity : inputAmenities){
+        for (Amenity originalAmenity : inputAmenities) {
             if (amenityRepository.existsById(originalAmenity.getId())) {
                 Amenity finalAmenity = amenityRepository.findById(originalAmenity.getId()).get();
                 outputAmenities.add(finalAmenity);
@@ -195,42 +198,63 @@ public class BookingService {
     private Boolean bookingDateValidation(Booking inputBooking) {
         Date currentBookingFrom = inputBooking.getBookFrom();
         Date currentBookingTo = inputBooking.getBookTo();
-        if(currentBookingFrom == null || currentBookingTo == null ){
+        if (currentBookingFrom == null || currentBookingTo == null) {
             return false;
         }
         Boolean checkRange = currentBookingFrom.before(currentBookingTo);
         if (checkRange) {
-            List<Integer> existedBookingIds = roomRepository.findById(inputBooking.getRoomId()).get().getBookingIds();
-            if(existedBookingIds.contains(inputBooking.getId())){
-                existedBookingIds.remove(Integer.valueOf(inputBooking.getId()));
-            }
-            if(existedBookingIds.isEmpty() || existedBookingIds == null){
-                return true;
-            }
-            for (Integer existedBookingId : existedBookingIds) {
-                Date existedBookingFrom = bookingRepository.findById(existedBookingId).get().getBookFrom();
-                Date existedBookingTo = bookingRepository.findById(existedBookingId).get().getBookTo();
-                System.out.println(existedBookingFrom+" "+existedBookingTo);
-                System.out.println(currentBookingFrom+" "+currentBookingTo);
-                Boolean before = currentBookingFrom.before(existedBookingFrom);
-                Boolean checkBefore = currentBookingTo.before(existedBookingFrom) || currentBookingTo.equals(existedBookingFrom);
-                Boolean after = currentBookingTo.after(existedBookingTo);
-                Boolean checkAfter = currentBookingFrom.after(existedBookingTo) || currentBookingFrom.equals(existedBookingTo);
-                if (before){
-                    if(!checkBefore){ return false;}
-                    //case 1 : current [1, 7] and existed [5, 10]
-                    if(after){return false;}
-                    //case 2 : current [1, 12] and existed [5, 10]
+            //there should not be need for this check as we will be showing only available rooms on UI
+            List<Room> roomList = inputBooking.getRooms();
+            boolean allRoomsAvailable = true;
+            for (Room currentRoom : roomList
+            ) {
+                List<Integer> existedBookingIds = roomRepository.findById(currentRoom.getId()).get().getBookingIds();
+                if (existedBookingIds.isEmpty() || existedBookingIds == null) {
+//                    return true;
+                    continue;
                 }
-                else{
-                    if(!checkAfter){ return false;}
-                    //case 3 : current [7, 12] and existed [5, 10]
-                    if(!after){return false;}
-                    //case 4 : current [7, 8] and existed [5, 10]
+                if (existedBookingIds.contains(inputBooking.getId())) {
+                    existedBookingIds.remove(Integer.valueOf(inputBooking.getId()));
                 }
+
+                for (Integer existedBookingId : existedBookingIds) {
+                    Date existedBookingFrom = bookingRepository.findById(existedBookingId).get().getBookFrom();
+                    Date existedBookingTo = bookingRepository.findById(existedBookingId).get().getBookTo();
+                    System.out.println(existedBookingFrom + " " + existedBookingTo);
+                    System.out.println(currentBookingFrom + " " + currentBookingTo);
+                    Boolean before = currentBookingFrom.before(existedBookingFrom);
+                    Boolean checkBefore = currentBookingTo.before(existedBookingFrom) || currentBookingTo.equals(existedBookingFrom);
+                    Boolean after = currentBookingTo.after(existedBookingTo);
+                    Boolean checkAfter = currentBookingFrom.after(existedBookingTo) || currentBookingFrom.equals(existedBookingTo);
+                    if (before) {
+                        if (!checkBefore) {
+                            //return false;
+                            allRoomsAvailable =  false;
+                        }
+                        //case 1 : current [1, 7] and existed [5, 10]
+                        if (after) {
+//                            return false;
+                            allRoomsAvailable =  false;
+                        }
+                        //case 2 : current [1, 12] and existed [5, 10]
+                    } else {
+                        if (!checkAfter) {
+//                            return false;
+                            allRoomsAvailable =  false;
+                        }
+                        //case 3 : current [7, 12] and existed [5, 10]
+                        if (!after) {
+//                            return false;
+                            allRoomsAvailable = false;
+                        }
+                        //case 4 : current [7, 8] and existed [5, 10]
+                    }
+                }
+
             }
-            return true;
-        }else{
+
+            return allRoomsAvailable;
+        } else {
             return false;
         }
     }

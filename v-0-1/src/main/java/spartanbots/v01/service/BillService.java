@@ -20,7 +20,7 @@ import java.util.List;
 @Service
 public class BillService {
     @Autowired
-    private BillRepository billRepository;
+    private static BillRepository billRepository;
 
     @Autowired
     private BookingRepository bookingRepository;
@@ -29,10 +29,10 @@ public class BillService {
     private HotelRepository hotelRepository;
 
     @Autowired
-    private RoomRepository roomRepository;
+    private static RoomRepository roomRepository;
 
     @Autowired
-    private AmenityRepository amenityRepository;
+    private static AmenityRepository amenityRepository;
 
     @Autowired
     public BillService(BillRepository billRepository, BookingRepository bookingRepository, HotelRepository hotelRepository, RoomRepository roomRepository, AmenityRepository amenityRepository) {
@@ -47,30 +47,45 @@ public class BillService {
     @Transactional
     public ResponseEntity<Object> createBill(Booking booking) {
         try {
-            Bill bill = new Bill();
-            bill.setId(billRepository.findAll().size() == 0 ? 1 : billRepository.findAll().stream().max(Comparator.comparingInt(Bill::getId)).get().getId() + 1);
-            double totalBillAmount = calculateTotalBillAmount(booking);
-            bill.setAmount(totalBillAmount);
-            bill.setTaxAmount(totalBillAmount * 0.12 ); //todo add variable for tax percentage
-            bill.setTotalPayableAmount(bill.getAmount() + bill.getTaxAmount());
-            bill.setStatus("Unpaid");
-            System.out.println("Booking record created: \n" + booking.toString());
+            Bill bill = getBillFromBooking(booking);
+
+            System.out.println("Bill record created: \n" + bill.toString());
             return ResponseEntity.ok(bill);
         } catch (Exception e) {
             throw e;
         }
     }
 
-    private double calculateTotalBillAmount(Booking booking) {
+    public static Bill getBillFromBooking(Booking booking) {
+        Bill bill = new Bill();
+        bill.setId(billRepository.findAll().size() == 0 ? 1 : billRepository.findAll().stream().max(Comparator.comparingInt(Bill::getId)).get().getId() + 1);
+        double totalBillAmount = calculateTotalBillAmount(booking);
+        bill.setTotalAmount(totalBillAmount);
+        bill.setTaxAmount(totalBillAmount * 0.12 ); //todo add variable for tax percentage
+        bill.setTotalPayableAmount(bill.getTotalAmount() + bill.getTaxAmount());
+        bill.setPaymentStatus("Unpaid");
+        return bill;
+    }
+
+    private static double calculateTotalBillAmount(Booking booking) {
         double totalBillAmount = 0;
         int noOfDays = (int) ((booking.getBookTo().getTime() - booking.getBookFrom().getTime())/(1000*60*60*24));
         System.out.println(" noOfDays is : " + noOfDays);
-        double roomPrice = getRoomPrice(booking.getRoomId());
-        totalBillAmount += (noOfDays * roomPrice);
-        System.out.println("totalBillAmount is " + totalBillAmount);
-        double amenitiesCost = getAmenitiesCost(booking);
-        System.out.println(" amenitiesCost is " + amenitiesCost);
-        totalBillAmount += amenitiesCost;
+        List<Room> roomList = booking.getRooms();
+        for (Room room : roomList
+             ) {
+            double roomPrice = getRoomPrice(room.getId());
+            totalBillAmount += (noOfDays * roomPrice);
+            List<Amenity> amenityList = room.getBookedAmenities();
+            for (Amenity amenity: amenityList
+                 ) {
+                totalBillAmount += (noOfDays * amenityRepository.findById(amenity.getId()).get().getPrice());
+            }
+            System.out.println("totalBillAmount is " + totalBillAmount);
+        }
+//        double amenitiesCost = getAmenitiesCost(booking);
+//        System.out.println(" amenitiesCost is " + amenitiesCost);
+//        totalBillAmount += amenitiesCost;
         return totalBillAmount;
     }
 
@@ -81,11 +96,10 @@ public class BillService {
              ) {
             amenityCost += a.getPrice();
         }
-
         return amenityCost;
     }
 
-    private double getRoomPrice(int roomId) {
+    private static double getRoomPrice(int roomId) {
         Room room = roomRepository.findById(roomId).get();
         double roomPrice = room.getPrice();
         System.out.println("Room price for room id " + roomId + " is : " + roomPrice);

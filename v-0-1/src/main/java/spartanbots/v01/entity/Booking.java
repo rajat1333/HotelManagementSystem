@@ -21,29 +21,20 @@ public class Booking {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "phone")
-    private String phone;
-
     @Column(name = "customerEmail")
     private String customerEmail;
 
     @Column(name = "hotelId")
     private int hotelId;
 
+    @Column(name = "bill")
+    private Bill bill;
+
     @Column(name = "hotelName")
     private String hotelName;
 
-    @Column(name = "roomId")
-    private int roomId;
-
-    @Column(name = "roomName")
-    private String roomName;
-
-    @Column(name = "amenities")
-    private List<Amenity> amenities;
+//    @Column(name = "amenities")
+//    private List<Amenity> amenities;
 
     public List<Room> getRooms() {
         return rooms;
@@ -84,22 +75,6 @@ public class Booking {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public int getHotelId() {
         return hotelId;
     }
@@ -116,29 +91,13 @@ public class Booking {
         this.hotelName = hotelName;
     }
 
-    public int getRoomId() {
-        return roomId;
-    }
-
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
-    }
-
-    public String getRoomName() {
-        return roomName;
-    }
-
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
-
-    public List<Amenity> getAmenities() {
-        return amenities;
-    }
-
-    public void setAmenities(List<Amenity> amenities) {
-        this.amenities = amenities;
-    }
+//    public List<Amenity> getAmenities() {
+//        return amenities;
+//    }
+//
+//    public void setAmenities(List<Amenity> amenities) {
+//        this.amenities = amenities;
+//    }
 
     public Date getBookFrom() {
         return bookFrom;
@@ -164,17 +123,24 @@ public class Booking {
         this.bookTime = bookTime;
     }
 
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
+
     @Override
     public String toString() {
         return "Booking{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
+                ", customerEmail='" + customerEmail + '\'' +
                 ", hotelId=" + hotelId +
+                ", bill=" + bill +
                 ", hotelName='" + hotelName + '\'' +
-                ", roomId=" + roomId +
-                ", roomName='" + roomName + '\'' +
-                ", amenities=" + amenities +
+//                ", amenities=" + amenities +
+                ", rooms=" + rooms +
                 ", bookFrom=" + bookFrom +
                 ", bookTo=" + bookTo +
                 ", bookTime=" + bookTime +

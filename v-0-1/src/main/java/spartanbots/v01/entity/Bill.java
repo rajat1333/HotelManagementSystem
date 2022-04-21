@@ -25,14 +25,20 @@ public class Bill {
     @Column(name = "bookingId")
     private String bookingId;
 
-    @Column(name = "amount")
-    private double amount;
+    @Column(name = "totalAmount")
+    private double totalAmount;
 
     @Column(name = "taxAmount")
     private double taxAmount;
 
-    @Column(name = "status")
-    private String status;
+    @Column(name = "paymentMode")
+    private String paymentMode;
+
+    @Column(name = "paymentStatus")
+    private String paymentStatus;
+
+    @Column(name = "rewardPointsUsed")
+    private double rewardPointsUsed;
 
     @Column(name = "discountAmount")
     private double discountAmount;
@@ -48,12 +54,12 @@ public class Bill {
         this.id = id;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     public double getTaxAmount() {
@@ -64,12 +70,12 @@ public class Bill {
         this.taxAmount = taxAmount;
     }
 
-    public String getStatus() {
-        return status;
+    public String getPaymentStatus() {
+        return paymentStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
     }
 
     public double getDiscountAmount() {
@@ -88,14 +94,24 @@ public class Bill {
         this.totalPayableAmount = totalPayableAmount;
     }
 
+    public double getRewardPointsUsed() {
+        return rewardPointsUsed;
+    }
+
+    public void setRewardPointsUsed(double rewardPointsUsed) {
+        this.rewardPointsUsed = rewardPointsUsed;
+    }
+
     @Override
     public String toString() {
         return "Bill{" +
                 "id=" + id +
                 ", bookingId='" + bookingId + '\'' +
-                ", amount=" + amount +
+                ", totalAmount=" + totalAmount +
                 ", taxAmount=" + taxAmount +
-                ", status='" + status + '\'' +
+                ", paymentMode='" + paymentMode + '\'' +
+                ", paymentStatus='" + paymentStatus + '\'' +
+                ", rewardPointsUsed=" + rewardPointsUsed +
                 ", discountAmount=" + discountAmount +
                 ", totalPayableAmount=" + totalPayableAmount +
                 '}';
