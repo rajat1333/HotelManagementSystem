@@ -91,8 +91,9 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let top3 = Array(dataArray.prefix(3))
                     collectionArray = NSMutableArray.init(array: top3)
                     tableArray = NSMutableArray.init(array: Array(dataArray[3 ..< dataArray.count]))
-                    self.homeTableView.reloadData()
-                    self.activityIndicatorView.stopAnimating()
+                    self.homeTableView.reloadData(){
+                        self.activityIndicatorView.stopAnimating()
+                    }
                 }
 
             } catch {
@@ -186,4 +187,10 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     */
 
+}
+extension UITableView {
+    func reloadData(completion:@escaping ()->()) {
+        UIView.animate(withDuration: 0, animations: reloadData)
+            { _ in completion() }
+    }
 }

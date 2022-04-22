@@ -10,6 +10,7 @@ target 'cmpe202App' do
   pod 'NVActivityIndicatorView'
   pod 'Alamofire'
   pod 'AlamofireImage'
+  pod 'SkeletonView'
   # Pods for cmpe202App
 
   target 'cmpe202AppTests' do
