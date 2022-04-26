@@ -11,6 +11,7 @@ import UIKit
 class globals {
     
     static let api = "https://2002-2601-646-8200-5d60-00-11ae.ngrok.io/"
+    
     public static func X(view: UIView) -> CGFloat? {
         return view.frame.origin.x
     }
@@ -55,6 +56,12 @@ class shadowView: UIView {
 
        layer.insertSublayer(shadowLayer, at: 0)
     }
+    func  dateToString(date:Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        return dateFormatter.string(from: date)
+    }
+        
     
 }
 

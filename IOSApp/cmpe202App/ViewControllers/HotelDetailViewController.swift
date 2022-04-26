@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource  {
 
@@ -18,11 +19,18 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var collectionView: UIView!
     @IBOutlet weak var topLabel: UILabel!
     @IBOutlet weak var hangingShadowView: UIView!
-
     
+    @IBOutlet weak var hotelName: UILabel!
+    @IBOutlet weak var hotelLocation: UILabel!
+    @IBOutlet weak var hotelPrice: UILabel!
+    @IBOutlet weak var checkIndate: UIDatePicker!
+    @IBOutlet weak var checkOutDate: UIDatePicker!
+
+    var hotelBasicDetail:NSMutableDictionary!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        checkIndate.setDate(Date(), animated: false)
+        checkOutDate.setDate(Date().addingTimeInterval(1), animated: false)
         self.hangingNameView.frame = CGRect(x: globals.X(view: collectionView)!, y: globals.BOTTOM(view: collectionView)!-45, width: globals.WIDTH(view: collectionView)!, height: globals.HEIGHT(view: hangingNameView)!)
         
         self.hangingShadowView.frame = CGRect(x: globals.X(view: hangingNameView)!+10 , y: globals.BOTTOM(view: collectionView)!-35, width: globals.WIDTH(view: collectionView)!-20, height: globals.HEIGHT(view: hangingNameView)!-20)
@@ -32,6 +40,13 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
                                           height: 4)
         self.hangingNameView.layer.shadowRadius = 4
         self.hangingNameView.layer.shadowOpacity = 0.5
+        
+        hotelName.text = hotelBasicDetail["name"] as? String
+        hotelLocation.text = hotelBasicDetail["city"] as? String
+        hotelPrice.text = hotelBasicDetail["basePrice"] as? String
+        
+        
+        
         
         
 //        // Do any additional setup after loading the view.
@@ -54,7 +69,7 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
             return cell
         }
         else{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"ammenitiesCollectionViewCell", for:indexPath as IndexPath) as! UICollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"ammenitiesCollectionViewCell", for:indexPath as IndexPath)
 
             return cell
         }
@@ -95,6 +110,66 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         else{
             return 0
         }
+    }
+    
+    func getRooms(){
+        let url = URL(string: "\(globals.api)getAvailableRooms")!
+        var request = URLRequest(url: url,timeoutInterval: Double.infinity)
+        let json: [String: Any] = ["hotelId": "\(String(describing: hotelBasicDetail["id"] as? String))",
+                                   "startDate": "\(self.checkIndate.date)",
+                                   "endDate": "\(self.checkOutDate.date)"]
+
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data,
+            let response = response as? HTTPURLResponse,
+            error == nil else {
+                // check for fundamental networking error
+               
+
+                print("error", error ?? "Unknown error")
+                return
+            }
+
+            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                if response.statusCode == 400 {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data) as! Dictionary<String, AnyObject>
+                            print(json)
+                        DispatchQueue.main.async { () -> Void in
+                            self.showToast(message: json["message"] as! String, font: .systemFont(ofSize: 12.0))
+                        }
+
+                        } catch {
+                            print("error")
+                        }
+                    
+                }
+                print(String(data: data, encoding: .utf8))
+                return
+            }
+            do {
+                let json = try JSONSerialization.jsonObject(with: data) as! [Any]
+                    print(json)
+                
+                let roomArray = json
+                DispatchQueue.main.async { [self] () -> Void in
+                    
+                }
+
+            } catch {
+                print("error")
+            }
+        }
+
+        task.resume()
     }
     /*
     // MARK: - Navigation

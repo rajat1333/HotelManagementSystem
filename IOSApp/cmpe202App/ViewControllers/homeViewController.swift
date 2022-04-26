@@ -170,12 +170,17 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "HotelDetailViewController") as! HotelDetailViewController
-            self.present(vc, animated: true, completion: nil)
+        
+        vc.hotelBasicDetail = collectionArray.object(at: indexPath.row) as? NSMutableDictionary
+        navigationController?.pushViewController(vc, animated: true)
+//            self.push(vc, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "HotelDetailViewController") as! HotelDetailViewController
-            self.present(vc, animated: true, completion: nil)
+        
+        vc.hotelBasicDetail = tableArray.object(at: indexPath.row - 2) as? NSMutableDictionary
+        navigationController?.pushViewController(vc, animated: true)
     }
     /*
     // MARK: - Navigation
