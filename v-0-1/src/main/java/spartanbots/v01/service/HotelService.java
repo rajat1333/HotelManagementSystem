@@ -158,7 +158,7 @@ public class HotelService {
             outputHotel.setMaxFloor(inputHotel.getMaxFloor());
         }
         if (inputHotel.getAmenities() != null) {
-            List<Amenity> outputAmenities = autoAmenityMapping(inputHotel.getAmenities());
+            //List<Amenity> outputAmenities = autoAmenityMapping(inputHotel.getAmenities());
             outputHotel.setAmenities(autoAmenityMapping(inputHotel.getAmenities()));
         }
     }
