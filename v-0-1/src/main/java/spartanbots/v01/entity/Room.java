@@ -9,14 +9,16 @@ import javax.persistence.GenerationType;
 import java.io.Serializable;
 import java.util.List;
 
-enum RoomType {
-    BASIC,
-    STANDARD,
-    LUXURY;
-}
+
 
 @Document(collection ="room")
 public class Room{
+
+    public enum RoomType {
+        BASIC,
+        STANDARD,
+        LUXURY;
+    }
 
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -39,7 +41,7 @@ public class Room{
     private RoomType roomType;
 
     @Column(name = "price")
-    private double price;
+    private float price;
 
     @Column(name = "bookingIds")
     private List<Integer> bookingIds;
@@ -88,11 +90,11 @@ public class Room{
         this.roomType = roomType;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 

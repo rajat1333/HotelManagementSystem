@@ -52,6 +52,7 @@ public class HotelService {
         List<Hotel> hotelList=hotelRepository.findAll();
         if(!hotelList.isEmpty())
         {
+            /*
             for (Hotel hotel:hotelList) {
                 List<Room> roomList = roomRepository.findRoomByHotelId(hotel.getId());
                 float minBasePrice = 0;
@@ -63,6 +64,7 @@ public class HotelService {
                     }
                 }hotel.setBasePrice(minBasePrice);
             }
+            */
             return ResponseEntity.ok(hotelList);
         }
         else

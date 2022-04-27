@@ -97,11 +97,12 @@ public class RoomService {
         if (inputRoom.getName() != null) {
             outputRoom.setName(inputRoom.getName());
         }
+        //String hotelName = hotelRepository.findById(inputRoom.getHotelId()).get().getName()
         if (hotelRepository.existsById(inputRoom.getHotelId())) {
             outputRoom.setHotelId(inputRoom.getHotelId());
             outputRoom.setHotelName(hotelRepository.findById(inputRoom.getHotelId()).get().getName());
         }
-        //int maxFloor = hotelRepository.findById(inputRoom.getHotelId()).get().getMaxFloor();
+        //int hotelMaxFloor = hotelRepository.findById(inputRoom.getHotelId()).get().getMaxFloor();
         if (inputRoom.getFloor() != null && inputRoom.getFloor() <= hotelRepository.findById(inputRoom.getHotelId()).get().getMaxFloor()) {
             outputRoom.setFloor(inputRoom.getFloor());
         }
@@ -110,6 +111,10 @@ public class RoomService {
         }
         if (inputRoom.getPrice() > 0) {
             outputRoom.setPrice(inputRoom.getPrice());
+            //float hotelBasePrice = hotelRepository.findById(outputRoom.getHotelId()).get().getBasePrice()
+            if (inputRoom.getPrice() < hotelRepository.findById(outputRoom.getHotelId()).get().getBasePrice()) {
+                hotelRepository.findById(outputRoom.getHotelId()).get().setBasePrice(inputRoom.getPrice());
+            }
         }
     }
 }
