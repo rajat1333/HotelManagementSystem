@@ -107,6 +107,17 @@ public class HotelService {
     }
 
     @Transactional
+    public ResponseEntity<Object> searchHotel(Hotel hotel) {
+        if(hotelRepository.existsById(hotel.getId())){
+            return ResponseEntity.ok(hotelRepository.findById(hotel.getId()));
+        }
+        else{
+            return ResponseEntity.badRequest().body(new ErrorMessage("Hotel record does not exists."));
+        }
+    }
+
+
+    @Transactional
     public ResponseEntity<Hotel> addHotel(Hotel hotel) {
         if(hotelRepository.existsById(hotel.getId())){
             try {
