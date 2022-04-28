@@ -191,15 +191,15 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="staticCell" rowHeight="80" id="PAp-7m-cFn">
-                                                <rect key="frame" x="0.0" y="44.5" width="414" height="80"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="staticCell" rowHeight="140" id="PAp-7m-cFn">
+                                                <rect key="frame" x="0.0" y="44.5" width="414" height="140"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="PAp-7m-cFn" id="90t-ax-NIq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qBx-Fz-Wrd">
-                                                            <rect key="frame" x="10" y="0.0" width="394" height="80"/>
+                                                        <collectionView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qBx-Fz-Wrd">
+                                                            <rect key="frame" x="10" y="-1" width="394" height="140"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fhC-sI-KdL">
@@ -210,7 +210,7 @@
                                                             </collectionViewFlowLayout>
                                                             <cells>
                                                                 <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ammenitiesCollectionViewCell" id="uTb-Vo-yGr">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                                                    <rect key="frame" x="0.0" y="30" width="80" height="80"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="mbW-ir-OUw">
                                                                         <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
@@ -236,6 +236,11 @@
                                                                         </subviews>
                                                                     </collectionViewCellContentView>
                                                                     <size key="customSize" width="80" height="80"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="skeletonCornerRadius">
+                                                                            <real key="value" value="1"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </collectionViewCell>
                                                             </cells>
                                                             <connections>
@@ -243,18 +248,42 @@
                                                                 <outlet property="delegate" destination="TdN-7c-29H" id="cFb-qb-48D"/>
                                                             </connections>
                                                         </collectionView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Check In : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RZn-rz-DQM">
+                                                            <rect key="frame" x="10" y="7" width="394" height="45"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="ciu-un-9co">
+                                                            <rect key="frame" x="143" y="7" width="271" height="45"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                            <locale key="locale" localeIdentifier="en_US"/>
+                                                        </datePicker>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Check Out : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e09-vh-LmV">
+                                                            <rect key="frame" x="10" y="62" width="394" height="45"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="leading" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="Tip-hx-CFr">
+                                                            <rect key="frame" x="143" y="62" width="271" height="45"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                            <locale key="locale" localeIdentifier="en_US"/>
+                                                        </datePicker>
                                                     </subviews>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="roomCell" rowHeight="106" id="f9n-h4-TFN">
-                                                <rect key="frame" x="0.0" y="124.5" width="414" height="106"/>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="roomCell" rowHeight="166" id="f9n-h4-TFN">
+                                                <rect key="frame" x="0.0" y="184.5" width="414" height="166"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="f9n-h4-TFN" id="XFH-d4-zq2">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="106"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="166"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q3Q-2T-7G7">
-                                                            <rect key="frame" x="10" y="10" width="395" height="85"/>
+                                                            <rect key="frame" x="10" y="10" width="395" height="145"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         </view>
@@ -380,6 +409,9 @@
                         <outlet property="gradientImage" destination="1YO-Mt-0gR" id="mBJ-wp-PU5"/>
                         <outlet property="hangingNameView" destination="y4z-5F-lyx" id="EgJ-74-Zxp"/>
                         <outlet property="hangingShadowView" destination="teM-Dq-crZ" id="O2W-iq-hcJ"/>
+                        <outlet property="hotelLocation" destination="sb2-i5-hPS" id="ahk-ww-MVb"/>
+                        <outlet property="hotelName" destination="YOf-UU-vjT" id="eg4-Vk-CMc"/>
+                        <outlet property="hotelPrice" destination="ED7-jN-0ix" id="X0J-gw-rdp"/>
                         <outlet property="imageCollection" destination="Joy-GN-Ocd" id="1UW-yd-Kqx"/>
                         <outlet property="mainView" destination="YLc-pK-Tna" id="Hvi-Yy-0jQ"/>
                         <outlet property="tableView" destination="adO-Kv-Drf" id="dWb-pE-Iyf"/>

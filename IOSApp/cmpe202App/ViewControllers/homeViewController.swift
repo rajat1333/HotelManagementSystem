@@ -91,8 +91,9 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     let top3 = Array(dataArray.prefix(3))
                     collectionArray = NSMutableArray.init(array: top3)
                     tableArray = NSMutableArray.init(array: Array(dataArray[3 ..< dataArray.count]))
-                    self.homeTableView.reloadData()
-                    self.activityIndicatorView.stopAnimating()
+                    self.homeTableView.reloadData(){
+                        self.activityIndicatorView.stopAnimating()
+                    }
                 }
 
             } catch {
@@ -169,12 +170,17 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "HotelDetailViewController") as! HotelDetailViewController
-            self.present(vc, animated: true, completion: nil)
+        
+        vc.hotelBasicDetail = collectionArray.object(at: indexPath.row) as? NSMutableDictionary
+        navigationController?.pushViewController(vc, animated: true)
+//            self.push(vc, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "HotelDetailViewController") as! HotelDetailViewController
-            self.present(vc, animated: true, completion: nil)
+        
+        vc.hotelBasicDetail = tableArray.object(at: indexPath.row - 2) as? NSMutableDictionary
+        navigationController?.pushViewController(vc, animated: true)
     }
     /*
     // MARK: - Navigation
@@ -186,4 +192,10 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     */
 
+}
+extension UITableView {
+    func reloadData(completion:@escaping ()->()) {
+        UIView.animate(withDuration: 0, animations: reloadData)
+            { _ in completion() }
+    }
 }

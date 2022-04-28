@@ -56,7 +56,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "251"
                   endingLineNumber = "251"
-                  offsetFromSymbolStart = "428">
+                  offsetFromSymbolStart = "368">
                </Location>
                <Location
                   uuid = "E2F41FBF-5DFE-4D42-8AB8-70A6B427E625 - f7ef17abc367cff5"
@@ -71,7 +71,7 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "251"
                   endingLineNumber = "251"
-                  offsetFromSymbolStart = "476">
+                  offsetFromSymbolStart = "416">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -214,8 +214,8 @@
             filePath = "cmpe202App/ViewControllers/homeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
             landmarkName = "collectionView(_:numberOfItemsInSection:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -230,8 +230,8 @@
             filePath = "cmpe202App/ViewControllers/homeViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "95"
-            endingLineNumber = "95"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
             landmarkName = "getHotelApi()"
             landmarkType = "7">
          </BreakpointContent>
