@@ -13,7 +13,7 @@
         <!--Search-->
         <scene sceneID="v7g-Ke-7Gc">
             <objects>
-                <viewController id="pdJ-Te-UXP" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pdJ-Te-UXP" customClass="SearchViewController" customModule="cmpe202App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iFe-Hk-HqK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -99,6 +99,9 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain"/>
+                                        <connections>
+                                            <action selector="searchButtonAction" destination="pdJ-Te-UXP" eventType="touchUpInside" id="KOc-AK-PJ7"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -108,11 +111,31 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" id="krJ-dW-gAC" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="117" y="358" width="180" height="180"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <viewLayoutGuide key="safeArea" id="ygt-6T-G3I"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballRotateChase"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tCe-qp-PHL"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" selectedImage="magnifyingglass" id="6WB-EC-72V"/>
+                    <connections>
+                        <outlet property="activityIndicatorView" destination="krJ-dW-gAC" id="jWr-nL-o51"/>
+                        <outlet property="checkInDate" destination="KBN-nA-lJT" id="mJr-bw-i44"/>
+                        <outlet property="checkOutDate" destination="9pO-5c-OiQ" id="DBQ-J7-HDG"/>
+                        <outlet property="locationTextField" destination="9X5-RB-VHK" id="PXc-Ki-lnM"/>
+                        <outlet property="searchButtonView" destination="47y-H6-rV8" id="Uq5-KX-aEW"/>
+                        <outlet property="searchTableView" destination="9Vg-BG-o6J" id="hvW-ds-a8Y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j2o-56-icO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -396,6 +419,27 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uoR-Pc-AFY">
+                                        <rect key="frame" x="10" y="10" width="103" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="chevron.backward.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3Oh-py-4kE">
+                                                <rect key="frame" x="17" y="-2" width="40" height="40"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e16-JX-2Qu">
+                                                <rect key="frame" x="0.0" y="0.0" width="103" height="37"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain"/>
+                                                <connections>
+                                                    <action selector="backButtonAction" destination="TdN-7c-29H" eventType="touchUpInside" id="oOp-dE-bvg"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -405,6 +449,8 @@
                     </view>
                     <connections>
                         <outlet property="buttonView" destination="Rzh-R6-phA" id="h5m-Fd-ir5"/>
+                        <outlet property="checkIndate" destination="ciu-un-9co" id="lL9-aY-rIF"/>
+                        <outlet property="checkOutDate" destination="Tip-hx-CFr" id="inX-sd-cxH"/>
                         <outlet property="collectionView" destination="0Zy-v9-E44" id="mqJ-7y-LrC"/>
                         <outlet property="gradientImage" destination="1YO-Mt-0gR" id="mBJ-wp-PU5"/>
                         <outlet property="hangingNameView" destination="y4z-5F-lyx" id="EgJ-74-Zxp"/>
@@ -1424,6 +1470,7 @@
         <image name="ben" width="50.5" height="176.5"/>
         <image name="bluGradientRect" width="207" height="125"/>
         <image name="burj" width="100.5" height="157"/>
+        <image name="chevron.backward.circle.fill" catalog="system" width="128" height="121"/>
         <image name="christ" width="130.5" height="185.5"/>
         <image name="eiffle" width="125.5" height="165.5"/>
         <image name="gradient" width="207" height="448"/>
