@@ -7,14 +7,22 @@
 
 import UIKit
 import NVActivityIndicatorView
-class SearchViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class SearchViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate {
     @IBOutlet weak var activityIndicatorView:NVActivityIndicatorView!
     @IBOutlet weak var searchTableView : UITableView!
     @IBOutlet weak var locationTextField:UITextField!
     @IBOutlet weak var checkInDate : UIDatePicker!
     @IBOutlet weak var checkOutDate : UIDatePicker!
     @IBOutlet weak var searchButtonView : UIView!
-    weak var searchArray:NSMutableArray!
+    @IBOutlet weak var searchView : UIView!
+    @IBOutlet weak var locView : UIView!
+    @IBOutlet weak var dateView : UIView!
+    @IBOutlet weak var locationLabel : UILabel!
+    @IBOutlet weak var dateLabel : UILabel!
+
+
+
+    var searchArray:NSArray!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,10 +34,12 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
         checkOutDate.minimumDate = nextDay
         locationTextField.text = "San Jose"
         
-        searchArray = NSMutableArray()
-        
-        searchTableView.isHidden=true
-        self.view.bringSubviewToFront(searchTableView)
+        searchArray = NSArray()
+        searchTableView.dataSource=self
+        searchTableView.delegate=self
+        searchTableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeTableViewCell")
+        searchView.isHidden=true
+        self.view.bringSubviewToFront(searchView)
         // Do any additional setup after loading the view.
     }
     @IBAction func searchButtonAction(){
@@ -44,7 +54,7 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
         let EndDateString = endDate.getFormattedDate(format: "yyyy-MM-dd") // Set output format
         let url = URL(string: "\(globals.api)getAvailableHotels")!
         var request = URLRequest(url: url,timeoutInterval: Double.infinity)
-        let json: [String: Any] = ["destinationName": "\(String(describing: self.locationTextField.text)))",
+        let json: [String: Any] = ["destinationName": "\(String(describing: self.locationTextField.text!.lowercased()))",
                                    "startDate": "\(StartDateString)",
                                    "endDate": "\(EndDateString)"]
 
@@ -59,9 +69,8 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
             let response = response as? HTTPURLResponse,
             error == nil else {
                 // check for fundamental networking error
-               
-
                 print("error", error ?? "Unknown error")
+                self.activityIndicatorView.stopAnimating()
                 return
             }
 
@@ -72,8 +81,11 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
                     do {
                         let json = try JSONSerialization.jsonObject(with: data) as! Dictionary<String, AnyObject>
                             print(json)
+                        
+                        self.activityIndicatorView.stopAnimating()
                         DispatchQueue.main.async { () -> Void in
                             self.showToast(message: json["message"] as! String, font: .systemFont(ofSize: 12.0))
+                            self.activityIndicatorView.stopAnimating()
                         }
 
                         } catch {
@@ -85,25 +97,29 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
                 return
             }
             do {
-                let json = try JSONSerialization.jsonObject(with: data) as! [Any]
+                let json = try JSONSerialization.jsonObject(with: data) as! NSArray
                     print(json)
                 
-                let searchArray = json
                 DispatchQueue.main.async { [self] () -> Void in
+                    self.searchArray = NSArray.init(array: json)
                     if searchArray.count>0 {
-                        self.searchArray = searchArray as? NSMutableArray
-                        searchTableView.isHidden=false
-                        searchTableView.reloadData()
-                        self.view.bringSubviewToFront(searchTableView)
-                        
-                    }
-                    else{
-                        searchTableView.isHidden=true
-                        
+                        searchView.isHidden=false
+                        self.view.bringSubviewToFront(searchView)
+                        locationLabel.text = locationTextField.text
+                        let startDate = self.checkInDate.date
+                        let endDate = self.checkOutDate.date
+                        let StartDateString = startDate.getFormattedDate(format: "MMM dd") // Set output format
+                        let EndDateString = endDate.getFormattedDate(format: "MMMM dd")
+                        let dateString = "\(StartDateString) - \(EndDateString)"
+                        dateLabel.text = dateString
+                        searchTableView.reloadData(){
+                            self.activityIndicatorView.stopAnimating()
+                        }
                     }
                 }
+            }
 
-            } catch {
+            catch {
                 print("error")
             }
             self.activityIndicatorView.stopAnimating()
@@ -112,20 +128,27 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
         task.resume()
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchArray.count
+        if(searchArray.count>0){
+            return searchArray.count
+        }
+        else{
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell", for: indexPath) as! HomeTableViewCell
-        
-        let dataDict = searchArray.object(at: indexPath.row) as! NSDictionary
+        if(self.searchArray.count>0){
+            let dataDict = self.searchArray.object(at: indexPath.row) as! NSDictionary
 
-        cell.hotelName.text = dataDict["name"] as? String
-        cell.location.text = dataDict["city"] as? String
-        let price = dataDict["basePrice"] as! Int
-        cell.price.text = "from $\(String(describing: price))"
-        let url = URL(string: dataDict["imageURL"] as! String)!
-        cell.hotelImage.af.setImage(withURL: url, cacheKey: "searchTable\(indexPath.row)", placeholderImage: UIImage (named: "tableListImage"), serializer: nil, filter: nil, progress:nil, progressQueue: .global(), imageTransition: .noTransition, runImageTransitionIfCached: false, completion: nil)
+            cell.hotelName.text = dataDict["name"] as? String
+            cell.location.text = dataDict["city"] as? String
+            let price = dataDict["basePrice"] as! Int
+            cell.price.text = "from $\(String(describing: price))"
+            let url = URL(string: dataDict["imageURL"] as! String)!
+            cell.hotelImage.af.setImage(withURL: url, cacheKey: "searchTable\(indexPath.row)", placeholderImage: UIImage (named: "tableListImage"), serializer: nil, filter: nil, progress:nil, progressQueue: .global(), imageTransition: .noTransition, runImageTransitionIfCached: false, completion: nil)
+        }
+        
         return cell
    
     }
@@ -139,6 +162,14 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
         vc.checkIndate.setDate(self.checkInDate.date, animated: false)
         vc.checkOutDate.setDate(self.checkOutDate.date.addingTimeInterval(1), animated: false)
         navigationController?.pushViewController(vc, animated: true)
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+
+        return false
+    }
+    @IBAction func cancelFilterAction(){
+        searchView.isHidden = true
     }
     /*
     // MARK: - Navigation
