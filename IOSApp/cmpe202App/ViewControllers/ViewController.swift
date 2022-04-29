@@ -277,7 +277,13 @@ class ViewController: UIViewController,UITextFieldDelegate {
                 print(String(data: data, encoding: .utf8))
                 return
             }
+            let json = try JSONSerialization.jsonObject(with: data) as! Dictionary<String, AnyObject>
             DispatchQueue.main.async { () -> Void in
+                
+                let preferences = UserDefaults.standard
+                let key = "user"
+                preferences.set(json, forKey: key)
+                preferences.synchronize()
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let mainTabBarController = storyboard.instantiateViewController(identifier: "SHCircleBarController")
                 self.activityIndicatorView.stopAnimating()
