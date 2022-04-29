@@ -29,8 +29,8 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     var hotelBasicDetail:NSMutableDictionary!
     override func viewDidLoad() {
         super.viewDidLoad()
-        checkIndate.setDate(Date(), animated: false)
-        checkOutDate.setDate(Date().addingTimeInterval(1), animated: false)
+        checkIndate.minimumDate = Date()
+        checkOutDate.minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
         self.hangingNameView.frame = CGRect(x: globals.X(view: collectionView)!, y: globals.BOTTOM(view: collectionView)!-45, width: globals.WIDTH(view: collectionView)!, height: globals.HEIGHT(view: hangingNameView)!)
         
         self.hangingShadowView.frame = CGRect(x: globals.X(view: hangingNameView)!+10 , y: globals.BOTTOM(view: collectionView)!-35, width: globals.WIDTH(view: collectionView)!-20, height: globals.HEIGHT(view: hangingNameView)!-20)
@@ -115,9 +115,14 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     func getRooms(){
         let url = URL(string: "\(globals.api)getAvailableRooms")!
         var request = URLRequest(url: url,timeoutInterval: Double.infinity)
+        let startDate = self.checkIndate.date
+        let endDate = self.checkOutDate.date
+        let StartDateString = startDate.getFormattedDate(format: "yyyy-MM-dd") // Set output format
+        let EndDateString = endDate.getFormattedDate(format: "yyyy-MM-dd") // Set output format
+
         let json: [String: Any] = ["hotelId": "\(String(describing: hotelBasicDetail["id"] as? String))",
-                                   "startDate": "\(self.checkIndate.date)",
-                                   "endDate": "\(self.checkOutDate.date)"]
+                                   "startDate": "\(StartDateString)",
+                                   "endDate": "\(EndDateString)"]
 
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -170,6 +175,9 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         }
 
         task.resume()
+    }
+    @IBAction func backButtonAction(){
+        self.navigationController?.popViewController(animated: true)
     }
     /*
     // MARK: - Navigation

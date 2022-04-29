@@ -172,6 +172,10 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "HotelDetailViewController") as! HotelDetailViewController
         
         vc.hotelBasicDetail = collectionArray.object(at: indexPath.row) as? NSMutableDictionary
+        let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+        let nextNextDay = Calendar.current.date(byAdding: .day, value: 1, to: nextDay)!
+        vc.checkIndate.setDate(nextDay, animated: false)
+        vc.checkOutDate.setDate(nextNextDay.addingTimeInterval(1), animated: false)
         navigationController?.pushViewController(vc, animated: true)
 //            self.push(vc, animated: true, completion: nil)
     }
@@ -180,6 +184,10 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "HotelDetailViewController") as! HotelDetailViewController
         
         vc.hotelBasicDetail = tableArray.object(at: indexPath.row - 2) as? NSMutableDictionary
+        let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+        let nextNextDay = Calendar.current.date(byAdding: .day, value: 1, to: nextDay)!
+        vc.checkIndate.setDate(nextDay, animated: false)
+        vc.checkOutDate.setDate(nextNextDay.addingTimeInterval(1), animated: false)
         navigationController?.pushViewController(vc, animated: true)
     }
     /*
