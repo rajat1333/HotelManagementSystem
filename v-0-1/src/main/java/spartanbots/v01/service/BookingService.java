@@ -10,10 +10,6 @@ import spartanbots.v01.repository.HotelRepository;
 import spartanbots.v01.repository.RoomRepository;
 
 import javax.transaction.Transactional;
-import java.text.SimpleDateFormat;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
 import java.util.*;
 
 @Service
@@ -44,14 +40,13 @@ public class BookingService {
         try {
             Booking bookingToBeCreated = new Booking();
             bookingToBeCreated.setId(bookingRepository.findAll().size() == 0 ? 1 : bookingRepository.findAll().stream().max(Comparator.comparingInt(Booking::getId)).get().getId() + 1);
-//            bookingToBeCreated.setAmenities(new ArrayList<Amenity>());
+            bookingToBeCreated.setAmenities(new ArrayList<Amenity>());
             if (!bookingRegularization(booking, bookingToBeCreated)) {
                 return ResponseEntity.badRequest().body(new ErrorMessage("Booking record fail to be created."));
             }
-            Bill bill = BillService.getBillFromBooking(bookingToBeCreated);
+            Bill bill = BillService.generateBillFromBooking(bookingToBeCreated);
             bookingToBeCreated.setBill(bill);
-            //todo : add this part in save booking
-            //bookingRepository.save(bookingToBeCreated);
+            bookingRepository.save(bookingToBeCreated);
             System.out.println("Booking record created: \n" + bookingToBeCreated.toString());
             return ResponseEntity.ok(bookingToBeCreated);
         } catch (Exception e) {
@@ -73,7 +68,6 @@ public class BookingService {
                 if (!bookingRegularization(booking, bookingToBeUpdated)) {
                     return ResponseEntity.badRequest().body(new ErrorMessage("Booking record fail to be updated."));
                 }
-                //todo : move this code to function called finalize booking
                 bookingRepository.save(bookingToBeUpdated);
                 System.out.println("Booking record updated: \n" + booking.toString());
                 return ResponseEntity.ok(bookingToBeUpdated);
@@ -90,9 +84,10 @@ public class BookingService {
         if (bookingRepository.existsById(booking.getId())) {
             try {
                 Booking bookingToBeDeleted = bookingRepository.findById(booking.getId()).get();
-                List<Room> associatedRooms = bookingToBeDeleted.getRooms();
-                for (Room associatedRoom: associatedRooms
+                List<Room> bookedRooms = bookingToBeDeleted.getRooms();
+                for (Room bookedRoom: bookedRooms
                      ) {
+                    Room associatedRoom = roomRepository.findById(bookedRoom.getId()).get();
                     if (associatedRoom.getBookingIds().contains(bookingToBeDeleted.getId())) {
                         associatedRoom.getBookingIds().remove(Integer.valueOf(bookingToBeDeleted.getId()));
                         roomRepository.save(associatedRoom);
@@ -153,24 +148,24 @@ public class BookingService {
 //            return false;
 //        }
 
-//        List<Amenity> outputAmenities = autoAmenityMapping(inputBooking.getAmenities());
-//        outputBooking.setAmenities(outputAmenities);
+        List<Amenity> outputAmenities = autoAmenityMapping(inputBooking.getAmenities());
+        outputBooking.setAmenities(outputAmenities);
 
         List<Room> roomList = inputBooking.getRooms();
         ArrayList<Room> bookedRoomList = new ArrayList<>();
         for (Room associatedRoom : roomList
         ) {
-            Room r = roomRepository.findById(associatedRoom.getId()).get();
-            //r.setPrice(associatedRoom.getPrice());
-            bookedRoomList.add(associatedRoom);
+            Room room = roomRepository.findById(associatedRoom.getId()).get();
+            Room bookedRoom = roomRepository.findById(associatedRoom.getId()).get();
+            bookedRoom.setPrice(associatedRoom.getPrice());
+            bookedRoomList.add(bookedRoom);
             //here each room object will contain dynamic price at which it has been booked
             //Room associatedRoom = roomRepository.findById(outputBooking.getRoomId()).get();
-            //todo : remove this code as data will get piled up move this code in finalize booking method
-            if(r.getBookingIds()==null)
-                r.setBookingIds(new ArrayList<>());
-            if (!r.getBookingIds().contains(outputBooking.getId())) {
-                r.getBookingIds().add(outputBooking.getId());
-                roomRepository.save(r);
+            if(room.getBookingIds()==null)
+                room.setBookingIds(new ArrayList<>());
+            if (!room.getBookingIds().contains(outputBooking.getId())) {
+                room.getBookingIds().add(outputBooking.getId());
+                roomRepository.save(room);
             }
 
         }
@@ -228,24 +223,24 @@ public class BookingService {
                     Boolean checkAfter = currentBookingFrom.after(existedBookingTo) || currentBookingFrom.equals(existedBookingTo);
                     if (before) {
                         if (!checkBefore) {
-                            //return false;
-                            allRoomsAvailable =  false;
+                            return false;
+//                            allRoomsAvailable =  false;
                         }
                         //case 1 : current [1, 7] and existed [5, 10]
                         if (after) {
-//                            return false;
-                            allRoomsAvailable =  false;
+                            return false;
+//                            allRoomsAvailable =  false;
                         }
                         //case 2 : current [1, 12] and existed [5, 10]
                     } else {
                         if (!checkAfter) {
-//                            return false;
-                            allRoomsAvailable =  false;
+                            return false;
+//                            allRoomsAvailable =  false;
                         }
                         //case 3 : current [7, 12] and existed [5, 10]
                         if (!after) {
-//                            return false;
-                            allRoomsAvailable = false;
+                            return false;
+//                            allRoomsAvailable = false;
                         }
                         //case 4 : current [7, 8] and existed [5, 10]
                     }

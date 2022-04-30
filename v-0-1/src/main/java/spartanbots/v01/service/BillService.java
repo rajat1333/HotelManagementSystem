@@ -47,7 +47,7 @@ public class BillService {
     @Transactional
     public ResponseEntity<Object> createBill(Booking booking) {
         try {
-            Bill bill = getBillFromBooking(booking);
+            Bill bill = generateBillFromBooking(booking);
 
             System.out.println("Bill record created: \n" + bill.toString());
             return ResponseEntity.ok(bill);
@@ -56,14 +56,17 @@ public class BillService {
         }
     }
 
-    public static Bill getBillFromBooking(Booking booking) {
+    public static Bill generateBillFromBooking(Booking booking) {
         Bill bill = new Bill();
         bill.setId(billRepository.findAll().size() == 0 ? 1 : billRepository.findAll().stream().max(Comparator.comparingInt(Bill::getId)).get().getId() + 1);
+        bill.setBookingId(booking.getId());
         double totalBillAmount = calculateTotalBillAmount(booking);
         bill.setTotalAmount(totalBillAmount);
-        bill.setTaxAmount(totalBillAmount * 0.12 ); //todo add variable for tax percentage
+        bill.setTaxAmount(totalBillAmount * 0.12 ); //Using 12 percent tax
         bill.setTotalPayableAmount(bill.getTotalAmount() + bill.getTaxAmount());
+        bill.setAmountPayableByRewardPoints(bill.getTotalPayableAmount()*0.1);  //only 10 percent of total amount can is payable by rewards points
         bill.setPaymentStatus("Unpaid");
+        billRepository.save(bill);
         return bill;
     }
 
@@ -72,15 +75,20 @@ public class BillService {
         int noOfDays = (int) ((booking.getBookTo().getTime() - booking.getBookFrom().getTime())/(1000*60*60*24));
         System.out.println(" noOfDays is : " + noOfDays);
         List<Room> roomList = booking.getRooms();
-        for (Room room : roomList
-             ) {
-            double roomPrice = getRoomPrice(room.getId());
-            totalBillAmount += (noOfDays * roomPrice);
-            List<Amenity> amenityList = room.getBookedAmenities();
+        List<Amenity> amenityList = booking.getAmenities();
             for (Amenity amenity: amenityList
                  ) {
                 totalBillAmount += (noOfDays * amenityRepository.findById(amenity.getId()).get().getPrice());
             }
+        for (Room room : roomList
+             ) {
+            double roomPrice = room.getPrice();
+            totalBillAmount += (noOfDays * roomPrice);
+//            List<Amenity> amenityList = room.getBookedAmenities();
+//            for (Amenity amenity: amenityList
+//                 ) {
+//                totalBillAmount += (noOfDays * amenityRepository.findById(amenity.getId()).get().getPrice());
+//            }
             System.out.println("totalBillAmount is " + totalBillAmount);
         }
 //        double amenitiesCost = getAmenitiesCost(booking);
