@@ -44,7 +44,7 @@ public class Room{
     @Column(name = "bookingIds")
     private List<Integer> bookingIds;
 
-    private List<Amenity> bookedAmenities;
+//    private List<Amenity> bookedAmenities;
 
     public Room() {}
 
@@ -100,13 +100,13 @@ public class Room{
 
     public void setBookingIds(List<Integer> bookingIds) { this.bookingIds = bookingIds; }
 
-    public List<Amenity> getBookedAmenities() {
-        return bookedAmenities;
-    }
-
-    public void setBookedAmenities(List<Amenity> bookedAmenities) {
-        this.bookedAmenities = bookedAmenities;
-    }
+//    public List<Amenity> getBookedAmenities() {
+//        return bookedAmenities;
+//    }
+//
+//    public void setBookedAmenities(List<Amenity> bookedAmenities) {
+//        this.bookedAmenities = bookedAmenities;
+//    }
 
     @Override
     public String toString() {
