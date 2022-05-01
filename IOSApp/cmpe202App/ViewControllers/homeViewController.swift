@@ -167,10 +167,15 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.hotelImage.af.setImage(withURL: url, cacheKey: "mainTable\(indexPath.row)", placeholderImage: UIImage (named: "tableListImage"), serializer: nil, filter: nil, progress:nil, progressQueue: .global(), imageTransition: .noTransition, runImageTransitionIfCached: false, completion: nil)
             
             cell.shadowView.layer.masksToBounds=false
-            cell.shadowView.layer.shadowOffset = CGSize(width: 0,
-                                              height: 0)
+            cell.shadowView.layer.shadowOffset = CGSize(width: 0,height: 0)
             cell.shadowView.layer.shadowRadius = 7
             cell.shadowView.layer.shadowOpacity = 0.8
+            if(indexPath.row==2 || indexPath.row==3){
+                cell.ratingImage.image = UIImage(named: "5Star")
+            }
+            else{
+                cell.ratingImage.image = UIImage(named: "4_5Star")
+            }
             cell.hideSkeleton()
             return cell
         }
@@ -180,7 +185,7 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
             return 420
         }
         else if indexPath.row == 1{
-            return 50
+            return 40
         }
         else{
             return 170
