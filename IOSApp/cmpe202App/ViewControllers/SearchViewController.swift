@@ -158,9 +158,11 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "HotelDetailViewController") as! HotelDetailViewController
         
-        vc.hotelBasicDetail = searchArray.object(at: indexPath.row) as? NSMutableDictionary
-        vc.checkIndate.setDate(self.checkInDate.date, animated: false)
-        vc.checkOutDate.setDate(self.checkOutDate.date.addingTimeInterval(1), animated: false)
+        vc.hotelBasicDetail = (searchArray.object(at: indexPath.row) as! NSDictionary)
+        let cI = self.checkInDate.date
+        let cO = self.checkOutDate.date
+        vc.checkIn = cI
+        vc.checkOut = cO
         navigationController?.pushViewController(vc, animated: true)
     }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
