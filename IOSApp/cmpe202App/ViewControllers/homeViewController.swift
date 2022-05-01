@@ -9,7 +9,8 @@ import UIKit
 import NVActivityIndicatorView
 import Alamofire
 import AlamofireImage
-class homeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource {
+import SkeletonView
+class homeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource,SkeletonTableViewDataSource,SkeletonCollectionViewDataSource {
     
     @IBOutlet weak var activityIndicatorView:NVActivityIndicatorView!
     @IBOutlet weak var homeTableView : UITableView!
@@ -31,23 +32,32 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         homeTableView.dataSource=self
         homeTableView.delegate=self
-        homeTableView.reloadData()
-        homeTableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeTableViewCell")
+               
     }
     override func viewWillAppear(_ animated: Bool) {
         fetchHotelData()
     }
        
     @objc private func refreshHotelsTableView(_ sender: Any) {
+        
         fetchHotelData()
     }
     private func fetchHotelData() {
+        let gradient = SkeletonGradient(baseColor: UIColor.silver)
+        let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight)
+        homeTableView.showAnimatedGradientSkeleton(usingGradient: gradient, animation: animation)
+        tableArray.removeAllObjects()
+        collectionArray.removeAllObjects()
+        homeTableView.showSkeleton()
+        tableArray = NSMutableArray()
+        collectionArray = NSMutableArray()
         getHotelApi()
         self.refreshControl.endRefreshing()
 
     }
     func getHotelApi(){
-        activityIndicatorView.startAnimating()
+        //activityIndicatorView.startAnimating()
+        
         let url = URL(string: "\(globals.api)readhotel")!
         var request = URLRequest(url: url,timeoutInterval: Double.infinity)
         request.httpMethod = "GET"
@@ -69,7 +79,8 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
                             print(json)
                         DispatchQueue.main.async { [self] () -> Void in
                             self.showToast(message: json["message"] as! String, font: .systemFont(ofSize: 12.0))
-                            self.activityIndicatorView.stopAnimating()
+                            //self.activityIndicatorView.stopAnimating()
+                            homeTableView.hideSkeleton()
 
                         }
 
@@ -93,6 +104,7 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     tableArray = NSMutableArray.init(array: Array(dataArray[3 ..< dataArray.count]))
                     self.homeTableView.reloadData(){
                         self.activityIndicatorView.stopAnimating()
+                        self.homeTableView.hideSkeleton()
                     }
                 }
 
@@ -153,6 +165,13 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.price.text = "from $\(String(describing: price))"
             let url = URL(string: dataDict["imageURL"] as! String)!
             cell.hotelImage.af.setImage(withURL: url, cacheKey: "mainTable\(indexPath.row)", placeholderImage: UIImage (named: "tableListImage"), serializer: nil, filter: nil, progress:nil, progressQueue: .global(), imageTransition: .noTransition, runImageTransitionIfCached: false, completion: nil)
+            
+            cell.shadowView.layer.masksToBounds=false
+            cell.shadowView.layer.shadowOffset = CGSize(width: 0,
+                                              height: 0)
+            cell.shadowView.layer.shadowRadius = 7
+            cell.shadowView.layer.shadowOpacity = 0.8
+            cell.hideSkeleton()
             return cell
         }
     }
@@ -171,11 +190,12 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "HotelDetailViewController") as! HotelDetailViewController
         
-        vc.hotelBasicDetail = collectionArray.object(at: indexPath.row) as? NSMutableDictionary
-        let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+        vc.hotelBasicDetail = (collectionArray.object(at: indexPath.row) as! NSDictionary)
+        let date = globals.getDateAndTime(timeZoneIdentifier: "PST")
+        let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: globals.stringToDate(str: date!))!
         let nextNextDay = Calendar.current.date(byAdding: .day, value: 1, to: nextDay)!
-        vc.checkIndate.setDate(nextDay, animated: false)
-        vc.checkOutDate.setDate(nextNextDay.addingTimeInterval(1), animated: false)
+        vc.checkIn = nextDay
+        vc.checkOut = nextNextDay
         navigationController?.pushViewController(vc, animated: true)
 //            self.push(vc, animated: true, completion: nil)
     }
@@ -183,12 +203,45 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "HotelDetailViewController") as! HotelDetailViewController
         
-        vc.hotelBasicDetail = tableArray.object(at: indexPath.row - 2) as? NSMutableDictionary
-        let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+        vc.hotelBasicDetail = (tableArray.object(at: indexPath.row - 2) as! NSDictionary)
+        let date = globals.getDateAndTime(timeZoneIdentifier: "PST")
+        let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: globals.stringToDate(str: date!))!
         let nextNextDay = Calendar.current.date(byAdding: .day, value: 1, to: nextDay)!
-        vc.checkIndate.setDate(nextDay, animated: false)
-        vc.checkOutDate.setDate(nextNextDay.addingTimeInterval(1), animated: false)
+        vc.checkIn = nextDay
+        vc.checkOut = nextNextDay
         navigationController?.pushViewController(vc, animated: true)
+    }
+    func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        return 6
+    }
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        if indexPath.row == 0 {
+            return "HomeCollectionTableViewCell"
+        }
+        else if(indexPath.row==1){
+            return "staticCell"
+        }
+        else{
+            return "HomeTableViewCell"
+        }
+    }
+    func collectionSkeletonView(_ skeletonView: UITableView, skeletonCellForRowAt indexPath: IndexPath) -> UITableViewCell? {
+        if indexPath.row == 0 {
+            let cell = skeletonView.dequeueReusableCell(withIdentifier: "HomeCollectionTableViewCell", for: indexPath) as? HomeCollectionTableViewCell
+            return cell
+        }
+        else if(indexPath.row==1){
+            let cell = skeletonView.dequeueReusableCell(withIdentifier: "staticCell", for: indexPath) as? UITableViewCell
+            return cell
+        }
+        else{
+            let cell = skeletonView.dequeueReusableCell(withIdentifier: "HomeTableViewCell", for: indexPath) as? HomeTableViewCell
+            return cell
+        }
+
+    }
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "HomeCollectionViewCell"
     }
     /*
     // MARK: - Navigation
@@ -207,3 +260,4 @@ extension UITableView {
             { _ in completion() }
     }
 }
+

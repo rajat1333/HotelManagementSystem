@@ -30,6 +30,25 @@ class globals {
     public static func HEIGHT(view: UIView) -> CGFloat? {
         return view.frame.size.height
     }
+    public static func  dateToString(date:Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        return dateFormatter.string(from: date)
+    }
+    public static func getDateAndTime(timeZoneIdentifier: String) -> String? {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        dateFormatter.timeZone = TimeZone(identifier: timeZoneIdentifier)
+
+        return dateFormatter.string(from: Date())
+    }
+    public static func  stringToDate(str:String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        return dateFormatter.date(from: str)!
+    }
+
 }
 class shadowView: UIView {
      
@@ -56,11 +75,7 @@ class shadowView: UIView {
 
        layer.insertSublayer(shadowLayer, at: 0)
     }
-    func  dateToString(date:Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-dd"
-        return dateFormatter.string(from: date)
-    }
+    
         
     
 }
