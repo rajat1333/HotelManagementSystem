@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import spartanbots.v01.entity.Bill;
 import spartanbots.v01.entity.Booking;
 import spartanbots.v01.entity.Search;
 import spartanbots.v01.service.BillService;
@@ -26,6 +27,11 @@ public class BillController {
     @RequestMapping(value = "createBill", method = RequestMethod.POST)
     public ResponseEntity<Object> createBill(@RequestBody Booking booking){
         return billService.createBill(booking);
+    }
+
+    @RequestMapping(value = "makePayment", method = RequestMethod.POST)
+    public ResponseEntity<Object> makePayment(@RequestBody Bill bill){
+        return billService.makePayment(bill);
     }
 
 }
