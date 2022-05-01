@@ -148,10 +148,16 @@ public class BookingService {
 //            return false;
 //        }
 
-        List<Amenity> outputAmenities = autoAmenityMapping(inputBooking.getAmenities());
-        outputBooking.setAmenities(outputAmenities);
+        if(inputBooking.getAmenities()!=null && !inputBooking.getAmenities().isEmpty()){
+            List<Amenity> outputAmenities = autoAmenityMapping(inputBooking.getAmenities());
+            outputBooking.setAmenities(outputAmenities);
+        }
+
 
         List<Room> roomList = inputBooking.getRooms();
+        if(roomList==null || roomList.isEmpty()){
+            return false;
+        }
         ArrayList<Room> bookedRoomList = new ArrayList<>();
         for (Room associatedRoom : roomList
         ) {
@@ -201,6 +207,8 @@ public class BookingService {
         if (checkRange) {
             //there should not be need for this check as we will be showing only available rooms on UI
             List<Room> roomList = inputBooking.getRooms();
+            if(roomList==null ||roomList.isEmpty())
+                return false;
             for (Room currentRoom : roomList
             ) {
                 List<Integer> existedBookingIds = roomRepository.findById(currentRoom.getId()).get().getBookingIds();
