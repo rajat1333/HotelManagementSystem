@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import spartanbots.v01.entity.Amenity;
-import spartanbots.v01.entity.Bill;
-import spartanbots.v01.entity.Booking;
-import spartanbots.v01.entity.Room;
+import spartanbots.v01.entity.*;
+import spartanbots.v01.entity.Users.Customer;
 import spartanbots.v01.repository.*;
 
 import java.util.Comparator;
@@ -26,21 +24,21 @@ public class BillService {
     private BookingRepository bookingRepository;
 
     @Autowired
-    private HotelRepository hotelRepository;
-
-    @Autowired
     private static RoomRepository roomRepository;
 
     @Autowired
     private static AmenityRepository amenityRepository;
 
     @Autowired
-    public BillService(BillRepository billRepository, BookingRepository bookingRepository, HotelRepository hotelRepository, RoomRepository roomRepository, AmenityRepository amenityRepository) {
+    private static CustomerRepository customerRepository;
+
+    @Autowired
+    public BillService(BillRepository billRepository, BookingRepository bookingRepository, RoomRepository roomRepository, AmenityRepository amenityRepository, CustomerRepository customerRepository) {
         this.billRepository = billRepository;
         this.bookingRepository = bookingRepository;
-        this.hotelRepository = hotelRepository;
         this.roomRepository = roomRepository;
         this.amenityRepository = amenityRepository;
+        this.customerRepository = customerRepository;
     }
 
 
@@ -56,6 +54,37 @@ public class BillService {
         }
     }
 
+    @Transactional
+    public ResponseEntity<Object> makePayment(Bill bill){
+        if(bill.getPaymentStatus().equals("Paid")){
+            ResponseEntity.badRequest().body(new ErrorMessage("Payment for this bill has already been made"));
+        }
+        bill.setPaymentStatus("Paid");
+        int rewardPointsUsed = bill.getRewardPointsUsed();
+
+        bill.setTotalPayableAmount(bill.getTotalPayableAmount()-rewardPointsUsed);//updating total payable amount based on reward point used
+        bill.setDiscountAmount(bill.getRewardPointsUsed());     //discount is based on reward points
+
+
+        //updating bill object in booking
+        Booking associatedBooking = bookingRepository.findById(bill.getBookingId()).get();
+
+        //updating customer reward points
+        int rewardPointsEarned = (int) (bill.getTotalPayableAmount() * 0.05);
+        Customer customer = customerRepository.findByEmail(associatedBooking.getCustomerEmail()).get(0);
+        customer.setRewardPoints((int) (customer.getRewardPoints()-rewardPointsUsed) + rewardPointsEarned);
+
+        bill.setRewardPointsEarned(rewardPointsEarned);
+
+        associatedBooking.setBill(bill);
+        bookingRepository.save(associatedBooking);
+        billRepository.save(bill);
+        customerRepository.save(customer);
+
+        return  ResponseEntity.ok(bill);
+    }
+
+
     public static Bill generateBillFromBooking(Booking booking) {
         Bill bill = new Bill();
         bill.setId(billRepository.findAll().size() == 0 ? 1 : billRepository.findAll().stream().max(Comparator.comparingInt(Bill::getId)).get().getId() + 1);
@@ -64,7 +93,9 @@ public class BillService {
         bill.setTotalAmount(totalBillAmount);
         bill.setTaxAmount(totalBillAmount * 0.12 ); //Using 12 percent tax
         bill.setTotalPayableAmount(bill.getTotalAmount() + bill.getTaxAmount());
-        bill.setAmountPayableByRewardPoints(bill.getTotalPayableAmount()*0.1);  //only 10 percent of total amount can is payable by rewards points
+        Customer customer = customerRepository.findByEmail(booking.getCustomerEmail()).get(0);
+        int availableRewardPoints = customer.getRewardPoints();
+        bill.setAmountPayableByRewardPoints(availableRewardPoints);  //allowing user to pay using available reward points
         bill.setPaymentStatus("Unpaid");
         billRepository.save(bill);
         return bill;
@@ -107,10 +138,4 @@ public class BillService {
 //        return amenityCost;
 //    }
 
-    private static double getRoomPrice(int roomId) {
-        Room room = roomRepository.findById(roomId).get();
-        double roomPrice = room.getPrice();
-        System.out.println("Room price for room id " + roomId + " is : " + roomPrice);
-        return roomPrice;
-    }
 }

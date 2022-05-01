@@ -38,7 +38,18 @@ public class Bill {
     private String paymentStatus;
 
     @Column(name = "rewardPointsUsed")
-    private double rewardPointsUsed;
+    private int rewardPointsUsed;
+
+    public int getRewardPointsEarned() {
+        return rewardPointsEarned;
+    }
+
+    public void setRewardPointsEarned(int rewardPointsEarned) {
+        this.rewardPointsEarned = rewardPointsEarned;
+    }
+
+    @Column(name = "rewardPointsEarned")
+    private int rewardPointsEarned;
 
     @Column(name = "discountAmount")
     private double discountAmount;
@@ -113,11 +124,11 @@ public class Bill {
         this.totalPayableAmount = totalPayableAmount;
     }
 
-    public double getRewardPointsUsed() {
+    public int getRewardPointsUsed() {
         return rewardPointsUsed;
     }
 
-    public void setRewardPointsUsed(double rewardPointsUsed) {
+    public void setRewardPointsUsed(int rewardPointsUsed) {
         this.rewardPointsUsed = rewardPointsUsed;
     }
 

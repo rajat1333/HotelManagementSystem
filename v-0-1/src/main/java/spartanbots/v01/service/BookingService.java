@@ -157,10 +157,11 @@ public class BookingService {
         ) {
             Room room = roomRepository.findById(associatedRoom.getId()).get();
             Room bookedRoom = roomRepository.findById(associatedRoom.getId()).get();
+            //here each booked room object will contain dynamic price at which it has been booked.
+            //We are storing whole room object to save fetching of room object. This will save api calls
             bookedRoom.setPrice(associatedRoom.getPrice());
             bookedRoomList.add(bookedRoom);
-            //here each room object will contain dynamic price at which it has been booked
-            //Room associatedRoom = roomRepository.findById(outputBooking.getRoomId()).get();
+            //adding booking ids in room object
             if(room.getBookingIds()==null)
                 room.setBookingIds(new ArrayList<>());
             if (!room.getBookingIds().contains(outputBooking.getId())) {
@@ -200,7 +201,6 @@ public class BookingService {
         if (checkRange) {
             //there should not be need for this check as we will be showing only available rooms on UI
             List<Room> roomList = inputBooking.getRooms();
-            boolean allRoomsAvailable = true;
             for (Room currentRoom : roomList
             ) {
                 List<Integer> existedBookingIds = roomRepository.findById(currentRoom.getId()).get().getBookingIds();
@@ -224,31 +224,26 @@ public class BookingService {
                     if (before) {
                         if (!checkBefore) {
                             return false;
-//                            allRoomsAvailable =  false;
                         }
                         //case 1 : current [1, 7] and existed [5, 10]
                         if (after) {
                             return false;
-//                            allRoomsAvailable =  false;
                         }
                         //case 2 : current [1, 12] and existed [5, 10]
                     } else {
                         if (!checkAfter) {
                             return false;
-//                            allRoomsAvailable =  false;
                         }
                         //case 3 : current [7, 12] and existed [5, 10]
                         if (!after) {
                             return false;
-//                            allRoomsAvailable = false;
                         }
                         //case 4 : current [7, 8] and existed [5, 10]
                     }
                 }
 
             }
-
-            return allRoomsAvailable;
+            return true;
         } else {
             return false;
         }
