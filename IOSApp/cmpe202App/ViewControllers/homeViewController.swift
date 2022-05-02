@@ -161,8 +161,8 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
 
             cell.hotelName.text = dataDict["name"] as? String
             cell.location.text = dataDict["city"] as? String
-            let price = dataDict["basePrice"] as! Int
-            cell.price.text = "from $\(String(describing: price))"
+            let price = dataDict["basePrice"] as! Float
+            cell.price.text = "from $\(String(describing: Int(price)))"
             let url = URL(string: dataDict["imageURL"] as! String)!
             cell.hotelImage.af.setImage(withURL: url, cacheKey: "mainTable\(indexPath.row)", placeholderImage: UIImage (named: "tableListImage"), serializer: nil, filter: nil, progress:nil, progressQueue: .global(), imageTransition: .noTransition, runImageTransitionIfCached: false, completion: nil)
             

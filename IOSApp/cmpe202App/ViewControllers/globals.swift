@@ -64,16 +64,16 @@ class shadowView: UIView {
      
    func setRadiusAndShadow() {
        let shadowLayer = CAShapeLayer()
-       shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: 20).cgPath
+       shadowLayer.path = UIBezierPath(roundedRect: layer.bounds, cornerRadius: 20).cgPath
        shadowLayer.fillColor = UIColor.white.cgColor
        layer.cornerRadius = 20
        shadowLayer.shadowColor = UIColor.darkGray.cgColor
        shadowLayer.shadowPath = shadowLayer.path
-       shadowLayer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+       shadowLayer.shadowOffset = CGSize(width: 0, height: 0)
        shadowLayer.shadowOpacity = 0.7
        shadowLayer.shadowRadius = 4
-
-       layer.insertSublayer(shadowLayer, at: 0)
+       //shadowLayer.frame = layer.frame
+       layer.insertSublayer(shadowLayer, at:0)
     }
     
         

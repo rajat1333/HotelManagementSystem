@@ -9,7 +9,7 @@ import UIKit
 import NVActivityIndicatorView
 import SkeletonView
 
-class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource,SkeletonTableViewDataSource  {
+class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UITableViewDelegate, UITableViewDataSource,SkeletonTableViewDataSource, UITextFieldDelegate  {
 
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var hangingNameView: UIView!
@@ -30,16 +30,40 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var checkOutDate: UIDatePicker!
     @IBOutlet weak var activityIndicatorView : NVActivityIndicatorView!
     @IBOutlet weak var receiptView: UIView!
+    @IBOutlet weak var cardView: UIView!
+    @IBOutlet weak var pointsView: UIView!
+    @IBOutlet weak var priceLabel: UILabel!
+    @IBOutlet weak var taxLabel: UILabel!
+    @IBOutlet weak var cardNumber: UITextField!
+    @IBOutlet weak var cardName: UITextField!
+    @IBOutlet weak var cvv: UITextField!
+    @IBOutlet weak var cardMonth: UITextField!
+    @IBOutlet weak var cardYear: UITextField!
+    @IBOutlet weak var payView: UIView!
+    @IBOutlet weak var cancelpaymentView: UIView!
+    @IBOutlet weak var rewardPointsLabel: UILabel!
+    @IBOutlet weak var checkImage: UIImageView!
+    @IBOutlet weak var pointsShadowView: UIView!
+    @IBOutlet weak var doneView: UIView!
+    @IBOutlet var animateImage: UIImageView!
 
+
+
+    var useRewards:Bool!
     var checkIn:Date!
     var checkOut:Date!
     var roomData:NSMutableArray!
     var hotelBasicDetail:NSDictionary!
     var amenitiesArray:NSMutableArray!
     var imageArray : NSMutableArray!
+    var bookingResponseArray : NSMutableDictionary!
+
     var dateChanged : Bool!
     override func viewDidLoad() {
         super.viewDidLoad()
+        doneView.isHidden=true
+        useRewards = false
+        receiptView.isHidden=true
         dateChanged = false
         checkIndate.minimumDate = Date()
         checkOutDate.minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
@@ -61,7 +85,7 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         topLabel.text = hotelBasicDetail["name"] as? String
         hotelName.text = hotelBasicDetail["name"] as? String
         hotelLocation.text = hotelBasicDetail["city"] as? String
-        let price = hotelBasicDetail["basePrice"] as! Int
+        let price = hotelBasicDetail["basePrice"] as! Float
         hotelPrice.text = "$\(String(describing: price))"
         let gradient = SkeletonGradient(baseColor: UIColor.silver)
         let animation = SkeletonAnimationBuilder().makeSlidingAnimation(withDirection: .leftRight)
@@ -89,6 +113,7 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         checkOutDate.minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
         dateChanged = true
         buttonView.isHidden=true
+        self.tableView.isHidden=false
         refreshButtonView.isHidden=false
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -146,7 +171,7 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
             let price = cell.contentView.viewWithTag(3) as? UILabel
             
             typeName?.text = (roomDict.object(forKey: "roomType") as! String)
-            let priceStr = roomDict.object(forKey: "price") as! Int
+            let priceStr = roomDict.object(forKey: "price") as! Float
             price?.text = "$\(String(describing: priceStr))"
             let selected = roomDict.object(forKey: "selected") as! Bool
             if(selected){
@@ -279,6 +304,9 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
                             print(json)
                         DispatchQueue.main.async { () -> Void in
                             self.showToast(message: json["message"] as! String, font: .systemFont(ofSize: 12.0))
+                            self.tableView.isHidden=true
+                            self.tableView.hideSkeleton()
+                            
                         }
 
                         } catch {
@@ -331,7 +359,10 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
 
     }
     @IBAction func getRoomsAgain(){
-        roomData.removeAllObjects()
+        if(roomData != nil){
+            roomData.removeAllObjects()
+
+        }
         tableView.showSkeleton()
         getRooms()
     }
@@ -395,7 +426,7 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         request.httpMethod = "POST"
         request.httpBody = jsonData
 
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
             guard let data = data,
             let response = response as? HTTPURLResponse,
             error == nil else {
@@ -429,10 +460,28 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
             
             do {
                 let json = try JSONSerialization.jsonObject(with: data) as! NSDictionary
-                    print(json)
+                print(json)
+                self.bookingResponseArray = json.mutableCopy() as! NSMutableDictionary
                 DispatchQueue.main.async { () -> Void in
                     self.activityIndicatorView.stopAnimating()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                        self.receiptView.isHidden=false
+                        let billObject = self.bookingResponseArray.object(forKey: "bill") as! NSDictionary
+                        self.priceLabel.text = "$ \(Float(billObject.value(forKey: "totalPayableAmount") as! Double))"
+                        let tax = (billObject.value(forKey: "taxAmount") as! Double)
+                        self.taxLabel.text = "Includes Tax $\(Float(tax))"
+                        let reward = (billObject.value(forKey: "amountPayableByRewardPoints") as! Double)
+                        if(reward == 0.0){
+                            self.pointsView.isHidden=true
+                            self.pointsShadowView.isHidden=true
+                        }
+                        else{
+                            self.pointsView.isHidden=false
+                            self.pointsShadowView.isHidden=false
+                        }
+                        self.rewardPointsLabel.text = "Use Reward Points : \(Float(reward))"
+                        self.checkImage.image = UIImage(named: "emptyRing")
+                        self.useRewards = false
                         //self.navigationController?.popViewController(animated: true)
                     }
                     
@@ -447,5 +496,225 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         task.resume()
 
     }
+    @IBAction func payButtonAction(){
+        let dict = NSMutableDictionary()
+//        {
+//                "id": 12,
+//                "bookingId": 27,
+//                "totalAmount": 500.0,
+//                "taxAmount": 60.0,
+//                "paymentMode": null,
+//                "paymentStatus": "Unpaid",
+//                "rewardPointsUsed": 28,
+//                "rewardPointsEarned": 0,
+//                "discountAmount": 0.0,
+//                "totalPayableAmount": 560.0,
+//                "amountPayableByRewardPoints": 28.0
+//            }
+        let billObject = self.bookingResponseArray.object(forKey: "bill") as! NSDictionary
+        dict.setValue(billObject.value(forKey:"id"), forKey: "id")
+        dict.setValue(self.bookingResponseArray.value(forKey:"id"), forKey: "bookingId")
+        
+        dict.setValue(billObject.value(forKey:"totalAmount"), forKey: "totalAmount")
+        dict.setValue(billObject.value(forKey:"taxAmount"), forKey: "taxAmount")
+        dict.setValue(billObject.value(forKey:"paymentMode"), forKey: "paymentMode")
+        dict.setValue(billObject.value(forKey:"paymentStatus"), forKey: "paymentStatus")
+        if(useRewards){
+            dict.setValue(billObject.value(forKey:"amountPayableByRewardPoints"), forKey: "rewardPointsUsed")
 
+        }
+        else{
+            dict.setValue(0, forKey: "rewardPointsUsed")
+
+        }
+        //dict.setValue(billObject.value(forKey:"id"), forKey: "rewardPointsEarned")
+        dict.setValue(billObject.value(forKey:"discountAmount"), forKey: "discountAmount")
+        dict.setValue(billObject.value(forKey:"totalPayableAmount"), forKey: "totalPayableAmount")
+        dict.setValue(billObject.value(forKey:"amountPayableByRewardPoints"), forKey: "amountPayableByRewardPoints")
+        
+        makePaymentAPI(dict: dict)
+    }
+    func makePaymentAPI(dict:NSMutableDictionary){
+        activityIndicatorView.startAnimating()
+        let url = URL(string: "\(globals.api)makePayment")!
+        var request = URLRequest(url: url,timeoutInterval: Double.infinity)
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: dict)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+
+        let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
+            guard let data = data,
+            let response = response as? HTTPURLResponse,
+            error == nil else {
+                // check for fundamental networking error
+               
+
+                print("error", error ?? "Unknown error")
+                return
+            }
+
+            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                if response.statusCode == 400 {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data) as! Dictionary<String, AnyObject>
+                            print(json)
+                        DispatchQueue.main.async { () -> Void in
+                            self.activityIndicatorView.stopAnimating()
+                            self.showToast(message: json["message"] as! String, font: .systemFont(ofSize: 12.0))
+                        }
+
+                        } catch {
+                            print("error")
+                        }
+                    
+                }
+                print(String(data: data, encoding: .utf8))
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data) as! NSDictionary
+                print(json)
+                DispatchQueue.main.async { () -> Void in
+                    self.activityIndicatorView.stopAnimating()
+                    
+                    self.doneView.isHidden = false
+//                    let imageData = try? Data(contentsOf: Bundle.main.url(forResource: "payment-success", withExtension: "gif")!)
+//
+//                    let advTimeGif = UIImage.gifImageWithData(imageData!)
+                    let jeremyGif = UIImage.gifImageWithName("payment-success")
+                    let imgView = UIImageView(image: jeremyGif)
+                    self.doneView.addSubview(imgView)
+                    imgView.frame = CGRect(x: 107, y: 448-95, width:
+                    200, height: 190)
+                    imgView.contentMode = .scaleAspectFill
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                        self.showToast(message: "Booking Successful", font: .systemFont(ofSize: 12.0))
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                    
+                }
+
+            } catch {
+                print("error")
+            }
+            
+        }
+
+        task.resume()
+
+    }
+    @IBAction func checkRewardsAction(){
+        if(useRewards){
+            useRewards = false
+            self.checkImage.image = UIImage(named: "emptyRing")
+            let billObject = self.bookingResponseArray.object(forKey: "bill") as! NSDictionary
+            self.priceLabel.text = "$ \((billObject.value(forKey: "totalPayableAmount") as! Double))"
+        }
+        else{
+            useRewards = true
+            self.checkImage.image = UIImage(named: "checkBox")
+            let billObject = self.bookingResponseArray.object(forKey: "bill") as! NSDictionary
+            let price = (billObject.value(forKey: "totalPayableAmount") as! Double)
+            let rewards = (billObject.value(forKey: "amountPayableByRewardPoints") as! Double)
+            self.priceLabel.text = "$ \(Float(price-rewards))"
+        }
+        
+    }
+    @IBAction func cancelPaymentAction(){
+        
+        self.receiptView.isHidden=true
+        let bookid = self.bookingResponseArray.object(forKey: "id") as! Int
+        let dict = NSMutableDictionary()
+        dict.setValue(bookid, forKey: "id")
+        cancelBookingAPI(dict: dict)
+    }
+    func cancelBookingAPI(dict:NSMutableDictionary){
+        activityIndicatorView.startAnimating()
+        self.tableView.isHidden=true
+        let url = URL(string: "\(globals.api)deletebooking")!
+        var request = URLRequest(url: url,timeoutInterval: Double.infinity)
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: dict)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        request.httpMethod = "DELETE"
+        request.httpBody = jsonData
+
+        let task = URLSession.shared.dataTask(with: request) { [self] data, response, error in
+            guard let data = data,
+            let response = response as? HTTPURLResponse,
+            error == nil else {
+                // check for fundamental networking error
+               
+
+                print("error", error ?? "Unknown error")
+                return
+            }
+
+            guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+                print("statusCode should be 2xx, but is \(response.statusCode)")
+                print("response = \(response)")
+                if response.statusCode == 400 {
+                    do {
+                        let json = try JSONSerialization.jsonObject(with: data) as! Dictionary<String, AnyObject>
+                            print(json)
+                        self.activityIndicatorView.stopAnimating()
+                        DispatchQueue.main.async { () -> Void in
+                            self.activityIndicatorView.stopAnimating()
+                            self.showToast(message: json["message"] as! String, font: .systemFont(ofSize: 12.0))
+                        }
+
+                        } catch {
+                            print("error")
+                        }
+                    
+                }
+                print(String(data: data, encoding: .utf8))
+                return
+            }
+            
+            do {
+                
+                let json = try JSONSerialization.jsonObject(with: data) as! NSDictionary
+                print(json)
+                
+                DispatchQueue.main.async { () -> Void in
+                    self.activityIndicatorView.stopAnimating()
+                    self.tableView.isHidden=false
+                }
+
+
+            } catch {
+                print("error")
+            }
+            
+        }
+
+        task.resume()
+
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let nextTag = textField.tag + 1
+        // Try to find next responder
+        let nextResponder = textField.superview?.viewWithTag(nextTag) as UIResponder?
+
+        if nextResponder != nil {
+            // Found next responder, so set it
+            nextResponder?.becomeFirstResponder()
+        } else {
+            // Not found, so remove keyboard
+            textField.resignFirstResponder()
+        }
+
+        return false
+    }
 }

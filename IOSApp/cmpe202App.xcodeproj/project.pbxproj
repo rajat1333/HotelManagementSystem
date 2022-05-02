@@ -19,6 +19,8 @@
 		CB68038927FCF6E200B244EC /* BookingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB68038827FCF6E200B244EC /* BookingCollectionViewCell.swift */; };
 		CB9D08BC281B010000BAB172 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9D08BB281B00FF00BAB172 /* SearchViewController.swift */; };
 		CB9D08BE281B925200BAB172 /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9D08BD281B925200BAB172 /* MyAccountViewController.swift */; };
+		CB9E83F0281F6FC600F184B7 /* ImageAnimate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB9E83EF281F6FC600F184B7 /* ImageAnimate.swift */; };
+		CB9E83F4281F7B3400F184B7 /* payment-success.gif in Resources */ = {isa = PBXBuildFile; fileRef = CB9E83F3281F7B3400F184B7 /* payment-success.gif */; };
 		CBAFE49C280CB09B002A6472 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAFE49B280CB09B002A6472 /* SignUpViewController.swift */; };
 		CBCA1CD627CB141D009F9DF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA1CD527CB141D009F9DF3 /* AppDelegate.swift */; };
 		CBCA1CDA27CB141D009F9DF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBCA1CD927CB141D009F9DF3 /* ViewController.swift */; };
@@ -68,6 +70,8 @@
 		CB68038827FCF6E200B244EC /* BookingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingCollectionViewCell.swift; sourceTree = "<group>"; };
 		CB9D08BB281B00FF00BAB172 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		CB9D08BD281B925200BAB172 /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
+		CB9E83EF281F6FC600F184B7 /* ImageAnimate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAnimate.swift; sourceTree = "<group>"; };
+		CB9E83F3281F7B3400F184B7 /* payment-success.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = "payment-success.gif"; path = "../../../App Data/payment-success.gif"; sourceTree = "<group>"; };
 		CBAFE49B280CB09B002A6472 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		CBCA1CD227CB141D009F9DF3 /* cmpe202App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cmpe202App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBCA1CD527CB141D009F9DF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -166,10 +170,12 @@
 				CBCA1D0A27CB17C6009F9DF3 /* ViewControllers */,
 				CBCA1D0827CB17A9009F9DF3 /* Storyboards */,
 				CBCA1CD527CB141D009F9DF3 /* AppDelegate.swift */,
+				CB9E83F3281F7B3400F184B7 /* payment-success.gif */,
 				CBCA1CE127CB141E009F9DF3 /* Assets.xcassets */,
 				CBCA1CE327CB141E009F9DF3 /* LaunchScreen.storyboard */,
 				CBCA1CE627CB141E009F9DF3 /* Info.plist */,
 				CBCA1CDE27CB141D009F9DF3 /* cmpe202App.xcdatamodeld */,
+				CB9E83EF281F6FC600F184B7 /* ImageAnimate.swift */,
 			);
 			path = cmpe202App;
 			sourceTree = "<group>";
@@ -332,6 +338,7 @@
 				CBCA1CE227CB141E009F9DF3 /* Assets.xcassets in Resources */,
 				CB5BB76327D0158200E69C9C /* HomeTableViewCell.xib in Resources */,
 				CBCA1CDD27CB141D009F9DF3 /* Main.storyboard in Resources */,
+				CB9E83F4281F7B3400F184B7 /* payment-success.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +466,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB9E83F0281F6FC600F184B7 /* ImageAnimate.swift in Sources */,
 				CB5BB76227D0158200E69C9C /* HomeTableViewCell.swift in Sources */,
 				CB5BB75D27CD8B9D00E69C9C /* globals.swift in Sources */,
 				CBCA1CDA27CB141D009F9DF3 /* ViewController.swift in Sources */,
