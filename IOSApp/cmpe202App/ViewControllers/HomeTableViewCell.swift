@@ -14,6 +14,7 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet weak var hotelImage : UIImageView!
     @IBOutlet weak var price : UILabel!
     @IBOutlet weak var shadowView : UIView!
+    @IBOutlet weak var ratingImage : UIImageView!
 
 
     

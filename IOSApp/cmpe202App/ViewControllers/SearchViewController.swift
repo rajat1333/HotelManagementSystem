@@ -33,7 +33,11 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
         checkInDate.minimumDate = Date()
         checkOutDate.minimumDate = nextDay
         locationTextField.text = "San Jose"
-        
+        checkInDate.setValue(UIColor.white, forKeyPath: "textColor")
+        checkInDate.datePickerMode = .date
+        checkOutDate.setValue(UIColor.white, forKeyPath: "textColor")
+        checkOutDate.datePickerMode = .date
+        //checkInDate.addTarget(self, action: #selector(checkInChanged), for: .valueChanged)
         searchArray = NSArray()
         searchTableView.dataSource=self
         searchTableView.delegate=self
@@ -143,10 +147,16 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
 
             cell.hotelName.text = dataDict["name"] as? String
             cell.location.text = dataDict["city"] as? String
-            let price = dataDict["basePrice"] as! Int
+            let price = dataDict["basePrice"] as! Float
             cell.price.text = "from $\(String(describing: price))"
             let url = URL(string: dataDict["imageURL"] as! String)!
             cell.hotelImage.af.setImage(withURL: url, cacheKey: "searchTable\(indexPath.row)", placeholderImage: UIImage (named: "tableListImage"), serializer: nil, filter: nil, progress:nil, progressQueue: .global(), imageTransition: .noTransition, runImageTransitionIfCached: false, completion: nil)
+            if(indexPath.row==0 || indexPath.row==1){
+                cell.ratingImage.image = UIImage(named: "5Star")
+            }
+            else{
+                cell.ratingImage.image = UIImage(named: "4_5Star")
+            }
         }
         
         return cell
