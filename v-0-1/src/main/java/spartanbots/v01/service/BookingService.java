@@ -2,12 +2,9 @@ package spartanbots.v01.service;
 
 import org.springframework.http.ResponseEntity;
 import spartanbots.v01.entity.*;
-import spartanbots.v01.repository.AmenityRepository;
-import spartanbots.v01.repository.BookingRepository;
+import spartanbots.v01.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import spartanbots.v01.repository.HotelRepository;
-import spartanbots.v01.repository.RoomRepository;
 
 import javax.transaction.Transactional;
 import java.util.*;
@@ -28,11 +25,15 @@ public class BookingService {
     private AmenityRepository amenityRepository;
 
     @Autowired
-    public BookingService(BookingRepository bookingRepository, HotelRepository hotelRepository, RoomRepository roomRepository, AmenityRepository amenityRepository) {
+    private BillRepository billRepository;
+
+    @Autowired
+    public BookingService(BookingRepository bookingRepository, HotelRepository hotelRepository, RoomRepository roomRepository, AmenityRepository amenityRepository, BillRepository billRepository) {
         this.bookingRepository = bookingRepository;
         this.hotelRepository = hotelRepository;
         this.roomRepository = roomRepository;
         this.amenityRepository = amenityRepository;
+        this.billRepository = billRepository;
     }
 
     @Transactional
@@ -85,16 +86,22 @@ public class BookingService {
             try {
                 Booking bookingToBeDeleted = bookingRepository.findById(booking.getId()).get();
                 List<Room> bookedRooms = bookingToBeDeleted.getRooms();
-                for (Room bookedRoom: bookedRooms
-                     ) {
-                    Room associatedRoom = roomRepository.findById(bookedRoom.getId()).get();
-                    if (associatedRoom.getBookingIds().contains(bookingToBeDeleted.getId())) {
-                        associatedRoom.getBookingIds().remove(Integer.valueOf(bookingToBeDeleted.getId()));
-                        roomRepository.save(associatedRoom);
+                if(bookedRooms!=null && !bookedRooms.isEmpty()){
+                    for (Room bookedRoom: bookedRooms
+                    ) {
+                        Room associatedRoom = roomRepository.findById(bookedRoom.getId()).get();
+                        if (associatedRoom.getBookingIds().contains(bookingToBeDeleted.getId())) {
+                            associatedRoom.getBookingIds().remove(Integer.valueOf(bookingToBeDeleted.getId()));
+                            roomRepository.save(associatedRoom);
+                        }
                     }
                 }
                 //Room associatedRoom = roomRepository.findById(bookingRepository.findById(bookingToBeDeleted.getId()).get().getRoomId()).get();
 
+                //deleting associated bill object along with delete booking
+                if(bookingToBeDeleted.getBill()!=null){
+                    billRepository.deleteById(bookingToBeDeleted.getBill().getId());
+                }
                 bookingRepository.deleteById(bookingToBeDeleted.getId());
                 System.out.println("Booking record deleted: \n" + bookingToBeDeleted.toString());
                 return ResponseEntity.ok(bookingToBeDeleted);
@@ -257,4 +264,47 @@ public class BookingService {
         }
     }
 
+    @Transactional
+    public ResponseEntity<HashMap<String, Object>> getBookingByEmail(Booking booking) {
+
+        List<Booking> bookings= bookingRepository.findByEmail(booking.getCustomerEmail());
+        HashMap<String, Object> outputBookings = createOutputBookings(bookings);
+
+        return ResponseEntity.ok(outputBookings);
+    }
+
+    private HashMap<String, Object> createOutputBookings(List<Booking> bookings) {
+        HashMap<String, Object> outputBookings = new HashMap<>();
+        ArrayList bookingArray = new ArrayList();
+        for (Booking inputBooking: bookings
+             ) {
+            HashMap<String, Object> booking = new HashMap<>();
+            booking.put("id", inputBooking.getId());
+            booking.put("customerEmail", inputBooking.getCustomerEmail());
+            booking.put("hotelName", inputBooking.getHotelName());
+            booking.put("bookFrom", inputBooking.getBookFrom());
+            booking.put("bookTo", inputBooking.getBookTo());
+            if(inputBooking.getBill()!=null){
+                booking.put("totalPayableAmount", inputBooking.getBill().getTotalPayableAmount());
+                booking.put("rewardPointsUsed", inputBooking.getBill().getRewardPointsUsed());
+            }
+            ArrayList roomArray = new ArrayList();
+
+            List<Room> rooms = inputBooking.getRooms();
+            if(rooms!=null && !rooms.isEmpty()){
+                for (Room room : rooms
+                ) {
+                    HashMap<String, Object> roomObj = new HashMap<>();
+                    roomObj.put("id", room.getId());
+                    roomObj.put("roomType", room.getRoomType());
+                    roomObj.put("name", room.getName());
+                    roomArray.add(roomObj);
+                }
+                booking.put("rooms", roomArray);
+            }
+            bookingArray.add(booking);
+        }
+        outputBookings.put("bookingArray", bookingArray);
+        return outputBookings;
+    }
 }
