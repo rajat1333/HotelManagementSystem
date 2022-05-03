@@ -281,9 +281,16 @@ public class BookingService {
             HashMap<String, Object> booking = new HashMap<>();
             booking.put("id", inputBooking.getId());
             booking.put("customerEmail", inputBooking.getCustomerEmail());
-            booking.put("hotelName", inputBooking.getHotelName());
             booking.put("bookFrom", inputBooking.getBookFrom());
             booking.put("bookTo", inputBooking.getBookTo());
+            if(inputBooking.getAmenities()!=null && !inputBooking.getAmenities().isEmpty()){
+                booking.put("amenities",inputBooking.getAmenities());
+            }
+            booking.put("hotelName", inputBooking.getHotelName());
+            Hotel hotel = hotelRepository.findById(inputBooking.getHotelId()).get();
+            if(hotel!=null){
+                booking.put("city", hotel.getCity());
+            }
             if(inputBooking.getBill()!=null){
                 booking.put("totalPayableAmount", inputBooking.getBill().getTotalPayableAmount());
                 booking.put("rewardPointsUsed", inputBooking.getBill().getRewardPointsUsed());
