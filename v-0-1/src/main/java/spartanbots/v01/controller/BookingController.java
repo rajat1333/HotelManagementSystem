@@ -7,8 +7,7 @@ import spartanbots.v01.entity.Booking;
 import spartanbots.v01.entity.ErrorMessage;
 import spartanbots.v01.service.BookingService;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.HashMap;
 
 @RestController
 public class BookingController {
@@ -49,5 +48,10 @@ public class BookingController {
     @RequestMapping(value = "searchbooking", method = RequestMethod.POST)
     public ResponseEntity<Object> searchBooking(@RequestBody Booking booking) {
         return bookingService.searchBooking(booking);
+    }
+
+    @RequestMapping(value = "getBookingByEmail", method = RequestMethod.POST)
+    public ResponseEntity<HashMap<String, Object>> getBookingByEmail(@RequestBody Booking booking) {
+        return bookingService.getBookingByEmail(booking);
     }
 }
