@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -281,8 +283,10 @@ public class BookingService {
             HashMap<String, Object> booking = new HashMap<>();
             booking.put("id", inputBooking.getId());
             booking.put("customerEmail", inputBooking.getCustomerEmail());
-            booking.put("bookFrom", inputBooking.getBookFrom());
-            booking.put("bookTo", inputBooking.getBookTo());
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+            booking.put("bookFrom", dateFormat.format(inputBooking.getBookFrom()));
+            booking.put("bookTo", dateFormat.format(inputBooking.getBookTo()));
             if(inputBooking.getAmenities()!=null && !inputBooking.getAmenities().isEmpty()){
                 booking.put("amenities",inputBooking.getAmenities());
             }
