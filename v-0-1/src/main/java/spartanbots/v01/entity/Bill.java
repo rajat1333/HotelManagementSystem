@@ -14,16 +14,16 @@ public class Bill {
     @Column(name = "id")
     private int id;
 
-    public String getBookingId() {
+    public int getBookingId() {
         return bookingId;
     }
 
-    public void setBookingId(String bookingId) {
+    public void setBookingId(int bookingId) {
         this.bookingId = bookingId;
     }
 
     @Column(name = "bookingId")
-    private String bookingId;
+    private int bookingId;
 
     @Column(name = "totalAmount")
     private double totalAmount;
@@ -38,13 +38,43 @@ public class Bill {
     private String paymentStatus;
 
     @Column(name = "rewardPointsUsed")
-    private double rewardPointsUsed;
+    private int rewardPointsUsed;
+
+    public int getRewardPointsEarned() {
+        return rewardPointsEarned;
+    }
+
+    public void setRewardPointsEarned(int rewardPointsEarned) {
+        this.rewardPointsEarned = rewardPointsEarned;
+    }
+
+    @Column(name = "rewardPointsEarned")
+    private int rewardPointsEarned;
 
     @Column(name = "discountAmount")
     private double discountAmount;
 
     @Column(name = "totalPayableAmount")
     private double totalPayableAmount;
+
+    public String getPaymentMode() {
+        return paymentMode;
+    }
+
+    public void setPaymentMode(String paymentMode) {
+        this.paymentMode = paymentMode;
+    }
+
+    public double getAmountPayableByRewardPoints() {
+        return amountPayableByRewardPoints;
+    }
+
+    public void setAmountPayableByRewardPoints(double amountPayableByRewardPoints) {
+        this.amountPayableByRewardPoints = amountPayableByRewardPoints;
+    }
+
+    @Column(name = "amountPayableByRewardPoints")
+    private double amountPayableByRewardPoints;
 
     public int getId() {
         return id;
@@ -94,11 +124,11 @@ public class Bill {
         this.totalPayableAmount = totalPayableAmount;
     }
 
-    public double getRewardPointsUsed() {
+    public int getRewardPointsUsed() {
         return rewardPointsUsed;
     }
 
-    public void setRewardPointsUsed(double rewardPointsUsed) {
+    public void setRewardPointsUsed(int rewardPointsUsed) {
         this.rewardPointsUsed = rewardPointsUsed;
     }
 

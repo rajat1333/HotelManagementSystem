@@ -99,7 +99,7 @@ class ViewController: UIViewController,UITextFieldDelegate {
         loginView.isHidden=true
         self.tajImageView.frame = CGRect(x: self.tajImageView.frame.origin.x , y: self.gradientView.frame.size.height, width: self.tajImageView.frame.width, height: self.tajImageView.frame.height)
         
-        self.christImageView.frame = CGRect(x: self.christImageView.frame.origin.x , y: self.gradientView.frame.size.height, width: self.christImageView.frame.width, height: self.christImageView.frame.height)
+        self.christImageView?.frame = CGRect(x: self.christImageView.frame.origin.x , y: self.gradientView.frame.size.height, width: self.christImageView.frame.width, height: self.christImageView.frame.height)
         
         self.leaningImageView.frame = CGRect(x: self.leaningImageView.frame.origin.x , y: self.gradientView.frame.size.height, width: self.leaningImageView.frame.width, height: self.leaningImageView.frame.height)
         
@@ -277,7 +277,13 @@ class ViewController: UIViewController,UITextFieldDelegate {
                 print(String(data: data, encoding: .utf8))
                 return
             }
-            let json = try JSONSerialization.jsonObject(with: data) as! Dictionary<String, AnyObject>
+            do{
+                let json = try JSONSerialization.jsonObject(with: data) as! Dictionary<String, AnyObject>
+            }
+            catch{
+                print("JSON Error : ViewController Login API")
+            }
+            
             DispatchQueue.main.async { () -> Void in
                 
                 let preferences = UserDefaults.standard

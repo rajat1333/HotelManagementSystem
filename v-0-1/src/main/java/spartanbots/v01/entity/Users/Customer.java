@@ -2,6 +2,7 @@ package spartanbots.v01.entity.Users;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import java.util.Date;
 
@@ -9,6 +10,8 @@ import java.util.Date;
 public class Customer{
 
     @Id
+    @Column(name = "id")
+    private String id;
     private int customerId;
     private int rewardPoints;
     private String email;
@@ -21,6 +24,7 @@ public class Customer{
 
 
     public Customer(int customerId, int rewardPoints, String email, String password, String firstName, String lastName, String gender, String phone, Date dob) {
+        this.id = id;
         this.customerId = customerId;
         this.rewardPoints = rewardPoints;
         this.email = email;

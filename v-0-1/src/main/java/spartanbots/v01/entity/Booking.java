@@ -33,8 +33,8 @@ public class Booking {
     @Column(name = "hotelName")
     private String hotelName;
 
-//    @Column(name = "amenities")
-//    private List<Amenity> amenities;
+    @Column(name = "amenities")
+    private List<Amenity> amenities;
 
     public List<Room> getRooms() {
         return rooms;
@@ -91,13 +91,13 @@ public class Booking {
         this.hotelName = hotelName;
     }
 
-//    public List<Amenity> getAmenities() {
-//        return amenities;
-//    }
-//
-//    public void setAmenities(List<Amenity> amenities) {
-//        this.amenities = amenities;
-//    }
+    public List<Amenity> getAmenities() {
+        return amenities;
+    }
+
+    public void setAmenities(List<Amenity> amenities) {
+        this.amenities = amenities;
+    }
 
     public Date getBookFrom() {
         return bookFrom;

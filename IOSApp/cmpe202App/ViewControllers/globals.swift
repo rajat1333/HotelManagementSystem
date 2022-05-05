@@ -30,6 +30,25 @@ class globals {
     public static func HEIGHT(view: UIView) -> CGFloat? {
         return view.frame.size.height
     }
+    public static func  dateToString(date:Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        return dateFormatter.string(from: date)
+    }
+    public static func getDateAndTime(timeZoneIdentifier: String) -> String? {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        dateFormatter.timeZone = TimeZone(identifier: timeZoneIdentifier)
+
+        return dateFormatter.string(from: Date())
+    }
+    public static func  stringToDate(str:String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        return dateFormatter.date(from: str)!
+    }
+
 }
 class shadowView: UIView {
      
@@ -45,22 +64,18 @@ class shadowView: UIView {
      
    func setRadiusAndShadow() {
        let shadowLayer = CAShapeLayer()
-       shadowLayer.path = UIBezierPath(roundedRect: bounds, cornerRadius: 20).cgPath
+       shadowLayer.path = UIBezierPath(roundedRect: layer.bounds, cornerRadius: 20).cgPath
        shadowLayer.fillColor = UIColor.white.cgColor
        layer.cornerRadius = 20
        shadowLayer.shadowColor = UIColor.darkGray.cgColor
        shadowLayer.shadowPath = shadowLayer.path
-       shadowLayer.shadowOffset = CGSize(width: 2.0, height: 2.0)
+       shadowLayer.shadowOffset = CGSize(width: 0, height: 0)
        shadowLayer.shadowOpacity = 0.7
        shadowLayer.shadowRadius = 4
-
-       layer.insertSublayer(shadowLayer, at: 0)
+       //shadowLayer.frame = layer.frame
+       layer.insertSublayer(shadowLayer, at:0)
     }
-    func  dateToString(date:Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-dd"
-        return dateFormatter.string(from: date)
-    }
+    
         
     
 }

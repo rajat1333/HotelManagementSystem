@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 import spartanbots.v01.entity.Booking;
-import spartanbots.v01.entity.Room;
 
 import java.util.List;
 
@@ -16,6 +15,9 @@ public interface BookingRepository extends MongoRepository<Booking, Integer> {
 
     @Query("{'hotelId':?0,'roomId':?1}")
     List<Booking> findBookingByHotelIdRoomId(int hotelId,int roomId);
+
+    @Query("{customerEmail:'?0'}")
+    List<Booking> findByEmail(String customerEmail);
 
 
 }
