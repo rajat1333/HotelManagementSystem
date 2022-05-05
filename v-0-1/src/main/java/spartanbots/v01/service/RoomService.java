@@ -41,9 +41,7 @@ public class RoomService {
         }
     }
 
-    public ResponseEntity<Object> readRoom() {
-        return ResponseEntity.ok(roomRepository.findAll());
-    }
+    public ResponseEntity<Object> readRoom() { return ResponseEntity.ok(roomRepository.findAll()); }
 
     @Transactional
     public ResponseEntity<Object> updateRoom(Room room) {
