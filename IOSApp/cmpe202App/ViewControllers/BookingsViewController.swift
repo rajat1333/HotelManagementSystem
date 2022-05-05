@@ -72,20 +72,30 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
             cell.hotelLocation.attributedText=attributedString
             cell.hotelImage.image = UIImage(named: "hotelStatic")
             cell.hotelName.text = "\(String(describing: dataDict.value(forKey: "hotelName")!))"
-            cell.bookingDate.text = "Check In\nMay 22, 2022"
+            cell.bookingDate.text = "\(String(describing: dataDict.value(forKey: "bookFrom")!))"
             cell.qrImage.image = generateQRCode(from: "\(String(describing: dataDict.value(forKey: "id")!))")
             let price = dataDict.value(forKey: "totalPayableAmount") as! Float
             let rewards = dataDict.value(forKey: "rewardPointsUsed") as! Float
 
             cell.price.text = "$\(Int(price-rewards))"
             cell.nights.text = "3\nNight\nStay"
-            cell.daysLeft.text = "46\nDays\nto\nGo"
+            let fromString = String(describing: dataDict.value(forKey: "bookFrom")!)
+            let toDate = globals.stringToDate(str: fromString)
+            let diffInDays = Calendar.current.dateComponents([.day], from: Date(), to: toDate).day
+            cell.cancelBtn.tag  = indexPath.row
+            cell.cancelBtn.addTarget(self, action: #selector(cancelBookingAction), for: .touchUpInside)
+            cell.daysLeft.text = "\(diffInDays)\nDays\nto\nGo"
         }
         
         
         
         return cell
 
+    }
+    
+    @objc
+    func cancelBookingAction (){
+        
     }
     func generateQRCode(from string: String) -> UIImage? {
         let data = string.data(using: String.Encoding.ascii)
