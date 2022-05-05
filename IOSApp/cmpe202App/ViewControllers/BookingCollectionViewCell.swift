@@ -24,6 +24,8 @@ class BookingCollectionViewCell: UICollectionViewCell {
     var sideCard2: UIView!
     var sideCard3: UIView!
 
+    var cancelLabel: UILabel!
+    var cancelBtn: UIButton!
 
 
 
@@ -135,6 +137,15 @@ class BookingCollectionViewCell: UICollectionViewCell {
         daysLeft.font = UIFont(name: "HelveticaNeue", size: 17)
         daysLeft.textColor = UIColor.white
 
+        cancelLabel = UILabel(frame: CGRect(x:2 , y: globals.HEIGHT(view: sideCard3)!/2-50, width: globals.WIDTH(view: sideCard1)!-4, height: 100))
+        cancelLabel.textAlignment = .center
+        cancelLabel.numberOfLines=6
+        cancelLabel.font = UIFont(name: "HelveticaNeue", size: 15)
+        cancelLabel.textColor = UIColor.white
+        cancelLabel.text = "C\nA\nC\nC\nE\nL"
+        
+        
+        cancelBtn = UIButton(frame: CGRect(x:2 , y: globals.HEIGHT(view: sideCard3)!/2-50, width: globals.WIDTH(view: sideCard1)!-4, height: 100))
         
         contentView.addSubview(card)
         card.addSubview(hotelLocation)
@@ -144,8 +155,10 @@ class BookingCollectionViewCell: UICollectionViewCell {
         card.addSubview(bookingDate)
         card.addSubview(qrImage)
         sideCard1.addSubview(price)
-        sideCard2.addSubview(nights)
-        sideCard3.addSubview(daysLeft)
+        sideCard2.addSubview(daysLeft)
+        sideCard3.addSubview(cancelLabel)
+        sideCard3.addSubview(cancelBtn)
+        sideCard3.bringSubviewToFront(cancelBtn)
 
 
 
