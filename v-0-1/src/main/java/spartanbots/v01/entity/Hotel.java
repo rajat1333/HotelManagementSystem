@@ -22,14 +22,14 @@ public class Hotel {
     @Column(name = "basePrice")
     private float basePrice;
 
-    @Column(name = "imageURL")
-    private String imageURL;
-
     @Column(name = "maxFloor")
     private Integer maxFloor;
 
     @Column(name = "amenities")
     private List<Amenity> amenities;
+
+    @Column(name = "imageURL")
+    private String imageURL;
 
     public Hotel() {}
 

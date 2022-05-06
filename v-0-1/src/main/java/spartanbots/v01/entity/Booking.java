@@ -27,9 +27,6 @@ public class Booking {
     @Column(name = "hotelId")
     private int hotelId;
 
-    @Column(name = "bill")
-    private Bill bill;
-
     @Column(name = "hotelName")
     private String hotelName;
 
@@ -58,6 +55,9 @@ public class Booking {
     @Column(name = "bookTime")
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
     private Date bookTime;
+
+    @Column(name = "bill")
+    private Bill bill;
 
     public String getCustomerEmail() {
         return customerEmail;

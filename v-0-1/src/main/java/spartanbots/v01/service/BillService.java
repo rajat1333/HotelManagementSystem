@@ -84,8 +84,8 @@ public class BillService {
         return  ResponseEntity.ok(bill);
     }
 
-
     public static Bill generateBillFromBooking(Booking booking) {
+        /*
         Bill bill = new Bill();
         bill.setId(billRepository.findAll().size() == 0 ? 1 : billRepository.findAll().stream().max(Comparator.comparingInt(Bill::getId)).get().getId() + 1);
         bill.setBookingId(booking.getId());
@@ -99,7 +99,38 @@ public class BillService {
         bill.setPaymentStatus("Unpaid");
         billRepository.save(bill);
         return bill;
+
+        */
+        Bill bill = generateBillWithNewId(booking.getId());
+        setBillAttributes(bill, booking);
+        return bill;
     }
+
+    public static Bill modifyBillFromBooking(Booking booking){
+        Bill bill = billRepository.findById(booking.getBill().getId()).get();
+        setBillAttributes(bill, booking);
+        return bill;
+    }
+
+    public static Bill generateBillWithNewId(int bookingId){
+        Bill bill = new Bill();
+        bill.setId(billRepository.findAll().size() == 0 ? 1 : billRepository.findAll().stream().max(Comparator.comparingInt(Bill::getId)).get().getId() + 1);
+        bill.setBookingId(bookingId);
+        return bill;
+    }
+
+    public static void setBillAttributes(Bill bill, Booking booking){
+        double totalBillAmount = calculateTotalBillAmount(booking);
+        bill.setTotalAmount(totalBillAmount);
+        bill.setTaxAmount(totalBillAmount * 0.12 ); //Using 12 percent tax
+        bill.setTotalPayableAmount(bill.getTotalAmount() + bill.getTaxAmount());
+        Customer customer = customerRepository.findByEmail(booking.getCustomerEmail()).get(0);
+        int availableRewardPoints = customer.getRewardPoints();
+        bill.setAmountPayableByRewardPoints(availableRewardPoints);  //allowing user to pay using available reward points
+        bill.setPaymentStatus("Unpaid");
+        billRepository.save(bill);
+    }
+
 
     private static double calculateTotalBillAmount(Booking booking) {
         double totalBillAmount = 0;
