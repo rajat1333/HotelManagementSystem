@@ -8,7 +8,7 @@ import spartanbots.v01.entity.Booking;
 import spartanbots.v01.repository.*;
 
 @Service
-public class BookingValidator {
+public class BookingValidator implements ValidatorInterface{
     protected static final Logger logger = LogManager.getLogger(BookingValidator.class);
 
     @Autowired
@@ -105,7 +105,7 @@ public class BookingValidator {
      * Runs check on the next object in chain or ends traversing if we're in
      * last object in chain.
      */
-    protected ValidatorMessage checkAndSetNext(Booking inputBooking, Booking outputBooking) {
+    public ValidatorMessage checkAndSetNext(Booking inputBooking, Booking outputBooking) {
         if (next == null) {
             validatorMessage.setMessage("Passed all booking validations.");
             validatorMessage.setResult(true);
