@@ -135,25 +135,7 @@ public class SearchService {
                 Boolean checkBefore = currentBookingTo.before(existedBookingFrom) || currentBookingTo.equals(existedBookingFrom);
                 Boolean after = currentBookingTo.after(existedBookingTo);
                 Boolean checkAfter = currentBookingFrom.after(existedBookingTo) || currentBookingFrom.equals(existedBookingTo);
-                if (before) {
-                    if (!checkBefore) {
-                        return false;
-                    }
-                    //case 1 : current [1, 7] and existed [5, 10]
-                    if (after) {
-                        return false;
-                    }
-                    //case 2 : current [1, 12] and existed [5, 10]
-                } else {
-                    if (!checkAfter) {
-                        return false;
-                    }
-                    //case 3 : current [7, 12] and existed [5, 10]
-                    if (!after) {
-                        return false;
-                    }
-                    //case 4 : current [7, 8] and existed [5, 10]
-                }
+                if (BookingService.dateRangeValidationCheck(before, checkBefore, after, checkAfter)) return false;
             }
             return true;
         } else {
