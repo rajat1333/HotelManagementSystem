@@ -30,19 +30,9 @@ public class Booking {
     @Column(name = "hotelName")
     private String hotelName;
 
-    @Column(name = "amenities")
-    private List<Amenity> amenities;
-
-    public List<Room> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(List<Room> rooms) {
-        this.rooms = rooms;
-    }
-
-    @Column(name = "rooms")
-    private List<Room> rooms;
+    @Column(name = "bookTime")
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
+    private Date bookTime;
 
     @Column(name = "bookFrom")
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
@@ -52,9 +42,11 @@ public class Booking {
     @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
     private Date bookTo;
 
-    @Column(name = "bookTime")
-    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
-    private Date bookTime;
+    @Column(name = "rooms")
+    private List<Room> rooms;
+
+    @Column(name = "amenities")
+    private List<Amenity> amenities;
 
     @Column(name = "bill")
     private Bill bill;
@@ -123,6 +115,14 @@ public class Booking {
         this.bookTime = bookTime;
     }
 
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
     public Bill getBill() {
         return bill;
     }
@@ -137,13 +137,13 @@ public class Booking {
                 "id=" + id +
                 ", customerEmail='" + customerEmail + '\'' +
                 ", hotelId=" + hotelId +
-                ", bill=" + bill +
                 ", hotelName='" + hotelName + '\'' +
-//                ", amenities=" + amenities +
-                ", rooms=" + rooms +
+                ", bookTime=" + bookTime +
                 ", bookFrom=" + bookFrom +
                 ", bookTo=" + bookTo +
-                ", bookTime=" + bookTime +
+                ", rooms=" + rooms +
+                ", amenities=" + amenities +
+                ", bill=" + bill +
                 '}';
     }
 }
