@@ -4,18 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import spartanbots.v01.entity.*;
+import spartanbots.v01.entity.Users.Customer;
 import spartanbots.v01.repository.BookingRepository;
 import spartanbots.v01.entity.ErrorMessage;
 import spartanbots.v01.entity.Search;
+import spartanbots.v01.repository.CustomerRepository;
 import spartanbots.v01.repository.HotelRepository;
 import spartanbots.v01.repository.RoomRepository;
 
+import javax.transaction.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class SearchService {
@@ -28,6 +28,9 @@ public class SearchService {
 
     @Autowired
     private RoomRepository roomRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Autowired
     public SearchService(HotelRepository hotelRepository ,BookingRepository bookingRepository,RoomRepository roomRepository){
@@ -182,5 +185,17 @@ public class SearchService {
             price=price*1.25f;
         }
         return price;
+    }
+
+    @Transactional
+    public ResponseEntity<Object> getRewardPointsByEmail(Customer customer) {
+        List<Customer> user= customerRepository.findByEmail(customer.getEmail());
+        if(user==null ||user.size()==0){
+            return ResponseEntity.badRequest().body(new ErrorMessage("User does not exist"));
+        }
+        int rewardPoints = user.get(0).getRewardPoints();
+        HashMap<String, Object> outputRewardPoints = new HashMap<>();
+        outputRewardPoints.put("rewardPoints", rewardPoints);
+        return ResponseEntity.ok(outputRewardPoints);
     }
 }
