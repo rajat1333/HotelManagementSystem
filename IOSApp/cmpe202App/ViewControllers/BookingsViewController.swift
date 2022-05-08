@@ -21,17 +21,22 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         indexSet = false
-        setupCollectionView()
+        
         noDataView.isHidden=true
         
      }
     override func viewWillAppear(_ animated: Bool) {
+        setupCollectionView()
+        
         getBookingsAPI()
-        collectionView.reloadData()
+        //collectionView.reloadData()
     }
     override func viewDidAppear(_ animated: Bool) {
         
 
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        collectionView.removeFromSuperview()
     }
      private func setupCollectionView() {
          let layout = CollectionViewPagingLayout()
@@ -44,6 +49,8 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
          view.backgroundColor = UIColor(red: 86.0/255.0, green: 148.0/255.0, blue: 214.0/255.0, alpha: 1.0)
          view.addSubview(collectionView)
          view.bringSubviewToFront(self.collectionView)
+         collectionView.isHidden=true;
+
          
          
      }
@@ -83,10 +90,15 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
             let dateStr = dataDict.value(forKey: "bookFrom")! as! String
             let date = globals.stringToDate(str: dateStr)
             let checkIN = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+            
+            let dateStrTo = dataDict.value(forKey: "bookTo")! as! String
+            let dateTo = globals.stringToDate(str: dateStrTo)
+            let checkOUT = Calendar.current.date(byAdding: .day, value: 1, to: dateTo)!
+            
             cell.bookingDate.text = "Check-In\n\(String(describing: globals.dateToString(date: checkIN) ))"
             cell.qrImage.image = generateQRCode(from: "\(String(describing: dataDict.value(forKey: "id")!))")
             let price = dataDict.value(forKey: "totalPayableAmount") as! NSNumber
-            let rewards = dataDict.value(forKey: "rewardPointsUsed") as! NSNumber
+            //let rewards = dataDict.value(forKey: "rewardPointsUsed") as! NSNumber
 
             cell.price.text = "$\(Int(price.floatValue))"
             cell.nights.text = "3\nNight\nStay"
@@ -94,8 +106,32 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
                 //let toDate = globals.stringToDate(str: date)
             
             let diffInDays = Calendar.current.dateComponents([.day], from: globals.stringToDate(str: globals.getDateAndTime(timeZoneIdentifier: "PST")!), to: checkIN).day
+            
+            let nights = Calendar.current.dateComponents([.day], from: checkIN, to: checkOUT).day
+            cell.nights.text = "\(nights!) Night Stay"
+            
+            var str = ""
+            if let roomArr = dataDict.value(forKey: "rooms") as? NSArray{
+                if(roomArr.count==1){
+                    str.append("- 1 \(((roomArr.object(at: 0) as! NSDictionary).value(forKey: "roomType") as! String).lowercased()) Room\n")
+                }
+                else{
+                    str.append("- \(roomArr.count) Rooms\n")
+                }
+            }
+            if let amenityArr = dataDict.value(forKey: "amenities") as? NSArray{
+                for dict in amenityArr as! [NSDictionary]{
+                    str.append("- \(dict.value(forKey: "name")!)\n")
+                }
+            }
+            
+            str.append("\n\n COVID VACCINATION REQUIRED")
+            
+            cell.detailsLabel.text = str as String?
+            cell.detailsLabel.frame = CGRect(x:13 , y: globals.BOTTOM(view: cell.nights)!, width: globals.WIDTH(view: cell.card)!-20-65-3, height: heightForView(text: str, width: globals.WIDTH(view: cell.card)!-20-65-3))
             cell.cancelBtn.tag  = indexPath.row
             cell.cancelBtn.addTarget(self, action: #selector(cancelBookingAction), for: .touchUpInside)
+            
             if((diffInDays!)<0){
                 cell.daysLeft.text = "Completed"
             }
@@ -144,6 +180,7 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
             collectionView.reloadData()
             self.collectionView.isHidden=false
             self.noDataView.isHidden=true
+            collectionView.scrollToItem(at:IndexPath(item: 0, section: 0), at: .right, animated: false)
         }
         else{
             self.collectionView.isHidden=true
@@ -220,7 +257,7 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
                 print(arr)
                 if(arr.count>0){
                     let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                    dateFormatter.dateFormat = "yyyy-MM-dd"
                     var tempArr = arr.mutableCopy() as! [NSDictionary]
                     tempArr.sort { (firstItem, secondItem) -> Bool in
                         if let dateAString = firstItem["bookFrom"] as? String,
@@ -232,11 +269,11 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
                         return false
                     }
                     DispatchQueue.main.async { [self] () -> Void in
-                        self.collectionView.isHidden=false
                         self.noDataView.isHidden=true
                         self.myBookingsArray = NSArray.init(array: tempArr)
                         self.collectionView.reloadData()
                         self.activityIndicatorView.stopAnimating()
+                        self.collectionView.isHidden=false
                     }
                 }
                 else{
@@ -323,4 +360,15 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
         task.resume()
 
     }
+    func heightForView(text:String, width:CGFloat) -> CGFloat{
+        let label:UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.lineBreakMode = NSLineBreakMode.byWordWrapping
+        label.font = UIFont(name: "HelveticaNeue-Italic", size: 14)
+        label.text = text
+
+        label.sizeToFit()
+        return label.frame.height
+    }
+
 }
