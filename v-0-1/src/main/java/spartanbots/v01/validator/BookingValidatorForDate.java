@@ -37,10 +37,10 @@ public class BookingValidatorForDate extends BookingValidator{
             return false;
         }
 
-        boolean checkRange = currentBookingFrom.before(currentBookingTo) &&
-                (currentBookingFrom.after(currentBookingTime) || currentBookingFrom.equals(currentBookingTime));
+        //boolean checkRange = currentBookingFrom.before(currentBookingTo) &&
+        //        (currentBookingFrom.after(currentBookingTime) || currentBookingFrom.equals(currentBookingTime));
 
-        //boolean checkRange = currentBookingFrom.before(currentBookingTo);
+        boolean checkRange = currentBookingFrom.before(currentBookingTo);
         if (checkRange) {
             //there should not be need for this check as we will be showing only available rooms on UI
             List<Room> roomList = inputBooking.getRooms();
