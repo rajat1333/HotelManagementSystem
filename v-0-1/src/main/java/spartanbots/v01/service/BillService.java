@@ -126,7 +126,9 @@ public class BillService {
         bill.setTotalPayableAmount(bill.getTotalAmount() + bill.getTaxAmount());
         Customer customer = customerRepository.findByEmail(booking.getCustomerEmail()).get(0);
         int availableRewardPoints = customer.getRewardPoints();
-        bill.setAmountPayableByRewardPoints(availableRewardPoints);  //allowing user to pay using available reward points
+        int amountThatCanBeUsed = (int) (bill.getTotalPayableAmount()*0.3); //max amount user can pay using award points
+
+        bill.setAmountPayableByRewardPoints(availableRewardPoints>amountThatCanBeUsed? amountThatCanBeUsed : availableRewardPoints);  //allowing user to pay using available reward points
         bill.setPaymentStatus("Unpaid");
         billRepository.save(bill);
     }
