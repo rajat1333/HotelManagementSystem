@@ -37,6 +37,9 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
         checkInDate.datePickerMode = .date
         checkOutDate.setValue(UIColor.white, forKeyPath: "textColor")
         checkOutDate.datePickerMode = .date
+        
+        self.checkInDate.addTarget(self, action: #selector(dateChangedAction), for: .valueChanged)
+        self.checkOutDate.addTarget(self, action: #selector(dateChangedAction), for: .valueChanged)
         //checkInDate.addTarget(self, action: #selector(checkInChanged), for: .valueChanged)
         searchArray = NSArray()
         searchTableView.dataSource=self
@@ -49,7 +52,10 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
     @IBAction func searchButtonAction(){
         searchHotels()
     }
-    
+    @objc func dateChangedAction(){
+        let date = self.checkInDate.date as Date
+        self.checkOutDate.minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+    }
     func searchHotels(){
         activityIndicatorView.startAnimating()
         let startDate = self.checkInDate.date

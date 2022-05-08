@@ -137,12 +137,12 @@ class BookingCollectionViewCell: UICollectionViewCell {
         daysLeft.font = UIFont(name: "HelveticaNeue", size: 17)
         daysLeft.textColor = UIColor.white
 
-        cancelLabel = UILabel(frame: CGRect(x:2 , y: globals.HEIGHT(view: sideCard3)!/2-50, width: globals.WIDTH(view: sideCard1)!-4, height: 100))
+        cancelLabel = UILabel(frame: CGRect(x:2 , y: globals.HEIGHT(view: sideCard3)!/2-75, width: globals.WIDTH(view: sideCard1)!-4, height: 150))
         cancelLabel.textAlignment = .center
         cancelLabel.numberOfLines=6
         cancelLabel.font = UIFont(name: "HelveticaNeue", size: 15)
         cancelLabel.textColor = UIColor.white
-        cancelLabel.text = "C\nA\nC\nC\nE\nL"
+        cancelLabel.text = "Cancel\nBooking"
         
         
         cancelBtn = UIButton(frame: CGRect(x:2 , y: globals.HEIGHT(view: sideCard3)!/2-50, width: globals.WIDTH(view: sideCard1)!-4, height: 100))

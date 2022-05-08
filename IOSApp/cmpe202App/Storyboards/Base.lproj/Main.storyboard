@@ -291,19 +291,19 @@
                                                             <rect key="frame" x="10" y="5" width="394" height="35"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circle.dashed" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="E6G-UJ-c3g">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E6G-UJ-c3g">
                                                                     <rect key="frame" x="15" y="3" width="30" height="30"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                                                     <color key="tintColor" systemColor="systemGreenColor"/>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Basic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIE-5n-7ps">
+                                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dIE-5n-7ps">
                                                                     <rect key="frame" x="65" y="3" width="217" height="26"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$112" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="reG-nJ-fxI">
+                                                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="reG-nJ-fxI">
                                                                     <rect key="frame" x="210" y="3" width="165" height="26"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="22"/>
@@ -339,19 +339,19 @@
                                                             <rect key="frame" x="10" y="5" width="394" height="25"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circle.dashed" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Zxr-HE-p5c">
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zxr-HE-p5c">
                                                                     <rect key="frame" x="15" y="3" width="30" height="30"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                                                     <color key="tintColor" systemColor="systemGreenColor"/>
                                                                 </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Basic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ofs-cz-k7b">
+                                                                <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ofs-cz-k7b">
                                                                     <rect key="frame" x="65" y="3" width="217" height="26"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
                                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Italic" family="Helvetica Neue" pointSize="18"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$112" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PQg-ve-xwZ">
+                                                                <label opaque="NO" userInteractionEnabled="NO" tag="3" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PQg-ve-xwZ">
                                                                     <rect key="frame" x="210" y="3" width="165" height="26"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
@@ -421,6 +421,26 @@
                                             <outlet property="delegate" destination="TdN-7c-29H" id="Ozc-fq-DCK"/>
                                         </connections>
                                     </tableView>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MMI-FZ-mDr">
+                                        <rect key="frame" x="0.0" y="405" width="414" height="491"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="noRoom" translatesAutoresizingMaskIntoConstraints="NO" id="yIB-ug-4gN">
+                                                <rect key="frame" x="59" y="78" width="296" height="277"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WIl-p5-bb1">
+                                                <rect key="frame" x="25" y="258" width="364" height="51"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                <string key="text">Rooms not available
+for selected dates.</string>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-MediumItalic" family="Helvetica Neue" pointSize="18"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Zy-v9-E44">
                                         <rect key="frame" x="15" y="76" width="384" height="299"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -931,6 +951,7 @@
                         <outlet property="hotelPrice" destination="ED7-jN-0ix" id="X0J-gw-rdp"/>
                         <outlet property="imageCollection" destination="Joy-GN-Ocd" id="1UW-yd-Kqx"/>
                         <outlet property="mainView" destination="YLc-pK-Tna" id="Hvi-Yy-0jQ"/>
+                        <outlet property="noDataView" destination="MMI-FZ-mDr" id="K8H-wW-V0H"/>
                         <outlet property="payView" destination="pJT-Mg-ycl" id="spj-ir-zme"/>
                         <outlet property="pointsShadowView" destination="r8A-lT-3eq" id="aFa-eC-OCi"/>
                         <outlet property="pointsView" destination="oQf-eZ-tzP" id="86U-Wx-4jI"/>
@@ -1179,7 +1200,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HomeTableViewCell" rowHeight="170" id="lsk-J3-Imw" customClass="HomeTableViewCell" customModule="cmpe202App" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="504.5" width="414" height="170"/>
+                                                <rect key="frame" x="0.0" y="505" width="414" height="170"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lsk-J3-Imw" id="Tqc-8c-kmO">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="170"/>
@@ -1391,6 +1412,27 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QUM-6S-J5s">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="noBooking" translatesAutoresizingMaskIntoConstraints="NO" id="nFD-Cg-G0f">
+                                        <rect key="frame" x="53" y="229" width="307" height="257"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uIk-Zf-019">
+                                        <rect key="frame" x="30" y="498" width="354" height="153"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                        <string key="text">No Upcoming Bookings?
+Sometimes the secret to getting more done is to take time off.
+Plan your stay with us!!</string>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="22"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.33725490196078434" green="0.58039215686274503" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="or2-V8-vtG"/>
                         <color key="backgroundColor" red="0.33725490196078434" green="0.58039215686274503" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1398,6 +1440,7 @@
                     <tabBarItem key="tabBarItem" title="Bookings" image="list.bullet.circle" catalog="system" id="cRU-jS-NSa"/>
                     <connections>
                         <outlet property="activityIndicatorView" destination="ner-O6-v0V" id="8ve-ZG-6f0"/>
+                        <outlet property="noDataView" destination="QUM-6S-J5s" id="MzF-LO-7FB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e6k-S6-BZ4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1596,7 +1639,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DRk-zK-ELK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="969.56521739130437" y="-753.34821428571422"/>
+            <point key="canvasLocation" x="970" y="-589"/>
         </scene>
         <!--Circle Bar Controller-->
         <scene sceneID="qTR-Zh-dty">
@@ -1967,7 +2010,6 @@
         <image name="checkBox" width="100" height="100"/>
         <image name="chevron.backward.circle.fill" catalog="system" width="128" height="121"/>
         <image name="christ" width="130.5" height="185.5"/>
-        <image name="circle.dashed" catalog="system" width="128" height="121"/>
         <image name="eiffle" width="125.5" height="165.5"/>
         <image name="gradient" width="207" height="448"/>
         <image name="hotelStatic" width="3250" height="1462.5"/>
@@ -1978,6 +2020,8 @@
         <image name="list.bullet.circle" catalog="system" width="128" height="121"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="mask" width="50" height="50"/>
+        <image name="noBooking" width="900" height="600"/>
+        <image name="noRoom" width="740" height="581.5"/>
         <image name="parking" width="50" height="50"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="pet" width="256" height="256"/>
