@@ -19,7 +19,8 @@ class BookingCollectionViewCell: UICollectionViewCell {
     var sideView: UIView!
     var bookingDate: UILabel!
     var qrImage: UIImageView!
-    
+    var detailsLabel: UILabel!
+
     var sideCard1: UIView!
     var sideCard2: UIView!
     var sideCard3: UIView!
@@ -75,7 +76,12 @@ class BookingCollectionViewCell: UICollectionViewCell {
         hotelName.font = UIFont(name: "HelveticaNeue-Bold", size: 29)
         hotelName.textColor = UIColor.darkGray
         
+//        qrImage = UIImageView(frame: CGRect(x: ((globals.WIDTH(view: card)!-65)/2)-45, y: globals.BOTTOM(view: bookingDate)!+50, width: 90, height: 90))
+        qrImage = UIImageView(frame: CGRect(x: ((globals.WIDTH(view: card)!-65)/2)-45, y:  globals.BOTTOM(view: hotelName)!+20, width: 90, height: 90))
+        qrImage.tintColor = .tintColor
+       
         hotelImage = UIImageView(frame: CGRect(x: globals.WIDTH(view: card)!-65-150, y: globals.BOTTOM(view: hotelName)!+25, width: 150, height: 90))
+        hotelImage.isHidden=true
         
         let path = UIBezierPath(roundedRect:hotelImage.bounds, byRoundingCorners:[.topLeft, .bottomLeft], cornerRadii: CGSize(width: 20, height: 20))
         let maskLayer = CAShapeLayer()
@@ -83,13 +89,26 @@ class BookingCollectionViewCell: UICollectionViewCell {
         hotelImage.layer.mask = maskLayer
         
         
-        bookingDate = UILabel(frame: CGRect(x: 10, y: globals.BOTTOM(view: hotelImage)!+40, width: globals.WIDTH(view: card)!-20-65, height: 40))
+        bookingDate = UILabel(frame: CGRect(x: 10, y: globals.BOTTOM(view: qrImage)!+5, width: globals.WIDTH(view: card)!-20-65, height: 40))
         bookingDate.numberOfLines = 0
         bookingDate.font = UIFont(name: "HelveticaNeue", size: 16)
         bookingDate.textColor = UIColor.lightGray
         bookingDate.textAlignment = .center
         
-        qrImage = UIImageView(frame: CGRect(x: ((globals.WIDTH(view: card)!-65)/2)-45, y: globals.BOTTOM(view: bookingDate)!+50, width: 90, height: 90))
+        nights = UILabel(frame: CGRect(x:10 , y: globals.BOTTOM(view: bookingDate)!+15, width: globals.WIDTH(view: card)!-20-65, height: 40))
+        nights.textAlignment = .left
+        nights.numberOfLines=1
+        nights.font = UIFont(name: "HelveticaNeue", size: 18)
+        nights.textColor = UIColor.darkGray
+        
+        detailsLabel = UILabel(frame: CGRect(x:13 , y: globals.BOTTOM(view: nights)!+5, width: globals.WIDTH(view: card)!-20-65-3, height: 150))
+        detailsLabel.textAlignment = .left
+        detailsLabel.showsExpansionTextWhenTruncated = true
+        detailsLabel.numberOfLines=10
+        detailsLabel.font = UIFont(name: "HelveticaNeue-Italic", size: 14)
+        detailsLabel.textColor = UIColor.lightGray
+        
+       
         
         sideCard1 = UIView(frame: sideFrame)
         sideCard1.backgroundColor = UIColor(red: 211/255.0, green: 211/255.0, blue: 211/255.0, alpha: 0.1)
@@ -124,11 +143,7 @@ class BookingCollectionViewCell: UICollectionViewCell {
         price.textColor = UIColor.white
         
         
-        nights = UILabel(frame: CGRect(x:2 , y: globals.HEIGHT(view: sideCard2)!/2-35-8, width: globals.WIDTH(view: sideCard1)!-4, height: 70))
-        nights.textAlignment = .center
-        nights.numberOfLines=3
-        nights.font = UIFont(name: "HelveticaNeue", size: 17)
-        nights.textColor = UIColor.white
+        
         
         
         daysLeft = UILabel(frame: CGRect(x:2 , y: globals.HEIGHT(view: sideCard3)!/2-50, width: globals.WIDTH(view: sideCard1)!-4, height: 100))
@@ -154,6 +169,8 @@ class BookingCollectionViewCell: UICollectionViewCell {
         card.addSubview(hotelImage)
         card.addSubview(bookingDate)
         card.addSubview(qrImage)
+        card.addSubview(nights)
+        card.addSubview(detailsLabel)
         sideCard1.addSubview(price)
         sideCard2.addSubview(daysLeft)
         sideCard3.addSubview(cancelLabel)

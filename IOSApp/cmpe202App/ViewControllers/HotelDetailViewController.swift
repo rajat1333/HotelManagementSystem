@@ -46,6 +46,7 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     @IBOutlet weak var pointsShadowView: UIView!
     @IBOutlet weak var doneView: UIView!
     @IBOutlet weak var noDataView: UIView!
+    @IBOutlet weak var disclaimerLabel: UILabel!
 
 
 
@@ -344,19 +345,6 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
    
     @IBAction func payButtonAction(){
         let dict = NSMutableDictionary()
-//        {
-//                "id": 12,
-//                "bookingId": 27,
-//                "totalAmount": 500.0,
-//                "taxAmount": 60.0,
-//                "paymentMode": null,
-//                "paymentStatus": "Unpaid",
-//                "rewardPointsUsed": 28,
-//                "rewardPointsEarned": 0,
-//                "discountAmount": 0.0,
-//                "totalPayableAmount": 560.0,
-//                "amountPayableByRewardPoints": 28.0
-//            }
         let billObject = self.bookingResponseArray.object(forKey: "bill") as! NSDictionary
         dict.setValue(billObject.value(forKey:"id"), forKey: "id")
         dict.setValue(self.bookingResponseArray.value(forKey:"id"), forKey: "bookingId")
@@ -378,7 +366,14 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         dict.setValue(billObject.value(forKey:"totalPayableAmount"), forKey: "totalPayableAmount")
         dict.setValue(billObject.value(forKey:"amountPayableByRewardPoints"), forKey: "amountPayableByRewardPoints")
         
-        makePaymentAPI(dict: dict)
+        if(self.cardName.text == "" || self.cardNumber.text == "" || self.cardYear.text == "" || self.cardMonth.text == "" || self.cvv.text == "" ){
+            self.showToast(message: "Enter Card Details", font: .systemFont(ofSize: 12.0))
+        }
+        else{
+            makePaymentAPI(dict: dict)
+        }
+        
+        
     }
     
     @IBAction func checkRewardsAction(){
@@ -582,8 +577,10 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
                         if(reward == 0.0){
                             self.pointsView.isHidden=true
                             self.pointsShadowView.isHidden=true
+                            self.disclaimerLabel.isHidden=true
                         }
                         else{
+                            self.disclaimerLabel.isHidden=false
                             self.pointsView.isHidden=false
                             self.pointsShadowView.isHidden=false
                         }

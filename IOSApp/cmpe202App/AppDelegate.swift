@@ -15,16 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-//        var route = UIViewController()
-//                if UserDefaults.standard.object(forKey: "user") != nil {
-//                    route = homeViewController()
-//                } else {
-//                    route = ViewController()
-//                }
-//                
-//                window = UIWindow(frame: UIScreen.main.bounds)
-//                window?.makeKeyAndVisible()
-//                window?.rootViewController = UINavigationController(rootViewController: route)
+                if UserDefaults.standard.object(forKey: "user") != nil {
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let initialViewController = storyboard.instantiateViewController(withIdentifier: "homeNavigation")
+                            self.window?.rootViewController = initialViewController
+                } else {
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let initialViewController = storyboard.instantiateViewController(withIdentifier: "loginNavigation")
+                            self.window?.rootViewController = initialViewController
+                }
+                
+                
                 
                 
                 

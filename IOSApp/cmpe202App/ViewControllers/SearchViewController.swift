@@ -109,7 +109,6 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
             do {
                 let json = try JSONSerialization.jsonObject(with: data) as! NSArray
                     print(json)
-                
                 DispatchQueue.main.async { [self] () -> Void in
                     self.searchArray = NSArray.init(array: json)
                     if searchArray.count>0 {
@@ -127,6 +126,8 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
                         }
                     }
                 }
+                self.activityIndicatorView.stopAnimating()
+
             }
 
             catch {
