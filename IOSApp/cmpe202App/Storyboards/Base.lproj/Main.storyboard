@@ -171,6 +171,19 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="0.64758381622516559" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <view contentMode="scaleToFill" id="AUb-vU-PsM" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="117" y="316" width="180" height="180"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <viewLayoutGuide key="safeArea" id="70V-DP-9NK"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballRotateChase"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="47y-H6-rV8">
                                 <rect key="frame" x="32" y="714" width="350" height="53"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
@@ -199,25 +212,13 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" id="krJ-dW-gAC" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
-                                <rect key="frame" x="117" y="358" width="180" height="180"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <viewLayoutGuide key="safeArea" id="ygt-6T-G3I"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="typeName" value="ballRotateChase"/>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="color">
-                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tCe-qp-PHL"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" selectedImage="magnifyingglass" id="6WB-EC-72V"/>
                     <connections>
-                        <outlet property="activityIndicatorView" destination="krJ-dW-gAC" id="jWr-nL-o51"/>
+                        <outlet property="activityIndicatorView" destination="AUb-vU-PsM" id="cYa-9n-YVJ"/>
                         <outlet property="checkInDate" destination="KBN-nA-lJT" id="mJr-bw-i44"/>
                         <outlet property="checkOutDate" destination="9pO-5c-OiQ" id="DBQ-J7-HDG"/>
                         <outlet property="dateLabel" destination="OMv-Gg-6Iu" id="R1k-Ti-49Y"/>
@@ -232,7 +233,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j2o-56-icO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1583" y="-2058"/>
+            <point key="canvasLocation" x="1582.608695652174" y="-2058.4821428571427"/>
         </scene>
         <!--Hotel Detail View Controller-->
         <scene sceneID="rR9-BT-bHX">

@@ -57,7 +57,6 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
         self.checkOutDate.minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
     }
     func searchHotels(){
-        activityIndicatorView.startAnimating()
         let startDate = self.checkInDate.date
         let endDate = self.checkOutDate.date
         let StartDateString = startDate.getFormattedDate(format: "yyyy-MM-dd") // Set output format
@@ -73,7 +72,7 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
 
         request.httpMethod = "POST"
         request.httpBody = jsonData
-
+        self.activityIndicatorView.startAnimating()
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data,
             let response = response as? HTTPURLResponse,
@@ -121,9 +120,8 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
                         let EndDateString = endDate.getFormattedDate(format: "MMMM dd")
                         let dateString = "\(StartDateString) - \(EndDateString)"
                         dateLabel.text = dateString
-                        searchTableView.reloadData(){
-                            self.activityIndicatorView.stopAnimating()
-                        }
+                        self.activityIndicatorView.stopAnimating()
+                        searchTableView.reloadData()
                     }
                 }
                 self.activityIndicatorView.stopAnimating()
@@ -189,6 +187,7 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
     }
     @IBAction func cancelFilterAction(){
         searchView.isHidden = true
+        self.activityIndicatorView.stopAnimating()
     }
     /*
     // MARK: - Navigation
