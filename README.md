@@ -11,10 +11,10 @@ Team Members:
 - Rajat Masurkar
 
 Area of Contribution:
--Sahib - Frontend on IOS Swift using Xcode, Cocoapods and Cocoatouch, API Integration, Manual Testing.
--Junjie - 
--Rajat - 
--Utkarsh - 
+- Sahib - Frontend on IOS Swift using Xcode, Cocoapods and Cocoatouch, API Integration, Manual Testing.
+- Junjie - 
+- Rajat - 
+- Utkarsh - 
 
 Github Repo : https://github.com/gopinathsjsu/team-project-spartan-bots
 Project Board (Jira) : 
@@ -33,6 +33,11 @@ App Features:
 Architecture Diagram: 
 
 Class Diagram:
+[hotelManagementClassDiagram.pdf](https://github.com/gopinathsjsu/team-project-spartan-bots/files/8655813/hotelManagementClassDiagram.pdf)
 
 UI Wire Frames:
 ![UIWireframes-1](https://user-images.githubusercontent.com/99349692/167509916-9d54f622-f894-4428-b4a2-283f63e5a4da.jpg)
+
+API Documentation:
+[API documentation.txt](https://github.com/gopinathsjsu/team-project-spartan-bots/files/8655814/API.documentation.txt)
+
