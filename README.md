@@ -11,10 +11,10 @@ Team Members:
 - Rajat Masurkar
 
 Area of Contribution:
-Sahib - Frontend on IOS Swift using Xcode, Cocoapods and Cocoatouch, API Integration, Manual Testing.
-Junjie - 
-Rajat - 
-Utkarsh - 
+-Sahib - Frontend on IOS Swift using Xcode, Cocoapods and Cocoatouch, API Integration, Manual Testing.
+-Junjie - 
+-Rajat - 
+-Utkarsh - 
 
 Github Repo : https://github.com/gopinathsjsu/team-project-spartan-bots
 Project Board (Jira) : 
