@@ -87,7 +87,7 @@ public class AmenityService {
         if (inputAmenity.getName() != null) {
             outputAmenity.setName(inputAmenity.getName());
         }
-        if (inputAmenity.getPrice() > 0) {
+        if (inputAmenity.getPrice() >= 0) {
             outputAmenity.setPrice(inputAmenity.getPrice());
         }
     }
