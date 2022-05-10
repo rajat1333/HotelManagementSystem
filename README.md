@@ -6,13 +6,13 @@ Team Name : Spartan Bots
 
 Team Members:
 - Sahib Singh Bhatia (016042650)
-- Junjie Zhu 
+- Junjie Zhu (015905513)
 - Utkarsh Pant (015999321)
 - Rajat Masurkar
 
 Area of Contribution:
 - Sahib - Frontend on IOS Swift using Xcode, Cocoapods and Cocoatouch, API Integration, Manual Testing.
-- Junjie - 
+- Junjie - Backend using Java with IDE Intellij, responsible for functionalities and services regarding entity Booking, Hotel, Room, Amenity, and implemented design pattern Chain of Responsibility.
 - Rajat - 
 - Utkarsh - 
 
