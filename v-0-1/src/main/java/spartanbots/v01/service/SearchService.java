@@ -138,7 +138,7 @@ public class SearchService {
                 Boolean checkBefore = currentBookingTo.before(existedBookingFrom) || currentBookingTo.equals(existedBookingFrom);
                 Boolean after = currentBookingTo.after(existedBookingTo);
                 Boolean checkAfter = currentBookingFrom.after(existedBookingTo) || currentBookingFrom.equals(existedBookingTo);
-                if (BookingService.dateRangeValidationCheck(before, checkBefore, after, checkAfter)) return false;
+                if (dateRangeValidationCheck(before, checkBefore, after, checkAfter)) return false;
             }
             return true;
         } else {
@@ -146,6 +146,24 @@ public class SearchService {
         }
     }
 
+    public static boolean dateRangeValidationCheck(boolean before, boolean checkBefore, boolean after, boolean checkAfter){
+        if (before) {
+            if (!checkBefore) {
+                return true;
+            }
+            if (after) {
+                return true;
+            }
+        } else {
+            if (!checkAfter) {
+                return true;
+            }
+            if (!after) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static float dynamicPriceCalculator(Room room, Search search)  {
 

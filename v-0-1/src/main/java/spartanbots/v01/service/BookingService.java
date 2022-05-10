@@ -79,8 +79,12 @@ public class BookingService {
         if (bookingRepository.existsById(booking.getId())) {
             try {
                 Booking bookingToBeUpdated = bookingRepository.findById(booking.getId()).get();
-                if (!bookingRegularization(booking, bookingToBeUpdated)) {
-                    return ResponseEntity.badRequest().body(new ErrorMessage("Booking record fail to be updated."));
+                ValidatorMessage bookingValidatorMessage = newBookingRegularization(booking, bookingToBeUpdated);
+                boolean passedAllBookingCheck = bookingValidatorMessage.getResult();
+                if (!passedAllBookingCheck){
+                    logger.error("Booking record fail to be updated due to: " + bookingValidatorMessage.getMessage());
+                    return ResponseEntity.badRequest().body(new ErrorMessage("Booking record fail to be updated due to: " +
+                            bookingValidatorMessage.getMessage()));
                 }
                 Bill bill = BillService.modifyBillFromBooking(bookingToBeUpdated);
                 bookingToBeUpdated.setBill(bill);
@@ -149,83 +153,6 @@ public class BookingService {
         return validatorMessage;
     }
 
-    private Boolean bookingRegularization(Booking inputBooking, Booking outputBooking) {
-//        if (inputBooking.getName() != null) {
-//            outputBooking.setName(inputBooking.getName());
-//        }
-//        if (inputBooking.getPhone() != null) {
-//            outputBooking.setPhone(inputBooking.getPhone());
-//        }
-        if (inputBooking.getCustomerEmail() != null) {
-            outputBooking.setCustomerEmail(inputBooking.getCustomerEmail());
-            System.out.println("Customer email validation pass...");
-        }
-        else{
-            System.out.println("Customer email validation fail...");
-        }
-
-        if (bookingDateRangeValidation(inputBooking)) {
-            outputBooking.setBookFrom(inputBooking.getBookFrom());
-            outputBooking.setBookTo(inputBooking.getBookTo());
-            outputBooking.setBookTime(new Date());
-            System.out.println("Booking date validation pass...");
-        } else {
-            System.out.println("Booking date validation fail...");
-            return false;
-        }
-
-        if (hotelRepository.existsById(inputBooking.getHotelId())) {
-            outputBooking.setHotelId(inputBooking.getHotelId());
-            outputBooking.setHotelName(hotelRepository.findById(outputBooking.getHotelId()).get().getName());
-            System.out.println("Hotel name validation pass...");
-        } else {
-            System.out.println("Hotel name validation fail...");
-            return false;
-        }
-
-//        if (roomRepository.existsById(inputBooking.getRoomId())) {
-//            outputBooking.setRoomId(inputBooking.getRoomId());
-//            outputBooking.setRoomName(roomRepository.findById(outputBooking.getRoomId()).get().getName());
-//        }
-//        else{
-//            return false;
-//        }
-
-        if(inputBooking.getAmenities()!=null && !inputBooking.getAmenities().isEmpty()){
-            //List<Amenity> outputAmenities = autoAmenityMapping(inputBooking.getAmenities());
-            //outputBooking.setAmenities(outputAmenities);
-            System.out.println("Amenities validation pass...");
-        } else {
-            System.out.println("Amenities validation fail...");
-        }
-
-        List<Room> roomList = inputBooking.getRooms();
-        if(roomList==null || roomList.isEmpty()){
-            System.out.println("Room validation fail...");
-            return false;
-        }else{
-            System.out.println("Room validation pass...");
-        }
-
-        removeBookingIdFromAssociatedRooms(outputBooking);
-        System.out.println("Removed booking id from previous associated rooms(if any)...");
-        addBookingIdToAssociatedRooms(inputBooking);
-        System.out.println("Added booking id to current associated rooms...");
-
-        ArrayList<Room> bookedRoomList = new ArrayList<>();
-        for (Room associatedRoom : roomList) {
-            Room bookedRoom = roomRepository.findById(associatedRoom.getId()).get();
-            //here each booked room object will contain dynamic price at which it has been booked.
-            //We are storing whole room object to save fetching of room object. This will save api calls
-            bookedRoom.setPrice(associatedRoom.getPrice());
-            bookedRoomList.add(bookedRoom);
-        }
-        outputBooking.setRooms(bookedRoomList);
-        System.out.println("Added price to current associated rooms...");
-
-        return true;
-    }
-
     private void setAmenityByRepositoryMapping(Booking inputBooking, Booking outputBooking){
         List<Amenity> inputAmenities = inputBooking.getAmenities();
         List<Amenity> outputAmenities = new ArrayList<>();
@@ -278,79 +205,6 @@ public class BookingService {
         }
         outputBooking.setRooms(bookedRoomList);
         logger.info("Set prices to current associated rooms...");
-    }
-
-    private Boolean bookingDateRangeValidation(Booking inputBooking) {
-        Date currentBookingFrom = inputBooking.getBookFrom();
-        Date currentBookingTo = inputBooking.getBookTo();
-        Date currentBookingTime = new Date();
-        if (currentBookingFrom == null || currentBookingTo == null) {
-            return false;
-        }
-
-        boolean checkRange = currentBookingFrom.before(currentBookingTo) &&
-                (currentBookingFrom.after(currentBookingTime) || currentBookingFrom.equals(currentBookingTime));
-
-        //boolean checkRange = currentBookingFrom.before(currentBookingTo);
-        if (checkRange) {
-            //there should not be need for this check as we will be showing only available rooms on UI
-            List<Room> roomList = inputBooking.getRooms();
-            if(roomList==null ||roomList.isEmpty())
-                return false;
-            for (Room currentRoom : roomList
-            ) {
-                List<Integer> existedBookingIds = roomRepository.findById(currentRoom.getId()).get().getBookingIds();
-                if (existedBookingIds.isEmpty() || existedBookingIds == null) {
-//                    return true;
-                    continue;
-                }
-                if (existedBookingIds.contains(inputBooking.getId())) {
-                    existedBookingIds.remove(Integer.valueOf(inputBooking.getId()));
-                }
-
-                for (Integer existedBookingId : existedBookingIds) {
-                    Date existedBookingFrom = bookingRepository.findById(existedBookingId).get().getBookFrom();
-                    Date existedBookingTo = bookingRepository.findById(existedBookingId).get().getBookTo();
-                    System.out.println(existedBookingFrom + " " + existedBookingTo);
-                    System.out.println(currentBookingFrom + " " + currentBookingTo);
-                    boolean before = currentBookingFrom.before(existedBookingFrom);
-                    boolean checkBefore = currentBookingTo.before(existedBookingFrom) || currentBookingTo.equals(existedBookingFrom);
-                    boolean after = currentBookingTo.after(existedBookingTo);
-                    boolean checkAfter = currentBookingFrom.after(existedBookingTo) || currentBookingFrom.equals(existedBookingTo);
-                    if (dateRangeValidationCheck(before, checkBefore, after, checkAfter)) {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        } else {
-            return false;
-        }
-
-
-    }
-
-    static boolean dateRangeValidationCheck(boolean before, boolean checkBefore, boolean after, boolean checkAfter) {
-        if (before) {
-            if (!checkBefore) {
-                return true;
-            }
-            //case 1 : current [1, 7] and existed [5, 10]
-            if (after) {
-                return true;
-            }
-            //case 2 : current [1, 12] and existed [5, 10]
-        } else {
-            if (!checkAfter) {
-                return true;
-            }
-            //case 3 : current [7, 12] and existed [5, 10]
-            if (!after) {
-                return true;
-            }
-            //case 4 : current [7, 8] and existed [5, 10]
-        }
-        return false;
     }
 
     @Transactional
