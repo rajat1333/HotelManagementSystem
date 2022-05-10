@@ -17,7 +17,9 @@ Area of Contribution:
 - Utkarsh - 
 
 Github Repo : https://github.com/gopinathsjsu/team-project-spartan-bots
+
 Project Board (Jira) : 
+
 Google Sprint Task Sheet : 
 
 App Features:
