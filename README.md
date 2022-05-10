@@ -7,7 +7,7 @@ Team Name : Spartan Bots
 Team Members:
 - Sahib Singh Bhatia (016042650)
 - Junjie Zhu 
-- Utkarsh Pant
+- Utkarsh Pant (015999321)
 - Rajat Masurkar
 
 Area of Contribution:
