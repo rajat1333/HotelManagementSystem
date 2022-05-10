@@ -26,7 +26,7 @@ App Features:
 - Create an account or Login
 - Scroll through top and recommended hotels on home page
 - Search hotels based on Location and Travel Dates.
-- Book multiple rooms at once and à la carte amenities like swimming pool access, complementary meals.
+- Book multiple rooms at once and à la carte amenities like swimming pool access, All meals, Spa etc.
 - Dynamic Pricing on rooms based on weekends / holidays.
 - Accumulate Reward Points as you book using our app. Redeem the points later for discounts on future bookings.
 - See your bookings (Past or future) and cancel them. No refund on reward points if you cancel a booking.
