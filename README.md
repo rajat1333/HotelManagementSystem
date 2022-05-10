@@ -12,7 +12,7 @@ Team Members:
 
 Area of Contribution:
 - Sahib - Frontend on IOS Swift using Xcode, Cocoapods and Cocoatouch, API Integration, Manual Testing.
-- Junjie - Backend using Java with IDE Intellij, focus on functionailities and services regarding entity Booking, Hotel, Room, Amenity, and design pattern Chain of Responsibility
+- Junjie - Backend using Java with IDE Intellij, responsible for functionalities and services regarding entity Booking, Hotel, Room, Amenity, and implemented design pattern Chain of Responsibility.
 - Rajat - 
 - Utkarsh - 
 
