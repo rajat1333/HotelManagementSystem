@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import spartanbots.v01.entity.ErrorMessage;
+import spartanbots.v01.entity.Hotel;
 import spartanbots.v01.entity.Room;
 import spartanbots.v01.repository.HotelRepository;
 import spartanbots.v01.repository.RoomRepository;
@@ -109,9 +110,10 @@ public class RoomService {
         }
         if (inputRoom.getPrice() > 0) {
             outputRoom.setPrice(inputRoom.getPrice());
-            //float hotelBasePrice = hotelRepository.findById(outputRoom.getHotelId()).get().getBasePrice()
             if (inputRoom.getPrice() < hotelRepository.findById(outputRoom.getHotelId()).get().getBasePrice()) {
-                hotelRepository.findById(outputRoom.getHotelId()).get().setBasePrice(inputRoom.getPrice());
+                Hotel hotelToBeUpdated = hotelRepository.findById(outputRoom.getHotelId()).get();
+                hotelToBeUpdated.setBasePrice(inputRoom.getPrice());
+                hotelRepository.save(hotelToBeUpdated);
             }
         }
     }
