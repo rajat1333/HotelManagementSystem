@@ -8,7 +8,7 @@ Team Members:
 - Sahib Singh Bhatia (016042650)
 - Junjie Zhu (015905513)
 - Utkarsh Pant (015999321)
-- Rajat Masurkar
+- Rajat Masurkar (016044015)
 
 Area of Contribution:
 - Sahib - Frontend on IOS Swift using Xcode, Cocoapods and Cocoatouch, API Integration, Manual Testing.
