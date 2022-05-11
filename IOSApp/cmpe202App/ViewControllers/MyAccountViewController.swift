@@ -11,6 +11,7 @@ class MyAccountViewController: UIViewController {
     @IBOutlet weak var logoutView : UIView!
     @IBOutlet weak var emailLabel : UILabel!
     @IBOutlet weak var rewardsLabel : UILabel!
+    @IBOutlet weak var addHotelView : UIView!
 
 
     override func viewDidLoad() {
@@ -24,6 +25,14 @@ class MyAccountViewController: UIViewController {
         let dict = preferences.object(forKey: "user") as! NSDictionary
         emailLabel.text = dict.value(forKey: "email") as! String
         getRewardPointsAPI()
+        
+        if(dict.value(forKey: "email") as! String == "admin"){
+            self.addHotelView.isHidden = false
+        }
+        else{
+            self.addHotelView.isHidden = true
+
+        }
 
     }
     @IBAction func logoutAction(){
@@ -97,7 +106,10 @@ class MyAccountViewController: UIViewController {
         task.resume()
 
     }
-    
+    @IBAction func addHotelAction(){
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "AddHotelViewController") as! AddHotelViewController
+        navigationController?.pushViewController(vc, animated: true)
+    }
 
     /*
     // MARK: - Navigation
