@@ -163,8 +163,13 @@ class homeViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.location.text = dataDict["city"] as? String
             let price = dataDict["basePrice"] as! Float
             cell.price.text = "from $\(String(describing: Int(price)))"
-            let url = URL(string: dataDict["imageURL"] as! String)!
-            cell.hotelImage.af.setImage(withURL: url, cacheKey: "mainTable\(indexPath.row)", placeholderImage: UIImage (named: "tableListImage"), serializer: nil, filter: nil, progress:nil, progressQueue: .global(), imageTransition: .noTransition, runImageTransitionIfCached: false, completion: nil)
+            if let value = (dataDict["imageURL"] as? String) {
+                let url = URL(string: dataDict["imageURL"] as! String)!
+                cell.hotelImage.af.setImage(withURL: url, cacheKey: "mainTable\(indexPath.row)", placeholderImage: UIImage (named: "tableListImage"), serializer: nil, filter: nil, progress:nil, progressQueue: .global(), imageTransition: .noTransition, runImageTransitionIfCached: false, completion: nil)
+            }
+            else{
+                cell.hotelImage.image = UIImage (named: "tableListImage")
+            }            
             
             cell.shadowView.layer.masksToBounds=false
             cell.shadowView.layer.shadowOffset = CGSize(width: 0,height: 0)
