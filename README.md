@@ -14,7 +14,7 @@ Team Name : Spartan Bots
 - Sahib - Frontend on IOS Swift using Xcode, Cocoapods and Cocoatouch, API Integration, Manual Testing.
 - Junjie - Backend using Java with IDE Intellij, responsible for functionalities and services regarding entity Booking, Hotel, Room, Amenity, and implemented design pattern Chain of Responsibility.
 - Rajat - Worked on backend API's for Bill, Customer Loyalty, Bookings
-- Utkarsh - 
+- Utkarsh - worked on backend for auth (signup and login) and search hotel and getting available hotels and available rooms.
 
 ## Github Repo : 
 https://github.com/gopinathsjsu/team-project-spartan-bots
