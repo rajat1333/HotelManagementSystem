@@ -36,7 +36,7 @@ https://docs.google.com/spreadsheets/d/1_1f1PkegS8Kchoa87PPPeTtdREJY8wJt/edit?us
 
 ## Project Journal
 ###### Sahib :
-----
+https://docs.google.com/document/d/1DcI-FYq026j3LQrt01IDp5hEAaAzdYBe5ttrnUmj6oE/edit?usp=sharing
 ###### Utkarsh :
 ----
 ###### Rajat :
