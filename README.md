@@ -18,10 +18,11 @@ Area of Contribution:
 
 Github Repo : https://github.com/gopinathsjsu/team-project-spartan-bots
 
-Project Board (Jira) : 
+Project Board (Jira) : https://spartan-bots.atlassian.net/jira/software/projects/CMPE202/boards/1/roadmap
+Jira Task Sheet : https://docs.google.com/spreadsheets/d/1PukmgdC_LmOXpvyGJBy6xIGUHFN5thk7/edit?usp=sharing&ouid=111977103559243767260&rtpof=true&sd=true
 
 Sprint Task Sheet with Brun down chart:
-[Sprint Task Sheet with Brun down chart](Team-Sprint-Bots-Scurm_Task_Sheet_with_burndown_chart.xlsx)
+https://docs.google.com/spreadsheets/d/1_1f1PkegS8Kchoa87PPPeTtdREJY8wJt/edit?usp=sharing&ouid=111977103559243767260&rtpof=true&sd=true
 
 App Features:
 - Create an account or Login
