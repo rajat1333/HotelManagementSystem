@@ -36,7 +36,7 @@ App Features:
 Architecture Diagram: 
 
 Class Diagram:
-[hotelManagementClassDiagram.pdf](https://github.com/gopinathsjsu/team-project-spartan-bots/files/8655813/hotelManagementClassDiagram.pdf)
+[classDiagram.pdf] (https://github.com/gopinathsjsu/team-project-spartan-bots/blob/main/classDiagram.pdf)
 
 UI Wire Frames:
 ![UIWireframes-1](https://user-images.githubusercontent.com/99349692/167509916-9d54f622-f894-4428-b4a2-283f63e5a4da.jpg)
