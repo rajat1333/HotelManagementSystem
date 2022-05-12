@@ -34,6 +34,16 @@ https://docs.google.com/spreadsheets/d/1_1f1PkegS8Kchoa87PPPeTtdREJY8wJt/edit?us
 ###### Friday :
 11:00 am to 11:30 am
 
+## Project Journal
+###### Sahib :
+----
+###### Utkarsh :
+----
+###### Rajat :
+----
+###### Junjie :
+----
+
 ## App Features:
 - Create an account or Login
 - Scroll through top and recommended hotels on home page
