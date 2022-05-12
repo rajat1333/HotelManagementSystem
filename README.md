@@ -35,6 +35,9 @@ https://docs.google.com/spreadsheets/d/1_1f1PkegS8Kchoa87PPPeTtdREJY8wJt/edit?us
 11:00 am to 11:30 am
 
 ## Project Journal
+
+XP values: https://github.com/gopinathsjsu/team-project-spartan-bots/blob/main/Spartan%20Bots%20-XP%20value.pdf
+
 ###### Sahib :
 https://docs.google.com/document/d/1DcI-FYq026j3LQrt01IDp5hEAaAzdYBe5ttrnUmj6oE/edit?usp=sharing
 ###### Utkarsh :
