@@ -40,11 +40,11 @@ XP values: https://github.com/gopinathsjsu/team-project-spartan-bots/blob/main/S
 
 ###### Sahib :
 https://docs.google.com/document/d/1DcI-FYq026j3LQrt01IDp5hEAaAzdYBe5ttrnUmj6oE/edit?usp=sharing
-###### Utkarsh :
+###### Utkarsh : https://github.com/gopinathsjsu/team-project-spartan-bots/blob/main/Journals/Utkarsh.docx
 ----
-###### Rajat :
+###### Rajat : https://github.com/gopinathsjsu/team-project-spartan-bots/blob/main/Journals/Rajat.docx
 ----
-###### Junjie :
+###### Junjie : https://github.com/gopinathsjsu/team-project-spartan-bots/blob/main/Journals/Junjie.docx
 ----
 
 ## App Features:
