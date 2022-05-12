@@ -28,10 +28,12 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
         super.viewDidLoad()
         let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
         let nextNextDay = Calendar.current.date(byAdding: .day, value: 1, to: nextDay)!
+        let maxDay = Calendar.current.date(byAdding: .day, value: 7, to: nextDay)!
         checkInDate.setDate(nextDay, animated: false)
         checkOutDate.setDate(nextNextDay.addingTimeInterval(1), animated: false)
         checkInDate.minimumDate = Date()
         checkOutDate.minimumDate = nextDay
+        checkOutDate.maximumDate = maxDay
         locationTextField.text = "San Jose"
         checkInDate.setValue(UIColor.white, forKeyPath: "textColor")
         checkInDate.datePickerMode = .date
@@ -55,6 +57,8 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
     @objc func dateChangedAction(){
         let date = self.checkInDate.date as Date
         self.checkOutDate.minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+        self.checkOutDate.maximumDate = Calendar.current.date(byAdding: .day, value: 7, to: date)!
+
     }
     func searchHotels(){
         let startDate = self.checkInDate.date
@@ -117,7 +121,7 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
                         let startDate = self.checkInDate.date
                         let endDate = self.checkOutDate.date
                         let StartDateString = startDate.getFormattedDate(format: "MMM dd") // Set output format
-                        let EndDateString = endDate.getFormattedDate(format: "MMMM dd")
+                        let EndDateString = endDate.getFormattedDate(format: "MMM dd")
                         let dateString = "\(StartDateString) - \(EndDateString)"
                         dateLabel.text = dateString
                         self.activityIndicatorView.stopAnimating()
