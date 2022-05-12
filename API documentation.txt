@@ -1,6 +1,7 @@
 Updated create Booking : https://documenter.getpostman.com/view/20381847/UyrGBZh1
 Make Payment : https://documenter.getpostman.com/view/20381847/UyrGBZh1
 getBookingByEmail : https://documenter.getpostman.com/view/20381847/UyrGBZh1
+getRewardPointsByEmail : https://documenter.getpostman.com/view/20381847/UyrGBZh1#1ee5bb41-8da9-407b-a75d-c8afa2628868
 
 Login Request: https://documenter.getpostman.com/view/19823054/UVyxNt4Y#ec03c44b-ae6f-4a7a-aecc-28da8be97d11
 SignUp Request : https://documenter.getpostman.com/view/19823054/UVyxNt4Y#ec03c44b-ae6f-4a7a-aecc-28da8be97d11
