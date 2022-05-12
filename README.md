@@ -29,8 +29,10 @@ https://docs.google.com/spreadsheets/d/1PukmgdC_LmOXpvyGJBy6xIGUHFN5thk7/edit?us
 https://docs.google.com/spreadsheets/d/1_1f1PkegS8Kchoa87PPPeTtdREJY8wJt/edit?usp=sharing&ouid=111977103559243767260&rtpof=true&sd=true
 
 ## Scrum Schedule:
-Monday & Wednesday (Optional) : 10:30PM to 11:00 PM
-Friday : 11:00 am to 11:30 am
+###### Monday & Wednesday (Optional) : 
+10:30PM to 11:00 PM
+###### Friday :
+11:00 am to 11:30 am
 
 ## App Features:
 - Create an account or Login
