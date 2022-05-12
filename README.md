@@ -55,6 +55,8 @@ https://docs.google.com/document/d/1DcI-FYq026j3LQrt01IDp5hEAaAzdYBe5ttrnUmj6oE/
 
 
 ## Architecture Diagram: 
+![image](https://user-images.githubusercontent.com/22498700/168168661-2c997130-790a-4dfe-ae9c-aed6194d9728.png)
+
 
 ## Class Diagram:
 [classDiagram.pdf] (https://github.com/gopinathsjsu/team-project-spartan-bots/blob/main/classDiagram.pdf)
