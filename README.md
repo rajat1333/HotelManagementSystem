@@ -20,7 +20,8 @@ Github Repo : https://github.com/gopinathsjsu/team-project-spartan-bots
 
 Project Board (Jira) : 
 
-Google Sprint Task Sheet : 
+Sprint Task Sheet with Brun down chart:
+[Sprint Task Sheet with Brun down chart](Team-Sprint-Bots-Scurm_Task_Sheet_with_burndown_chart.xlsx)
 
 App Features:
 - Create an account or Login
