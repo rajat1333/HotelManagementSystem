@@ -154,8 +154,15 @@ class SearchViewController: UIViewController,UITableViewDelegate,UITableViewData
             cell.location.text = dataDict["city"] as? String
             let price = dataDict["basePrice"] as! Float
             cell.price.text = "from $\(String(describing: price))"
-            let url = URL(string: dataDict["imageURL"] as! String)!
-            cell.hotelImage.af.setImage(withURL: url, cacheKey: "searchTable\(indexPath.row)", placeholderImage: UIImage (named: "tableListImage"), serializer: nil, filter: nil, progress:nil, progressQueue: .global(), imageTransition: .noTransition, runImageTransitionIfCached: false, completion: nil)
+            
+            if let value = (dataDict["imageURL"] as? String) {
+                let url = URL(string: dataDict["imageURL"] as! String)!
+                cell.hotelImage.af.setImage(withURL: url, cacheKey: "searchTable\(indexPath.row)", placeholderImage: UIImage (named: "tableListImage"), serializer: nil, filter: nil, progress:nil, progressQueue: .global(), imageTransition: .noTransition, runImageTransitionIfCached: false, completion: nil)
+            }
+            else{
+                cell.hotelImage.image = UIImage (named: "tableListImage")
+            }
+            
             if(indexPath.row==0 || indexPath.row==1){
                 cell.ratingImage.image = UIImage(named: "5Star")
             }

@@ -110,6 +110,11 @@ public class RoomService {
         }
         if (inputRoom.getPrice() > 0) {
             outputRoom.setPrice(inputRoom.getPrice());
+            if (hotelRepository.findById(outputRoom.getHotelId()).get().getBasePrice()==0) {
+                Hotel hotelToBeUpdated = hotelRepository.findById(outputRoom.getHotelId()).get();
+                hotelToBeUpdated.setBasePrice(outputRoom.getPrice());
+                hotelRepository.save(hotelToBeUpdated);
+            }
             if (inputRoom.getPrice() < hotelRepository.findById(outputRoom.getHotelId()).get().getBasePrice()) {
                 Hotel hotelToBeUpdated = hotelRepository.findById(outputRoom.getHotelId()).get();
                 hotelToBeUpdated.setBasePrice(inputRoom.getPrice());

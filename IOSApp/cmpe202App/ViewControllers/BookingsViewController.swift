@@ -16,7 +16,7 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     @IBOutlet weak var activityIndicatorView: NVActivityIndicatorView!
      var myBookingsArray:NSArray!
-    var scrollIndex:Int!
+    var scrollIndex:IndexPath!
     var indexSet:Bool!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +35,13 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
         
 
     }
+//    override func viewDidLayoutSubviews() {
+//        if(indexSet){
+//            self.collectionView.scrollToItem(at:IndexPath(row: scrollIndex.row, section: 0), at: .centeredHorizontally, animated: true)
+//                self.collectionView.layoutSubviews()
+//            
+//        }
+//    }
     override func viewWillDisappear(_ animated: Bool) {
         collectionView.removeFromSuperview()
     }
@@ -89,13 +96,13 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
             cell.hotelName.text = "\(String(describing: dataDict.value(forKey: "hotelName")!))"
             let dateStr = dataDict.value(forKey: "bookFrom")! as! String
             let date = globals.stringToDate(str: dateStr)
-            let checkIN = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+//            let checkIN = Calendar.current.date(byAdding: .day, value: 1, to: date)!
             
             let dateStrTo = dataDict.value(forKey: "bookTo")! as! String
             let dateTo = globals.stringToDate(str: dateStrTo)
             let checkOUT = Calendar.current.date(byAdding: .day, value: 1, to: dateTo)!
             
-            cell.bookingDate.text = "Check-In\n\(String(describing: globals.dateToString(date: checkIN) ))"
+            cell.bookingDate.text = "Check-In\n\(String(describing: dateStr ))"
             cell.qrImage.image = generateQRCode(from: "\(String(describing: dataDict.value(forKey: "id")!))")
             let price = dataDict.value(forKey: "totalPayableAmount") as! NSNumber
             //let rewards = dataDict.value(forKey: "rewardPointsUsed") as! NSNumber
@@ -105,9 +112,9 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
             //let fromString = String(describing: dataDict.value(forKey: "bookFrom")!)
                 //let toDate = globals.stringToDate(str: date)
             
-            let diffInDays = Calendar.current.dateComponents([.day], from: globals.stringToDate(str: globals.getDateAndTime(timeZoneIdentifier: "PST")!), to: checkIN).day
+            let diffInDays = Calendar.current.dateComponents([.day], from: globals.stringToDate(str: globals.getDateAndTime(timeZoneIdentifier: "PST")!), to: date).day
             
-            let nights = Calendar.current.dateComponents([.day], from: checkIN, to: checkOUT).day
+            let nights = Calendar.current.dateComponents([.day], from: date, to: dateTo).day
             cell.nights.text = "\(nights!) Night Stay"
             
             var str = ""
@@ -133,18 +140,18 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
             cell.cancelBtn.addTarget(self, action: #selector(cancelBookingAction), for: .touchUpInside)
             
             if((diffInDays!)<0){
-                cell.daysLeft.text = "Completed"
+                cell.daysLeft.text = "Past"
             }
             else if((diffInDays!)==0){
                 if(!indexSet){
-                    scrollIndex = indexPath.row
+                    scrollIndex = indexPath
                     indexSet = true
                 }
                 cell.daysLeft.text = "Check-In\nToday"
             }
             else{
                 if(!indexSet){
-                    scrollIndex = indexPath.row
+                    scrollIndex = indexPath
                     indexSet = true
                 }
                 if((diffInDays!)==1){
@@ -154,9 +161,6 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
                     cell.daysLeft.text = "\(diffInDays!)\nDays\nto\nGo"
                 }
                 
-            }
-            if(indexSet && indexPath.row == self.myBookingsArray.count-1){
-                collectionView.scrollToItem(at:IndexPath(item: scrollIndex, section: 0), at: .right, animated: false)
             }
             
         }
@@ -368,7 +372,7 @@ class BookingsViewController: UIViewController, UICollectionViewDelegate, UIColl
         label.text = text
 
         label.sizeToFit()
-        return label.frame.height
+        return min(label.frame.height, 180)
     }
 
 }
