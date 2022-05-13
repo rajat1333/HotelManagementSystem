@@ -60,6 +60,9 @@ https://docs.google.com/document/d/1699eLOUCWBorYSX8Cr4caHX-I78qlvMITpYKgG1jO6I/
 - Accumulate Reward Points as you book using our app. Redeem the points later for discounts on future bookings.
 - See your bookings (Past or future) and cancel them. No refund on reward points if you cancel a booking.
 
+## App Working - Video:
+https://drive.google.com/file/d/1vbk3iVW7zzMZYe39CBTrjAyuIYPIg_Vr/view?usp=sharing
+
 
 ## Architecture Diagram: 
 ![image](https://user-images.githubusercontent.com/22498700/168168661-2c997130-790a-4dfe-ae9c-aed6194d9728.png)
