@@ -42,7 +42,8 @@ https://github.com/gopinathsjsu/team-project-spartan-bots/blob/main/Spartan%20Bo
 ###### Sahib :
 https://docs.google.com/document/d/1DcI-FYq026j3LQrt01IDp5hEAaAzdYBe5ttrnUmj6oE/edit?usp=sharing
 
-###### Utkarsh : https://docs.google.com/document/d/1fMQm2QJ6USi3OPtzFPGKMyOOCttksYSuB_ZJzWrtMWI/edit?usp=sharing
+###### Utkarsh : 
+https://docs.google.com/document/d/1fMQm2QJ6USi3OPtzFPGKMyOOCttksYSuB_ZJzWrtMWI/edit?usp=sharing
 
 ###### Rajat : 
 https://docs.google.com/document/d/1-pEOWIZUwGnDuafZ9IgPCslEZZ5vOGon15b9l_hTuys/edit
