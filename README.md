@@ -66,8 +66,8 @@ https://docs.google.com/document/d/1699eLOUCWBorYSX8Cr4caHX-I78qlvMITpYKgG1jO6I/
 
 
 ## Class Diagram:
-[classDiagram.pdf] (https://github.com/gopinathsjsu/team-project-spartan-bots/blob/main/classDiagram.pdf)
-![classDiagram](https://user-images.githubusercontent.com/22498700/168162975-77e62c53-ccf0-4792-bb66-12771d2d7ea8.jpg)
+[classDiagram.pdf](https://github.com/gopinathsjsu/team-project-spartan-bots/blob/main/classDiagram.pdf)
+![classDiagram](https://user-images.githubusercontent.com/44891450/168206134-1ddc2d8f-6191-472c-bc5f-c7a3243df49c.png)
 
 
 ## UI Wire Frames:
