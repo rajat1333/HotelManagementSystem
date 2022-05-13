@@ -68,11 +68,14 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
         receiptView.isHidden=true
         dateChanged = false
         checkIndate.minimumDate = Date()
-        checkOutDate.minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+        
         imageArray = ["basic","standard","luxury"]
         self.checkIndate.setDate(checkIn, animated: true)
         self.checkOutDate.setDate(checkOut, animated: true)
         self.checkIndate.preferredDatePickerStyle = .compact
+        let date = self.checkIndate.date
+        checkOutDate.minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+        checkOutDate.maximumDate = Calendar.current.date(byAdding: .day, value: 7, to: date)!
         self.hangingNameView.frame = CGRect(x: globals.X(view: collectionView)!, y: globals.BOTTOM(view: collectionView)!-40, width: globals.WIDTH(view: collectionView)!, height: globals.HEIGHT(view: hangingNameView)!)
         
         self.hangingShadowView.frame = CGRect(x: globals.X(view: hangingNameView)!+10 , y: globals.BOTTOM(view: collectionView)!-25, width: globals.WIDTH(view: collectionView)!-20, height: globals.HEIGHT(view: hangingNameView)!-20)
@@ -113,6 +116,8 @@ class HotelDetailViewController: UIViewController, UICollectionViewDelegate, UIC
     @objc func dateChangedAction(){
         let date = self.checkIndate.date as Date
         checkOutDate.minimumDate = Calendar.current.date(byAdding: .day, value: 1, to: date)!
+        checkOutDate.maximumDate = Calendar.current.date(byAdding: .day, value: 7, to: date)!
+
         dateChanged = true
         buttonView.isHidden=true
         self.noDataView.isHidden = true

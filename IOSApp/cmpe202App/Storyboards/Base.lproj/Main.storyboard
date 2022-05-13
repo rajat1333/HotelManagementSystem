@@ -1212,7 +1212,7 @@ for selected dates.</string>
                                                 </userDefinedRuntimeAttributes>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HomeTableViewCell" rowHeight="170" id="lsk-J3-Imw" customClass="HomeTableViewCell" customModule="cmpe202App" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="505" width="414" height="170"/>
+                                                <rect key="frame" x="0.0" y="504.5" width="414" height="170"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lsk-J3-Imw" id="Tqc-8c-kmO">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="170"/>
